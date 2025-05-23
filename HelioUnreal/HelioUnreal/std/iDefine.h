@@ -1,0 +1,63 @@
+#pragma once
+
+#if _DEBUG
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
+#endif
+
+#include <Windows.h>
+
+#include <gdiplus.h>
+using namespace Gdiplus;
+#pragma comment (lib, "Gdiplus.lib")
+
+#include <stdio.h>
+#include <stdlib.h>
+//#include <malloc.h>
+//#include <memory.h>
+//#include <tchar.h>
+
+
+#define DEV_WIDTH 640
+#define DEV_HEIGHT 480
+
+typedef unsigned char uint8, byte;
+typedef signed char int8;
+typedef unsigned short uint16;
+typedef signed short int16;
+typedef unsigned int short uint32;
+typedef signed int short int32;
+
+enum iKeyStat
+{
+	iKeyStatBegan = 0,
+	iKeyStatMoved,
+	iKeyStatEnded,
+	iKeyStatCancel
+};
+typedef void (*METHOD_VOID)();
+typedef void (*METHOD_FLOAT)(float dt);
+struct iPoint;
+typedef void (*METHOD_KEY)(iKeyStat stat, iPoint point);
+
+extern int keydown;
+
+#define keydown_none  0//   000000 000000000 00000000 00000000
+#define keydown_w     1//   000000 000000000 00000000 00000001
+#define keydown_a     2//   000000 000000000 00000000 00000010
+#define keydown_s     4//   000000 000000000 00000000 00000100
+#define keydown_d     8//   000000 000000000 00000000 00001000
+#define keydown_uo    16//  000000 000000000 00000000 00010000
+#define keydown_left  32//  000000 000000000 00000000 00100000
+#define keydown_down  64//  000000 000000000 00000000 01000000
+#define keydown_right 128// 000000 000000000 00000000 10000000
+#define keydown_space 256
+#define keydown_what   1<<31// 10000000 00000000 00000000 00000000 
+
+struct Texture
+{
+	void* textID; // OpenGL이면 unsignede int,gdi+면 lmage
+	int width, height;
+	int potWidth, potHeight;
+	int retainCount;
+
+};
