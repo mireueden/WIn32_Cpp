@@ -31,14 +31,25 @@ void drawRect(iRect r1);
 void fillRect(float x, float y, float width, float height);
 void fillRect(iRect r1);
 
+uint32 nextPot(uint32 x);
 Texture* createImage(const char* szFormat, ...);
 void freeImage(Texture* tex);
-void drawImage(Texture* tex, float x, float y);
-
+void drawImage(Texture* tex, float x, float y, int anc);
+void drawImage(Texture* tex, float x, float y,
+	int sx, int sy, int sw, int sh,
+	float rateX, float rateY, 
+	int xyz, float degree, int anc);
+// 0 : x축으로 회전, 1 : y축으로 회전 , 2 : z축으로 회전
 
 void setStringSize(float size);
 void setStringRGBA(float r, float g, float b, float a);
-void drawString(float x, float y, const WCHAR* str);
+void drawString(float x, float y, const char* szFormat, ...);
+
+wchar_t* utf8_to_utf16(const char* szFormat, ...);
+char* utf16_to_utf8(const wchar_t* wStr);
+
+#define rad2deg(r) (r * 180.f / M_PI)
+#define deg2rad(d) (d * M_PI / 180.f)
 
 
 float linear(float s, float e, float rate);

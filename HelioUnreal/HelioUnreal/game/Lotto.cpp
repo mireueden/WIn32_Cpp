@@ -149,7 +149,7 @@ void Button::paint(float dt)
 
 	setStringSize(30);
 	setStringRGBA(1, 1, 1, scale);
-	drawString(position.x, position.y, L"로또시작");
+	drawString(position.x, position.y, "로또시작");
 }
 
 
@@ -194,14 +194,14 @@ void Logic::paint(float dt)
 	else if (delta < 2.0f)
 	{
 		// 추첨 중
-		const WCHAR* s = NULL;
-		if (delta < 0.3f)		s = L"추";
-		else if (delta < 0.6f)	s = L"추첨";
-		else if (delta < 0.9f)	s = L"추첨중";
-		else if (delta < 1.2f)	s = L"추첨";
-		else if (delta < 1.5f)	s = L"추";
-		else if (delta < 1.8f)	s = L"추첨";
-		else					s = L"추첨중";
+		const char* s = NULL;
+		if (delta < 0.3f)		s = "추";
+		else if (delta < 0.6f)	s = "추첨";
+		else if (delta < 0.9f)	s = "추첨중";
+		else if (delta < 1.2f)	s = "추첨";
+		else if (delta < 1.5f)	s = "추";
+		else if (delta < 1.8f)	s = "추첨";
+		else					s = "추첨중";
 
 		setStringSize(30);
 		setStringRGBA(1, 1, 1, 1);
@@ -224,8 +224,8 @@ void Logic::paint(float dt)
 			else if (delta < t + 0.2f)	a = (delta - t) / 0.2f;
 
 			setStringRGBA(1, 1, 1, a);
-			WCHAR s[10];
-			wsprintf(s, L"%d", number[i]);
+			char s[10];
+			sprintf(s, "%d", number[i]);
 			drawString(position.x + 40 * i, position.y, s);
 		}
 
@@ -241,14 +241,14 @@ void Logic::paint(float dt)
 			else
 				setStringRGBA(1, 1, 1, 1);
 
-			WCHAR s[10];
-			wsprintf(s, L"%d", number[i]);
+			char s[10];
+			sprintf(s, "%d", number[i]);
 			drawString(position.x + 40 * i, position.y, s);
 		}
 		setStringRGBA(1, 1, 1, 1);
 
-		WCHAR s[20];
-		wsprintf(s, L"당첨여부 %d", rightNum);
+		char s[20];
+		sprintf(s, "당첨여부 %d", rightNum);
 		drawString(position.x + 240, position.y, s);
 
 		delta += dt;
@@ -354,6 +354,6 @@ void Result::paint(float dt)
 
 	setStringSize(30);
 	setStringRGBA(1, 1, 1, a);
-	drawString(position.x, position.y, L"Complete");
+	drawString(position.x, position.y, "Complete");
 	setStringRGBA(1, 1, 1, 1);
 }

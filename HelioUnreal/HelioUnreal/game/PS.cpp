@@ -1,5 +1,6 @@
 #include "PS.h"
 
+#define M_PI 3.14159265358979323846
 ParticleSystem::ParticleSystem()
 {
 	particleMax = 1000;
@@ -8,7 +9,7 @@ ParticleSystem::ParticleSystem()
 	particle = new Particle * [particleMax];
 	particleNum = 0;
 
-	_createDt = 0.01f;
+	_createDt = 0.001f;
 	//_createDt = 0.1f;
 	createDt = 0.0f;
 
@@ -87,8 +88,11 @@ void ParticleSystem::initParticle(Particle* p, iPoint pos)
 	p->life = 0.0f;
 
 	p->p = pos + iPointMake(-5 + rand() % 10, -2 + rand() % 3);
+	float angle = (rand() % 360) * (M_PI / 180.0f);  // 0 ~ 2π rad
+	float radius = rand() % 20; // 반지름 0~10 범위
+	p->p = pos + iPointMake(cos(angle), sin(angle)) * radius;
 	//p->p = pos + iPointMake(-5 + rand() % 10, -2 + rand() % 3);
-	p->p = pos + iPointMake(-100 + rand() % 100, -2 + rand() % 3);
+
 	p->v = iPointMake(0, -1) * // iPointRotate 75~105
 		(10 + 90 * ((rand() % 100) / 100.0f));// 10 ~ 90
 	p->ss = ss + ssVar * ((rand() % 100) / 100.0f);

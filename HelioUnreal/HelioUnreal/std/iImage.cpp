@@ -53,7 +53,7 @@ void iImage::paint(float dt)
 		}
 	}
 	Texture* tex = (Texture*)array->at(index);
-	drawImage(tex, 0, 0);
+	drawImage(tex, 0, 0, TOP|LEFT);
 
 }
 

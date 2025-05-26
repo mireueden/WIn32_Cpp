@@ -16,6 +16,14 @@ ParticleSystem* ps;
 
 void loadGame()
 {
+	int n[] = {3,7,8,77,130,135,270,400};
+	int s = sizeof(n) / sizeof(int);
+	for (int i = 0; i < s; i++)
+		printf("%d => %d\n", n[i],nextPot(n[i]));
+
+	wchar_t* wStr = utf8_to_utf16("안녕%d", 1004);
+	char* Str = utf16_to_utf8(L"Hi");
+
 #if 1
 	struct Score
 	{
@@ -93,6 +101,10 @@ void loadGame()
 	ps = new ParticleSystem();
 	ps->save("test.ptc");
 	//ps = new ParticleSystem("test.ptc");
+
+	drawString(0, 0, "안녕 %d", 12);
+	drawString(0, 0, "안녕");
+	// "Hello" <==> TEXT("Hello") or L"Hello" or _T("Hello")
 }
 
 void freeGame()
@@ -109,11 +121,43 @@ void freeGame()
 	delete ps;
 }
 
+
 void drawGame(float dt)
 {
 	setRGBA(0, 0, 0, 1);
 	clear();
 
+	static Texture** texs = NULL;
+	if (texs == NULL)
+	{
+		texs = new Texture * [2];
+		for(int i =0;i<2;i++)
+			texs[i] = createImage("assets/download%d.png",i);
+	}
+	drawImage(texs[0], 250, 200, BOTTOM | RIGHT);
+	// drawImage(texs[1], 250, 200, TOP | LEFT);
+
+	static float delta = 0.0f;
+	delta += dt;
+	float r0 = fabsf(sin(delta * 3.0f));
+	float r1 = 1.0f - r0;
+	iColor4f src = iColor4fMake(1, 1, 1, 1);
+	iColor4f dst = iColor4fMake(1, 0, 0, 1);
+	float r = src.r * r1 + dst.r * r0;
+	float g = src.g * r1 + dst.g * r0;
+	float b = src.b * r1 + dst.b * r0;
+	//setRGBA(r, g, b, 1);
+	setRGBA(1, 1, 1, 1);;
+
+	int xyz = 2; // 0 : x축으로 회전 1 : y축으로 회전 , 2 : z축으로 회전
+	int degree = (int)(delta * 360) % 360;
+
+	float rate = 1 + fabsf(sin(delta));
+
+	Texture* t = texs[1];
+	drawImage(t, 250, 200,
+		0, 0, t->width, t->height,
+		rate, rate, xyz, degree, TOP | LEFT);
 #if 0
 	drawLotto(dt);
 	return;
@@ -130,7 +174,7 @@ void drawGame(float dt)
 	ps->paint(dt, iPointMake(DEV_WIDTH / 2, DEV_HEIGHT / 2));
 	return;
 #endif
-	drawString(300, 100, L"Hi");
+	drawString(300, 100, "Hi");
 
 	takeTime += dt;
 
