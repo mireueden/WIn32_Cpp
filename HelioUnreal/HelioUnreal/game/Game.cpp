@@ -1,11 +1,6 @@
 #include "Game.h"
 
-#include <math.h>
-#include <stdio.h>
-iRect me;
-iPoint tp;
-float takeTime;
-
+#include "iDefine.h"
 #include "Lotto.h"
 #include "Tripple.h"
 #include "AirShooting.h"
@@ -14,97 +9,76 @@ float takeTime;
 
 ParticleSystem* ps;
 
+void testGame();
+
+//Texture** texBtn;
+iImage** imgBtn;
+int selectedBtn;
+
+int i;
+
 void loadGame()
 {
-	int n[] = {3,7,8,77,130,135,270,400};
-	int s = sizeof(n) / sizeof(int);
-	for (int i = 0; i < s; i++)
-		printf("%d => %d\n", n[i],nextPot(n[i]));
+	int i;
 
-	wchar_t* wStr = utf8_to_utf16("안녕%d", 1004);
-	char* Str = utf16_to_utf8(L"Hi");
-
-#if 1
-	struct Score
-	{
-		char name[32];
-		int kor, eng, math;
-	};
-
-	Score score[3] = {
-		{"조성목", 100, 100, 100},
-		{"임수아", 100, 99, 98},
-		{"김성민", 0, 100, 100},
-	};
-
-
-	//saveFile((char*)score, sizeof(score), "test.sav");
-	//int len = sizeof(score);
-	//char* t = new char[len];
-	//for (int i = 0; i < len; i++)
-	//	t[i] = ((char*)score)[i] + 128;
-	//saveFile(t, len, "test.sav");
-
-	// --
-	//Score* s = (Score*)loadFile("test.sav");
-	// --
-
-	//int len;
-	//char* t = loadFile(len, "test.sav");
-	//for (int i = 0; i < len; i++)
-	//	t[i] -= 128;
-	//Score* s = (Score*)t;
-
-	//for (int i = 0; i < 3; i++)
-	//	printf("[%s] %d %d %d\n",
-	//		s[i].name, s[i].kor, s[i].eng, s[i].math);
-
-
-#else
-
-	//char* str = loadFile("HelioUnreal.h");
-	//printf("HelioUnreal.h\n%s\n", str);
-	//delete str;
-
-
-#pragma pack(push, 1)
-	struct Score
-	{
-		char kor;// 1
-		//char d0[3];
-		int eng;// 4
-		short math;// 2
-		//char d1[2];
-	};
-
-	Score s;
-	s.kor; 
-	s.eng;
-
-#pragma pack(pop)
-
-	printf("%d\n", sizeof(Score));
-#endif
-	me = iRectMake(0, 0, 50, 50);
-	takeTime = 0.0f;
-
+	::i = 2;
+	i = 3;
 #if 0
 	loadLotto();
 #elif 0 
 	loadTripple();
 #elif 0 
 	loadAirShooting();
-#else
+#elif 0
 	loadMemory();
-#endif
-
+#elif 0
 	ps = new ParticleSystem();
 	ps->save("test.ptc");
 	//ps = new ParticleSystem("test.ptc");
+#endif
 
-	drawString(0, 0, "안녕 %d", 12);
-	drawString(0, 0, "안녕");
-	// "Hello" <==> TEXT("Hello") or L"Hello" or _T("Hello")
+	struct BtnInfo
+	{
+		iSize size;
+		char str[32];
+		iColor4f cB, cS;
+	};
+	BtnInfo btnInfo[3] = {
+		{{100, 30}, "Hello", {0, 1, 0, 1}, {1, 0, 0, 1}},
+		{{150, 35}, "World", {0, 0, 1, 1}, {0, 1, 0, 1}},
+		{{120, 32}, "Hi", {1, 0, 0, 1}, {1, 1, 1, 1}},
+	};
+	iGraphics* g = iGraphics::share();
+
+	imgBtn = new iImage * [3];
+	for (int i = 0; i < 3; i++)
+	{
+		iImage* img = new iImage();
+		img->position = iPointMake(10, 10 + 40 * i);
+
+		BtnInfo* bi = &btnInfo[i];
+
+		for (int j = 0; j < 2; j++)
+		{
+			g->init(bi->size.width, bi->size.height);
+
+			setRGBA(bi->cB.r * (1.0f - 0.5f * j),
+					bi->cB.g * (1.0f - 0.5f * j),
+					bi->cB.b * (1.0f - 0.5f * j),
+					bi->cB.a);
+
+			g->fillRect(0, 0, bi->size.width, bi->size.height);
+
+			setRGBA(bi->cS.r, bi->cS.g, bi->cS.b, bi->cS.a);
+			g->drawString(3, 3, bi->str);
+
+		Texture*  tex = g->getTexture();
+		img->add(tex);
+		freeImage(tex);
+		}
+		imgBtn[i] = img;
+	}
+	selectedBtn = -1;
 }
 
 void freeGame()
@@ -115,10 +89,14 @@ void freeGame()
 	freeTripple();
 #elif 0
 	freeAirShooting();
-#else
+#elif 0
 	freeMemory();
-#endif
+#elif 0
 	delete ps;
+#endif
+	for (int i = 0; i < 3; i++)
+		delete(imgBtn[i]);
+	delete imgBtn;
 }
 
 
@@ -127,37 +105,18 @@ void drawGame(float dt)
 	setRGBA(0, 0, 0, 1);
 	clear();
 
-	static Texture** texs = NULL;
-	if (texs == NULL)
-	{
-		texs = new Texture * [2];
-		for(int i =0;i<2;i++)
-			texs[i] = createImage("assets/download%d.png",i);
-	}
-	drawImage(texs[0], 250, 200, BOTTOM | RIGHT);
-	// drawImage(texs[1], 250, 200, TOP | LEFT);
+	setRGBA(1, 1, 1, 1);
 
 	static float delta = 0.0f;
 	delta += dt;
-	float r0 = fabsf(sin(delta * 3.0f));
-	float r1 = 1.0f - r0;
-	iColor4f src = iColor4fMake(1, 1, 1, 1);
-	iColor4f dst = iColor4fMake(1, 0, 0, 1);
-	float r = src.r * r1 + dst.r * r0;
-	float g = src.g * r1 + dst.g * r0;
-	float b = src.b * r1 + dst.b * r0;
-	//setRGBA(r, g, b, 1);
-	setRGBA(1, 1, 1, 1);;
+	iPoint off = iPointMake(50 * sin(delta), 0);
 
-	int xyz = 2; // 0 : x축으로 회전 1 : y축으로 회전 , 2 : z축으로 회전
-	int degree = (int)(delta * 360) % 360;
-
-	float rate = 1 + fabsf(sin(delta));
-
-	Texture* t = texs[1];
-	drawImage(t, 250, 200,
-		0, 0, t->width, t->height,
-		rate, rate, xyz, degree, TOP | LEFT);
+	for (int i = 0; i < 3; i++)
+	{
+		imgBtn[i]->index = (selectedBtn == i);
+		imgBtn[i]->paint(dt, off);
+	}
+		
 #if 0
 	drawLotto(dt);
 	return;
@@ -170,80 +129,10 @@ void drawGame(float dt)
 #elif 0
 	drawMemory(dt);
 	return;
-#else
+#elif 0
 	ps->paint(dt, iPointMake(DEV_WIDTH / 2, DEV_HEIGHT / 2));
 	return;
 #endif
-	drawString(300, 100, "Hi");
-
-	takeTime += dt;
-
-	//float dx = sin(takeTime) * 50;
-
-	setRGBA(1, 0, 0, 1);
-	//drawLine(50 + dx, 0, 150 + dx, 100);
-	fillRect(me);
-
-#define move_speed 300
-#if 0
-	extern int keydown;
-	iPoint v = iPointZero;
-	if (keydown & keydown_a)
-		v.x = -1;
-	else if (keydown & keydown_d)
-		v.x = 1;
-
-	if (keydown & keydown_w)
-		v.y = -1;
-	else if (keydown & keydown_w)
-		v.y = 1;
-
-	//if (v != iPointZero)
-	//	v /= iPointLength(v);
-
-	v.loadIdentity();
-
-
-	me.origin += v * move_speed * dt;
-
-#else
-	if (me.origin != tp)
-	{
-		iPoint v = tp - me.origin;
-		v.loadIdentity();
-
-		//me.origin += v * move_speed * dt;
-		iPoint mp = v * move_speed * dt;
-		if (me.origin.x < tp.x)
-		{
-			me.origin.x += mp.x;
-			if (me.origin.x > tp.x)
-				me.origin.x = tp.x;
-		}
-		else if (me.origin.x > tp.x)
-		{
-			me.origin.x += mp.x;
-			if (me.origin.x < tp.x)
-				me.origin.x = tp.x;
-		}
-
-		if (me.origin.y < tp.y)
-		{
-			me.origin.y += mp.y;
-			if (me.origin.y > tp.y)
-				me.origin.y = tp.y;
-		}
-		else if (me.origin.y > tp.y)
-		{
-			me.origin.y += mp.y;
-			if (me.origin.y < tp.y)
-				me.origin.y = tp.y;
-		}
-	}
-
-#endif
-
-
 }
 
 
@@ -255,23 +144,83 @@ void KeyGame(iKeyStat stat, iPoint point)
 	return;
 #elif 0
 	keyTripple(stat, point);
+	return;
 #elif 0
 	keyAirShooting(stat, point);
-#else
+	return;
+#elif 0
 	keyMemory(stat, point);
+	return;
 #endif
 
 	if (stat == iKeyStatBegan)
 	{
-		tp = point;
 		
 	}
 	else if (stat == iKeyStatMoved)
 	{
+		int j = -1;
+		for (int i = 0; i < 3; i++)
+		{
 
+			if (containPoint(point, imgBtn[i]->touchRect()))
+			{
+				j = i;
+				break;
+			}
+		}
+		selectedBtn = j;
 	}
 	else if (stat == iKeyStatEnded)
 	{
 
 	}
+}
+
+void testGame()
+{
+#if 1
+	struct Score
+	{
+		char name[32];
+		int kor, eng, math;
+	};
+
+	Score score[3] = {
+		{"조성목", 100, 100, 100},
+		{"임수아", 100, 99, 98},
+		{"김성민", 0, 100, 100},
+	};
+	//saveFile((char*)score, sizeof(score), "test.sav");
+	//int len = sizeof(score);
+	//char* t = new char[len];
+	//for (int i = 0; i < len; i++)
+	//	t[i] = ((char*)score)[i] + i % 128;
+	//saveFile(t, len, "test.sav");
+
+	//Score* s = (Score*)loadFile("test.sav");
+	int len;
+	char* t = loadFile(len, "test.sav");
+	for (int i = 0; i < len; i++)
+		t[i] -= i % 128;
+	Score* s = (Score*)t;
+
+	for (int i = 0; i < 3; i++)
+		printf("[%s] %d %d %d\n",
+			s[i].name, s[i].kor, s[i].eng, s[i].math);
+#else
+
+#pragma pack(push, 1)
+	struct Score
+	{
+		char kor;// 1
+		//char d0[3];
+		int eng;// 4
+		short math;// 2
+		//char d1[2];
+	};
+#pragma pack(pop)
+
+	printf("%d\n", sizeof(Score));
+#endif
 }

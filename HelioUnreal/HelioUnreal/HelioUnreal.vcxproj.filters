@@ -75,6 +75,12 @@
     <ClInclude Include="game\PS.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="std\iGraphics.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="std\iPopup.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelioUnreal.cpp">
@@ -126,6 +132,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="game\PS.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="std\iGraphics.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="std\iPopup.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

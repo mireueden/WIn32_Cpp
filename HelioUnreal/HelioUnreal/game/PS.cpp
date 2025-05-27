@@ -9,7 +9,7 @@ ParticleSystem::ParticleSystem()
 	particle = new Particle * [particleMax];
 	particleNum = 0;
 
-	_createDt = 0.001f;
+	_createDt = 0.1f;
 	//_createDt = 0.1f;
 	createDt = 0.0f;
 
@@ -88,9 +88,9 @@ void ParticleSystem::initParticle(Particle* p, iPoint pos)
 	p->life = 0.0f;
 
 	p->p = pos + iPointMake(-5 + rand() % 10, -2 + rand() % 3);
-	float angle = (rand() % 360) * (M_PI / 180.0f);  // 0 ~ 2π rad
-	float radius = rand() % 20; // 반지름 0~10 범위
-	p->p = pos + iPointMake(cos(angle), sin(angle)) * radius;
+	//float angle = (rand() % 360) * (M_PI / 180.0f);  // 0 ~ 2π rad
+	//float radius = rand() % 20; // 반지름 0~10 범위
+	//p->p = pos + iPointMake(cos(angle), sin(angle)) * radius;
 	//p->p = pos + iPointMake(-5 + rand() % 10, -2 + rand() % 3);
 
 	p->v = iPointMake(0, -1) * // iPointRotate 75~105

@@ -3,6 +3,7 @@
 #if 1 // Windows
 // later ... (framework.h)
 #include <windows.h>
+#include "iGraphics.h"
 
 iFPS::iFPS()
 {

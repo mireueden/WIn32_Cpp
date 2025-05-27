@@ -2,22 +2,29 @@
 
 #include "iDefine.h"
 
-
 #include "iPoint.h"
+#include "iSize.h"
 #include "iRect.h"
 #include "iColor.h"
-#include "iSize.h"
 #include "iString.h"
+#include "iArray.h"
+#include "iGraphics.h"
+#include "iImage.h"
 
 #include "iFPS.h"
 #include "iSort.h"
-#include "iArray.h"
 
+extern int keydown;
+extern iSize devSize;
+extern iRect viewport;
 
 void LoadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, METHOD_FLOAT draw, METHOD_KEY key);
 void freeApp();
 void drawApp(float dt);
 void keyApp(iKeyStat stat, iPoint point);
+
+Graphics* getGraphics();
+void setGraphics(Graphics* g);
 
 void setRGBA(float r, float g, float b, float a);
 
@@ -38,7 +45,7 @@ void drawImage(Texture* tex, float x, float y, int anc);
 void drawImage(Texture* tex, float x, float y,
 	int sx, int sy, int sw, int sh,
 	float rateX, float rateY, 
-	int xyz, float degree, int anc);
+	int xyz, float degree, int anc, int reverse = REVERSE_NONE);
 // 0 : x축으로 회전, 1 : y축으로 회전 , 2 : z축으로 회전
 
 void setStringSize(float size);

@@ -1,6 +1,8 @@
 #include "iStd.h"
 
 int keydown = 0;
+iSize devSize;
+iRect viewport;
 
 ULONG_PTR gdiplusToken;
 HDC hdc;
@@ -8,6 +10,7 @@ Graphics* graphics;
 
 Bitmap* bmp;
 Graphics* gFromBmp;
+Texture* texBmp;
 
 float _r, _g, _b, _a;
 
@@ -23,8 +26,22 @@ void LoadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, METHOD_FLOAT draw, M
     hdc = GetDC(hWnd);
     graphics = new Graphics(hdc);
 
-    bmp = new Bitmap(640, 480);
+    keydown = keydown_none;
+    devSize = iSizeMake(DEV_WIDTH, DEV_HEIGHT);
+    viewport = iRectMake(0, 0, 1, 1);
+
+    bmp = new Bitmap(devSize.width, devSize.height);
     gFromBmp = Graphics::FromImage(bmp);
+
+    Texture* tex = new Texture;
+    tex->texID = bmp;
+    tex->width = bmp->GetWidth();
+    tex->height = bmp->GetHeight();
+    tex->potWidth = bmp->GetWidth();
+    tex->potHeight = bmp->GetHeight();
+    tex->retainCount++;
+    texBmp = tex;
+
 
     _r = 1.0f;
     _g = 1.0f;
@@ -56,8 +73,23 @@ void drawApp(float dt)
     graphics = bk;
 
     // front buffer
-    graphics->DrawImage(bmp, 0, 0);
+    //graphics->DrawImage(bmp, 0, 0);
     //graphics->DrawString();
+
+    float r = viewport.size.width / texBmp->width;
+#if 0
+    static float delta = 0.0f;
+    delta += dt;
+    float t = 1.0f * 1.0f * fabsf(sin(delta)); // 1 ~ 2
+    r *= t;
+#endif
+    //setRGBA(1, 0, 0, 1);
+    //clear();
+
+    setRGBA(1, 1, 1, 1);
+
+    drawImage(texBmp, viewport.origin.x, viewport.origin.y,
+        0, 0, texBmp->width, texBmp->height, r, r, 2, 0, TOP | LEFT);
 
     SwapBuffers(hdc);
 }
@@ -65,6 +97,16 @@ void drawApp(float dt)
 void keyApp(iKeyStat stat, iPoint point)
 {
     methodkey(stat, point);
+}
+
+Graphics* getGraphics()
+{
+    return graphics;
+}
+
+void setGraphics(Graphics* g)
+{
+    graphics = g;
 }
 
 void setRGBA(float r, float g, float b, float a)
@@ -164,7 +206,6 @@ void freeImage(Texture* tex)
         tex->retainCount--;
         return;
     }
-
     Image* img = (Image*)tex->texID;
     delete img;
     delete tex;
@@ -172,34 +213,47 @@ void freeImage(Texture* tex)
 
 void drawImage(Texture* tex, float x, float y, int anc)
 {
-    switch (anc)
-    {
-    case TOP | LEFT:                                   break;
-    case TOP | HCENTER:  x -= tex->width / 2;       y; break;
-    case TOP | RIGHT:    x -= tex->width;           y; break;
-
-    case VCENTER | LEFT:    x;                      y -= tex->height / 2; break;
-    case VCENTER | HCENTER: x -= tex->width / 2;    y -= tex->height / 2; break;
-    case VCENTER | RIGHT:   x -= tex->width;        y -= tex->height / 2; break;
-
-    case BOTTOM | LEFT:                             y -= tex->height; break;
-    case BOTTOM | HCENTER: x -= tex->width / 2;     y -= tex->height; break;
-    case BOTTOM | RIGHT:   x -= tex->width;         y -= tex->height; break;
-
-    }
-    graphics->DrawImage((Image*)tex->texID, x, y);
+    drawImage(tex, x, y, 0, 0, tex->width, tex->height, 1.0f, 1.0f, 2, 0, anc);
 }
 
 void drawImage(Texture* tex, float x, float y, 
     int sx, int sy, int sw, int sh, 
     float rateX, float rateY, 
-    int xyz, float degree, int anc)
+    int xyz, float degree, int anc, int reverse)
 {
     
     int w = sw * rateX;
     int h = sh * rateY;
+    switch (anc)
+    {
+    case TOP | LEFT:                          break;
+    case TOP | HCENTER:     x -= w / 2;    y; break;
+    case TOP | RIGHT:       x -= w;        y; break;
 
+    case VCENTER | LEFT:    x;             y -= h / 2; break;
+    case VCENTER | HCENTER: x -= w / 2;    y -= h / 2; break;
+    case VCENTER | RIGHT:   x -= w;        y -= h / 2; break;
+
+    case BOTTOM | LEFT:                     y -= h; break;
+    case BOTTOM | HCENTER:  x -= w / 2;     y -= h; break;
+    case BOTTOM | RIGHT:    x -= w;         y -= h; break;
+
+    }
     iPoint p[3] = { {x,y},{x + w,y},{x,y + h} };
+
+    if (reverse & REVERSE_WIDTH)
+    {
+        p[0].x += w;
+        p[1].x -= w;
+        p[2].x += w;
+    }
+    if (reverse & REVERSE_HEIGHT)
+    {
+        p[0].y += h;
+        p[1].y += h;
+        p[2].y -= h;
+    }
+
     if (degree)
     {
         int w2 = w / 2, h2 = h / 2;

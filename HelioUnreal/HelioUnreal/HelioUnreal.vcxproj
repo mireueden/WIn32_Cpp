@@ -141,8 +141,10 @@
     <ClInclude Include="std\iColor.h" />
     <ClInclude Include="std\iDefine.h" />
     <ClInclude Include="std\iFPS.h" />
+    <ClInclude Include="std\iGraphics.h" />
     <ClInclude Include="std\iImage.h" />
     <ClInclude Include="std\iPoint.h" />
+    <ClInclude Include="std\iPopup.h" />
     <ClInclude Include="std\iRect.h" />
     <ClInclude Include="std\iSize.h" />
     <ClInclude Include="std\iSort.h" />
@@ -163,8 +165,10 @@
     <ClCompile Include="std\iArray.cpp" />
     <ClCompile Include="std\iColor.cpp" />
     <ClCompile Include="std\iFPS.cpp" />
+    <ClCompile Include="std\iGraphics.cpp" />
     <ClCompile Include="std\iImage.cpp" />
     <ClCompile Include="std\iPoint.cpp" />
+    <ClCompile Include="std\iPopup.cpp" />
     <ClCompile Include="std\iRect.cpp" />
     <ClCompile Include="std\iSize.cpp" />
     <ClCompile Include="std\iSort.cpp" />
