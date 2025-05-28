@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\</FILEPATH>
+      <FILENAME>Memory.cpp</FILENAME>
+      <LINE>71</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6283</DEFECTCODE>
+    <DESCRIPTION>'s1'이(가) 배열 new []를 사용해 할당되었지만 스칼라 delete로 삭제되었습니다.</DESCRIPTION>
+    <FUNCTION>loadMemory</FUNCTION>
+    <DECORATED>?loadMemory@@YAXXZ</DECORATED>
+    <FUNCLINE>56</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\</FILEPATH>
+        <FILENAME>Memory.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\</FILEPATH>
+        <FILENAME>Memory.cpp</FILENAME>
+        <LINE>71</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

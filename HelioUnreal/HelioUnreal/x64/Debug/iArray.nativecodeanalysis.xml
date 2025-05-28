@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+      <FILENAME>iArray.cpp</FILENAME>
+      <LINE>87</LINE>
+      <COLUMN>3</COLUMN>
+    </SFA>
+    <DEFECTCODE>28182</DEFECTCODE>
+    <DESCRIPTION>NULL 포인터를 역참조하고 있습니다. 'n'에 'n'과(와) 동일한 NULL 값이 포함되어 있습니다. </DESCRIPTION>
+    <FUNCTION>iArray::at</FUNCTION>
+    <DECORATED>?at@iArray@@QEAAPEAXH@Z</DECORATED>
+    <FUNCLINE>73</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iArray.cpp</FILENAME>
+        <LINE>76</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iArray.cpp</FILENAME>
+        <LINE>77</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iArray.cpp</FILENAME>
+        <LINE>77</LINE>
+        <COLUMN>21</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iArray.cpp</FILENAME>
+        <LINE>83</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'n'은(는) NULL일 수 있습니다.</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iArray.cpp</FILENAME>
+        <LINE>84</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iArray.cpp</FILENAME>
+        <LINE>84</LINE>
+        <COLUMN>26</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>이 루프 시작, ('i&lt;count-1' 가정)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iArray.cpp</FILENAME>
+        <LINE>86</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>이 분기 시작, ('i==index' 가정)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iArray.cpp</FILENAME>
+        <LINE>87</LINE>
+        <COLUMN>3</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'n'이(가) 역참조되었지만 여전히 NULL일 수 있습니다.</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

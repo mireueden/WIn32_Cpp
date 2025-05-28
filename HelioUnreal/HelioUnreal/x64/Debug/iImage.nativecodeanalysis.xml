@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+      <FILENAME>iImage.cpp</FILENAME>
+      <LINE>5</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'iImage::method' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>iImage::{ctor}</FUNCTION>
+    <DECORATED>??0iImage@@QEAA@XZ</DECORATED>
+    <FUNCLINE>5</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>iImage::method</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+      <FILENAME>iImage.cpp</FILENAME>
+      <LINE>5</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'iImage::parm' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>iImage::{ctor}</FUNCTION>
+    <DECORATED>??0iImage@@QEAA@XZ</DECORATED>
+    <FUNCLINE>5</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>iImage::parm</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+      <FILENAME>iImage.cpp</FILENAME>
+      <LINE>78</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>초기화되지 않은 메모리 'rt'을(를) 사용하고 있습니다.</DESCRIPTION>
+    <FUNCTION>iImage::touchRect</FUNCTION>
+    <DECORATED>?touchRect@iImage@@QEAA?AUiRect@@XZ</DECORATED>
+    <FUNCLINE>70</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iImage.cpp</FILENAME>
+        <LINE>72</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'rt'이(가) 초기화되지 않았습니다.</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iImage.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>이 분기 건너뛰기, ('tex==0'이(가) false라고 가정)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iImage.cpp</FILENAME>
+        <LINE>76</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iImage.cpp</FILENAME>
+        <LINE>78</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\</FILEPATH>
+        <FILENAME>iImage.cpp</FILENAME>
+        <LINE>78</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'rt'이(가) 사용되는데 초기화되지 않았을 수 있습니다.</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

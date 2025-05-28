@@ -1,0 +1,59 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "MSVC Code Analysis",
+          "version": "14.44.35207.1",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/irect.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "8ad96b4870e8927935c65a20caa52df6c09b1ef741c641e31f694fcd1a8c96ce"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/irect.h"
+          },
+          "hashes": {
+            "sha-256": "d6b6b7aa7953b261c6f40a2d54863b4ca2944d9a148bebf90c60525306146247"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/ipoint.h"
+          },
+          "hashes": {
+            "sha-256": "40c93be31ff5f78c8e255e15ed6008a780cd336b8a3ef681abc020ce27aae800"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/isize.h"
+          },
+          "hashes": {
+            "sha-256": "4d49d41cbb77c356fe4bf7bcdcc26ef795a0821b67e83f9ad6757f3067982f29"
+          }
+        }
+      ]
+    }
+  ]
+}

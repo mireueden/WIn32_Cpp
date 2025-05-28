@@ -1,0 +1,323 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "'iImage::method' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6)."
+          },
+          "analysisTarget": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/iimage.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/workspace/WIn32_Cpp/HelioUnreal/HelioUnreal/std/iImage.cpp"
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "iImage::{ctor}",
+                  "decoratedName": "??0iImage@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "iImage::method"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "'iImage::parm' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6)."
+          },
+          "analysisTarget": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/iimage.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/workspace/WIn32_Cpp/HelioUnreal/HelioUnreal/std/iImage.cpp"
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "iImage::{ctor}",
+                  "decoratedName": "??0iImage@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "iImage::parm"
+          }
+        },
+        {
+          "ruleId": "C6001",
+          "message": {
+            "text": "초기화되지 않은 메모리 'rt'을(를) 사용하고 있습니다."
+          },
+          "analysisTarget": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/iimage.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/workspace/WIn32_Cpp/HelioUnreal/HelioUnreal/std/iImage.cpp"
+                },
+                "region": {
+                  "startLine": 78,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "iImage::touchRect",
+                  "decoratedName": "?touchRect@iImage@@QEAA?AUiRect@@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/workspace/WIn32_Cpp/HelioUnreal/HelioUnreal/std/iImage.cpp"
+                          },
+                          "region": {
+                            "startLine": 72,
+                            "startColumn": 8
+                          }
+                        },
+                        "message": {
+                          "text": "'rt'이(가) 초기화되지 않았습니다."
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/workspace/WIn32_Cpp/HelioUnreal/HelioUnreal/std/iImage.cpp"
+                          },
+                          "region": {
+                            "startLine": 73,
+                            "startColumn": 10
+                          }
+                        },
+                        "message": {
+                          "text": "이 분기 건너뛰기, ('tex==0'이(가) false라고 가정)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/workspace/WIn32_Cpp/HelioUnreal/HelioUnreal/std/iImage.cpp"
+                          },
+                          "region": {
+                            "startLine": 76,
+                            "startColumn": 3
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/workspace/WIn32_Cpp/HelioUnreal/HelioUnreal/std/iImage.cpp"
+                          },
+                          "region": {
+                            "startLine": 78,
+                            "startColumn": 2
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/workspace/WIn32_Cpp/HelioUnreal/HelioUnreal/std/iImage.cpp"
+                          },
+                          "region": {
+                            "startLine": 78,
+                            "startColumn": 9
+                          }
+                        },
+                        "message": {
+                          "text": "'rt'이(가) 사용되는데 초기화되지 않았을 수 있습니다."
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "MSVC Code Analysis",
+          "version": "14.44.35207.1",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/iimage.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "f5e7c099af719b042e28ed2296d5b693f9896815c6174643e49eea585d3b155b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/iimage.h"
+          },
+          "hashes": {
+            "sha-256": "750c0c9fcdaf56b5f7192d6d1721a911b5cc917908c8b8120c34787f13bee2a2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/idefine.h"
+          },
+          "hashes": {
+            "sha-256": "f0a2a83bf2034778aba955fcad1477f73e2b0dbeba1ea6c76a4cb2342e651768"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/ipoint.h"
+          },
+          "hashes": {
+            "sha-256": "40c93be31ff5f78c8e255e15ed6008a780cd336b8a3ef681abc020ce27aae800"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/iarray.h"
+          },
+          "hashes": {
+            "sha-256": "7dad626e33af2e42b955313370edc9a7491df3fce20c3aae24607f8dc4fdada5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/istd.h"
+          },
+          "hashes": {
+            "sha-256": "f1e2da09482f2b18bcbe775b221cd21b158645dcb4d3a65976964c50e6b8e58b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/isize.h"
+          },
+          "hashes": {
+            "sha-256": "4d49d41cbb77c356fe4bf7bcdcc26ef795a0821b67e83f9ad6757f3067982f29"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/irect.h"
+          },
+          "hashes": {
+            "sha-256": "d6b6b7aa7953b261c6f40a2d54863b4ca2944d9a148bebf90c60525306146247"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/icolor.h"
+          },
+          "hashes": {
+            "sha-256": "9a5b78f772f67509fc2508cc7252aa8c9bd1178dd6b0bff9c9e7789ebaadb15a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/istring.h"
+          },
+          "hashes": {
+            "sha-256": "39f10e2cbf4360fdd8e3060aa468f53c1228ede2ae2cea99b54685c0b43df610"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/igraphics.h"
+          },
+          "hashes": {
+            "sha-256": "696232c7ace391a6c19b2d63e094f297d728b21ed308ea4d72aa30195cfa735d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/ifps.h"
+          },
+          "hashes": {
+            "sha-256": "5010ec2ddd04e3694cacf0a9a43867f4bcb115566c589ef06ab71e6d1c27c190"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/workspace/win32_cpp/heliounreal/heliounreal/std/isort.h"
+          },
+          "hashes": {
+            "sha-256": "d06f9db0f1579502f3f8e7bf484f29567c39e969de50ec6cb5fa3221fcab3a50"
+          }
+        }
+      ]
+    }
+  ]
+}

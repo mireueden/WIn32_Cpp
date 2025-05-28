@@ -1,31 +1,39 @@
 #pragma once
 
 #include "iDefine.h"
+#include "iPoint.h"
+#include "iArray.h"
 
-#include "iStd.h"
+#define aniDtDefault 0.017
 
-class iImage;
-typedef void (*MethodImage)(iImage* img);
+typedef void (*iImageAnimation)(void* data);
 
 class iImage
 {
 public:
 	iImage();
 	virtual ~iImage();
+	static void cbArray(void* data);
 
-	static void cb(void* data);
 	void add(Texture* tex);
+
 	void paint(float dt, iPoint position);
 
-	void startAnimation(MethodImage cb);
+	void startAnimation(iImageAnimation m = NULL, void* p = NULL);
 
-	iRect touchRect();
+	iRect touchRect(iPoint position=iPointZero);
+
 public:
 	iArray* array;
-	MethodImage method;
+	Texture* tex;
+	int index;
 	bool animation;
 	float aniDt, _aniDt;
-	int index;
 	iPoint position;
-	Texture* tex;// ref
+	float rate;
+	int anc;
+	int reverse;
+
+	iImageAnimation method;
+	void* parm;
 };

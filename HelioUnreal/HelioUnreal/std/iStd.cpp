@@ -1,6 +1,6 @@
 #include "iStd.h"
 
-int keydown = 0;
+int keydown, keystat;
 iSize devSize;
 iRect viewport;
 
@@ -27,6 +27,7 @@ void LoadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, METHOD_FLOAT draw, M
     graphics = new Graphics(hdc);
 
     keydown = keydown_none;
+    keystat = keydown_none;
     devSize = iSizeMake(DEV_WIDTH, DEV_HEIGHT);
     viewport = iRectMake(0, 0, 1, 1);
 

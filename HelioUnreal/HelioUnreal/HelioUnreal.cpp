@@ -1,6 +1,7 @@
 #include "HelioUnreal.h"
 
-
+#include "iStd.h"
+#include "Game.h"
 
 bool runApp;
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -29,7 +30,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
     int x = 0, y = 0, w = 640, h = 480;
 
     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+        0, 0, 1980, 1080, nullptr, nullptr, hInstance, nullptr);
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 
@@ -48,12 +49,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
         }
         else
         {
-            static DWORD prev = GetTickCount();
-            DWORD now = GetTickCount();
-            float delta = (now - prev) / 1000.0f;
-            prev = now;
-
-            drawApp(delta);
+            drawApp(iFPS::share()->update());
+            keydown = keydown_none;
         }
     }
 
@@ -65,6 +62,39 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 #include <stdio.h>
 
 bool mouseMoving = false;
+void ctrlKey(bool pressed, int& keydown, int key)
+{
+    int keys[][2] = {
+        {87, keydown_w}, {65, keydown_a}, {83, keydown_s}, {68, keydown_d},
+        //{87, keydown_w}, {65, keydown_a}, {83, keydown_s}, {68, keydown_d},
+        //{87, keydown_w}, {65, keydown_a}, {83, keydown_s}, {68, keydown_d},
+        {32, keydown_space},
+    };
+    int nKey = sizeof(keys) / sizeof(int) / 2;
+
+    if (pressed)
+    {
+        for (int i = 0; i < nKey; i++)
+        {
+            if (key == keys[i][0])
+            {
+                keydown |= keys[i][1];
+                break;
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < nKey; i++)
+        {
+            if (key == keys[i][0])
+            {
+                keydown &= ~keys[i][1];
+                break;
+            }
+        }
+    }
+}
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -90,43 +120,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     case WM_KEYDOWN:
         printf("WM_KEYDOWN %d\n", wParam);
-        switch (wParam) {
-        case 87:// w
-            keydown |= keydown_w;
-            break;
-        case 65:// a
-            keydown |= keydown_a;
-            break;
-        case 83:// s
-            keydown |= keydown_s;
-            break;
-        case 68:// d
-            keydown |= keydown_d;
-            break;
-        case 32:// space
-            keydown |= keydown_space;
-            break;
-        }
+        ctrlKey(true, keystat, wParam);
+        ctrlKey(true, keydown, wParam);
         break;
     case WM_KEYUP:
         printf("WM_KEYUP %d\n", wParam);
-        switch (wParam) {
-        case 87:// w
-            keydown &= ~keydown_w;
-            break;
-        case 65:// a
-            keydown &= ~keydown_a;
-            break;
-        case 83:// s
-            keydown &= ~keydown_s;
-            break;
-        case 68:// d
-            keydown &= ~keydown_d;
-            break;
-        case 32:// space
-            keydown &= ~keydown_space;
-            break;
-        }
+        ctrlKey(true, keystat, wParam);
         break;
 
     case WM_LBUTTONDOWN:

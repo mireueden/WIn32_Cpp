@@ -3,12 +3,83 @@
   "WorkspaceRootPath": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Animating.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Animating.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iGraphics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iGraphics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\HelioUnreal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\HelioUnreal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Animating.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Animating.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iStd.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iStd.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iImage.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iStd.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iStd.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iStd.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{697B00C8-D39E-1AFD-D808-97F03A5BB77F}|..\\..\\..\\Users\\admin\\AppData\\Roaming\\Microsoft\\VisualStudio\\17.0_92028d15\\SingleFileISense\\_sfi_62f04494-e104-4037-9b26-19db5d897e3a_.vcxproj|\\\\192.168.30.25\\HelloUnreal\\HELLOUNREAL\\STD\\ISTD.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\game\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iImage.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iImage.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\game\\Animating.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\game\\Animating.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Lotto.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Lotto.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{697B00C8-D39E-1AFD-D808-97F03A5BB77F}|..\\..\\..\\Users\\admin\\AppData\\Roaming\\Microsoft\\VisualStudio\\17.0_92028d15\\SingleFileISense\\_sfi_62f04494-e104-4037-9b26-19db5d897e3a_.vcxproj|\\\\192.168.30.25\\HelloUnreal\\HELLOUNREAL\\STD\\IIMAGE.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iGraphics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iGraphics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\HelloUnreal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iDefine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\HelioUnreal.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\HelioUnreal.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iPopup.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -19,36 +90,8 @@
       "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iPopup.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iGraphics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iGraphics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iImage.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iImage.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iGraphics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iGraphics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iDefine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\std\\iDefine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\HelioUnreal.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\HelioUnreal.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iString.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -59,16 +102,8 @@
       "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Memory.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\HelioUnreal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\HelioUnreal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Tripple.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Tripple.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Lotto.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|solutionrelative:HelioUnreal\\game\\Lotto.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{798E689B-4583-472C-9906-4529E844E2FC}|HelioUnreal\\HelioUnreal.vcxproj|C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iColor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -90,11 +125,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
+              "Title": "Animating.cpp",
+              "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Animating.cpp",
+              "RelativeDocumentMoniker": "HelioUnreal\\game\\Animating.cpp",
+              "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Animating.cpp",
+              "RelativeToolTip": "HelioUnreal\\game\\Animating.cpp",
+              "ViewState": "AgIAAOMAAAAAAAAAAAAIwOgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T01:36:31.416Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "iImage.cpp",
+              "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.cpp",
+              "RelativeDocumentMoniker": "HelioUnreal\\std\\iImage.cpp",
+              "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.cpp",
+              "RelativeToolTip": "HelioUnreal\\std\\iImage.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-22T04:20:10.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "iGraphics.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iGraphics.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iGraphics.cpp",
@@ -107,20 +168,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "iImage.cpp",
-              "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.cpp",
-              "RelativeDocumentMoniker": "HelioUnreal\\std\\iImage.cpp",
-              "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.cpp",
-              "RelativeToolTip": "HelioUnreal\\std\\iImage.cpp",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAEIAAAABAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "Game.cpp",
+              "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Game.cpp",
+              "RelativeDocumentMoniker": "HelioUnreal\\game\\Game.cpp",
+              "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Game.cpp",
+              "RelativeToolTip": "HelioUnreal\\game\\Game.cpp",
+              "ViewState": "AgIAAJkAAAAAAAAAAAAAAKMAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-22T04:20:10.026Z",
+              "WhenOpened": "2025-05-15T02:03:19.253Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 23,
               "Title": "iPopup.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iPopup.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iPopup.cpp",
@@ -128,50 +189,37 @@
               "RelativeToolTip": "HelioUnreal\\std\\iPopup.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-27T04:49:24.336Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T04:49:24.336Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "iStd.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iStd.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iStd.cpp",
               "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iStd.cpp",
               "RelativeToolTip": "HelioUnreal\\std\\iStd.cpp",
-              "ViewState": "AgIAAO0AAAAAAAAAAAAAAPgAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAAAEgAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-15T01:40:25.442Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Game.cpp",
-              "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Game.cpp",
-              "RelativeDocumentMoniker": "HelioUnreal\\game\\Game.cpp",
-              "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Game.cpp",
-              "RelativeToolTip": "HelioUnreal\\game\\Game.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-15T02:03:19.253Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 2,
               "Title": "HelioUnreal.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\HelioUnreal.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\HelioUnreal.cpp",
               "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\HelioUnreal.cpp",
               "RelativeToolTip": "HelioUnreal\\HelioUnreal.cpp",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACMAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-14T04:34:13.357Z"
+              "WhenOpened": "2025-05-14T04:34:13.357Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 29,
               "Title": "iArray.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iArray.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iArray.cpp",
@@ -183,7 +231,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 26,
               "Title": "Memory.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Memory.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\game\\Memory.cpp",
@@ -195,7 +243,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 30,
               "Title": "iSort.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iSort.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iSort.cpp",
@@ -207,7 +255,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 27,
               "Title": "Tripple.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Tripple.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\game\\Tripple.cpp",
@@ -219,7 +267,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 25,
               "Title": "iString.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iString.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iString.cpp",
@@ -231,7 +279,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 28,
               "Title": "iColor.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iColor.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iColor.cpp",
@@ -243,7 +291,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "Lotto.cpp",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Lotto.cpp",
               "RelativeDocumentMoniker": "HelioUnreal\\game\\Lotto.cpp",
@@ -251,7 +299,8 @@
               "RelativeToolTip": "HelioUnreal\\game\\Lotto.cpp",
               "ViewState": "AgIAAI8AAAAAAAAAAAAYwJcAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-16T02:02:51.959Z"
+              "WhenOpened": "2025-05-16T02:02:51.959Z",
+              "EditorCaption": ""
             }
           ]
         }
@@ -272,11 +321,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 24,
               "Title": "iDefine.h",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iDefine.h",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iDefine.h",
@@ -284,38 +333,24 @@
               "RelativeToolTip": "HelioUnreal\\std\\iDefine.h",
               "ViewState": "AgIAABUAAAAAAAAAAAAAADAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-26T00:18:24.609Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-26T00:18:24.609Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "iGraphics.h",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iGraphics.h",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iGraphics.h",
               "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iGraphics.h",
               "RelativeToolTip": "HelioUnreal\\std\\iGraphics.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-27T02:16:08.741Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "iImage.h",
-              "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.h",
-              "RelativeDocumentMoniker": "HelioUnreal\\std\\iImage.h",
-              "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.h",
-              "RelativeToolTip": "HelioUnreal\\std\\iImage.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T04:17:19.372Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 22,
               "Title": "iPopup.h",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iPopup.h",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iPopup.h",
@@ -323,25 +358,24 @@
               "RelativeToolTip": "HelioUnreal\\std\\iPopup.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T04:49:26.321Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T04:49:26.321Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "iStd.h",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iStd.h",
               "RelativeDocumentMoniker": "HelioUnreal\\std\\iStd.h",
               "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iStd.h",
               "RelativeToolTip": "HelioUnreal\\std\\iStd.h",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAAEUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-26T00:04:16.188Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 21,
               "Title": "HelioUnreal.h",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\HelioUnreal.h",
               "RelativeDocumentMoniker": "HelioUnreal\\HelioUnreal.h",
@@ -354,7 +388,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 19,
               "Title": "Game.h",
               "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Game.h",
               "RelativeDocumentMoniker": "HelioUnreal\\game\\Game.h",
@@ -363,6 +397,152 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-27T04:18:43.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "iImage.h",
+              "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.h",
+              "RelativeDocumentMoniker": "HelioUnreal\\std\\iImage.h",
+              "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\std\\iImage.h",
+              "RelativeToolTip": "HelioUnreal\\std\\iImage.h",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-27T04:17:19.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Animating.h",
+              "DocumentMoniker": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Animating.h",
+              "RelativeDocumentMoniker": "HelioUnreal\\game\\Animating.h",
+              "ToolTip": "C:\\workspace\\WIn32_Cpp\\HelioUnreal\\HelioUnreal\\game\\Animating.h",
+              "RelativeToolTip": "HelioUnreal\\game\\Animating.h",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-28T01:37:39.157Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "33c748c8-5f79-43ae-890e-162f2ea32740",
+        "Display": 1,
+        "X": 961,
+        "Y": 457,
+        "Width": 1590,
+        "Height": 799,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "iImage.h",
+              "DocumentMoniker": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iImage.h",
+              "ToolTip": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iImage.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-28T00:24:53.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "iImage.cpp",
+              "DocumentMoniker": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iImage.cpp",
+              "ToolTip": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iImage.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T00:24:49.435Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Game.cpp",
+              "DocumentMoniker": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\game\\Game.cpp",
+              "ToolTip": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\game\\Game.cpp",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAAAJkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T00:01:09.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "iDefine.h",
+              "DocumentMoniker": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iDefine.h",
+              "ToolTip": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iDefine.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-28T00:01:36.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "HelloUnreal.cpp",
+              "DocumentMoniker": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\HelloUnreal.cpp",
+              "ToolTip": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\HelloUnreal.cpp",
+              "ViewState": "AgIAAEsAAAAAAAAAAADwv2MAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T02:06:14.646Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Animating.cpp",
+              "DocumentMoniker": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\game\\Animating.cpp",
+              "ToolTip": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\game\\Animating.cpp",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAIwOgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T01:37:21.87Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Animating.h",
+              "DocumentMoniker": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\game\\Animating.h",
+              "ToolTip": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\game\\Animating.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-28T01:37:22.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "iStd.h",
+              "DocumentMoniker": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iStd.h",
+              "ToolTip": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iStd.h",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAE8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-28T05:05:17.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "iStd.cpp",
+              "DocumentMoniker": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iStd.cpp",
+              "ToolTip": "\\\\192.168.30.25\\HelloUnreal\\HelloUnreal\\std\\iStd.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T05:05:15.744Z",
               "EditorCaption": ""
             }
           ]

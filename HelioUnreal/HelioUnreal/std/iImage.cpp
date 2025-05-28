@@ -1,32 +1,32 @@
 #include "iImage.h"
 
 #include "iStd.h"
+#include "Animating.h"
 
 iImage::iImage()
 {
-	array = new iArray(cb);
-	method = NULL;
-	animation = false;
-	_aniDt = 0.017;
-	aniDt = 0.0f;
-	index = 0;
-	position = iPointZero;
+	array = new iArray(cbArray);
 	tex = NULL;
+	index = 0;
+	animation = false;
+	_aniDt = aniDtDefault;
+	aniDt = 0.0f;
+	position = iPointZero;
+	rate = 1.0f;
+	anc = TOP | LEFT;
+	reverse = REVERSE_NONE;
 }
-
 
 iImage::~iImage()
 {
 	delete array;
 }
 
-
-void iImage::cb(void* data)
+void iImage::cbArray(void* data)
 {
 	Texture* tex = (Texture*)data;
 	freeImage(tex);
 }
-
 
 void iImage::add(Texture* tex)
 {
@@ -43,35 +43,42 @@ void iImage::paint(float dt, iPoint position)
 		{
 			aniDt -= _aniDt;
 			index++;
-			if (index == array->count)
+			if (index > array->count - 1)
 			{
-				animation = false;
 				index = 0;
-				// 애니메이션 끝
 				if (method)
-					method(this);
+					method(parm);
 			}
+				
 		}
 	}
-	//Texture*
-	tex = (Texture*)array->at(index);
-	iPoint p = this->position + position;
-	drawImage(tex, p.x, p.y, TOP | LEFT);
+
+	tex = (Texture*)array->at(0);
+	iPoint p = this->position * rate + position;
+	drawImage(tex, p.x, p.y,
+		0, 0, tex->width, tex->height,
+		rate, rate, 2, 0, anc, reverse);
 }
 
-void iImage::startAnimation(MethodImage cb)
+
+void iImage::startAnimation(iImageAnimation m, void* p)
 {
-	method = cb;
 	animation = true;
-	aniDt = 0.0f;
 	index = 0;
+	aniDt = 0.0f;
+	
+	method = m;
+	parm = p;
 }
 
-iRect iImage::touchRect()
+
+
+iRect iImage::touchRect(iPoint position)
 {
-	iRect rt;
-	rt.origin = position;
-	rt.size = iSizeMake(tex->width, tex->height);
+	if (tex == NULL)
+		return iRectMake(0, 0, 0, 0);
 
-	return rt;
+	iPoint p = this->position + position;
+	return iRectMake(p.x, p.y, tex->width, tex->height);
 }
+

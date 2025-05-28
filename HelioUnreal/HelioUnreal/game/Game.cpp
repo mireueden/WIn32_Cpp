@@ -6,7 +6,7 @@
 #include "AirShooting.h"
 #include "Memory.h"
 #include "PS.h"
-
+#include "Animating.h"
 ParticleSystem* ps;
 
 void testGame();
@@ -15,15 +15,13 @@ void testGame();
 iImage** imgBtn;
 int selectedBtn;
 
-int i;
 
 void loadGame()
 {
-	int i;
 
-	::i = 2;
-	i = 3;
-#if 0
+#if 1
+	loadAnimating();
+#elif
 	loadLotto();
 #elif 0 
 	loadTripple();
@@ -83,7 +81,9 @@ void loadGame()
 
 void freeGame()
 {
-#if 0
+#if 1
+	freeAnimating();
+#elif 0
 	freeLotto();
 #elif 0
 	freeTripple();
@@ -117,7 +117,9 @@ void drawGame(float dt)
 		imgBtn[i]->paint(dt, off);
 	}
 		
-#if 0
+#if 1
+	drawAnimating(dt);
+#elif 0
 	drawLotto(dt);
 	return;
 #elif 0
@@ -139,7 +141,9 @@ void drawGame(float dt)
 
 void KeyGame(iKeyStat stat, iPoint point)
 {
-#if 0
+#if 1
+	keyAnimating(stat, point);
+#elif 0
 	keyLotto(stat, point);
 	return;
 #elif 0

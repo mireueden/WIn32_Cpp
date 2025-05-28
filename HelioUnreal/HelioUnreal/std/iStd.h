@@ -14,11 +14,14 @@
 #include "iFPS.h"
 #include "iSort.h"
 
-extern int keydown;
+// keydown 눌럿을때 1번 발생
+// keystat 누르고 있을때 계속 발생
+extern int keydown, keystat;
 extern iSize devSize;
 extern iRect viewport;
 
-void LoadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, METHOD_FLOAT draw, METHOD_KEY key);
+void LoadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, 
+	METHOD_FLOAT draw, METHOD_KEY key);
 void freeApp();
 void drawApp(float dt);
 void keyApp(iKeyStat stat, iPoint point);
@@ -48,6 +51,7 @@ void drawImage(Texture* tex, float x, float y,
 	int xyz, float degree, int anc, int reverse = REVERSE_NONE);
 // 0 : x축으로 회전, 1 : y축으로 회전 , 2 : z축으로 회전
 
+
 void setStringSize(float size);
 void setStringRGBA(float r, float g, float b, float a);
 void drawString(float x, float y, const char* szFormat, ...);
@@ -57,7 +61,6 @@ char* utf16_to_utf8(const wchar_t* wStr);
 
 #define rad2deg(r) (r * 180.f / M_PI)
 #define deg2rad(d) (d * M_PI / 180.f)
-
 
 float linear(float s, float e, float rate);
 iPoint linear(iPoint s, iPoint e, float rate);
@@ -74,5 +77,5 @@ void move(iPoint* cp, const iPoint* tp, iPoint mp);
 
 char* loadFile(int& len, const char* szFormat, ...);
 void saveFile(char* buf, int bufLen, const char* szFormat, ...);
-// bmp, tga, png
-
+// bmp, tga, png, jpeg
+// obj, md3, md4, fbx, 
