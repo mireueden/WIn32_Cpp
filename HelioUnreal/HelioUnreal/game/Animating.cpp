@@ -4,6 +4,10 @@ static iSort* sort;
 AIRobot** ai;
 int selectedAI;
 
+iShortestPath* sp;
+iPoint* path;
+int pathNum;
+
 void loadAnimating()
 {
 	loadAnimatingBG();
@@ -17,6 +21,10 @@ void loadAnimating()
 		ai[i]->position = iPointMake(100 + 50 * i, 100 + 50 * i);
 	}
 	selectedAI = -1;
+	
+	sp = new iShortestPath();
+	path = new iPoint[tileX * tileY];
+	pathNum = 0;
 }
 
 void freeAnimating()
@@ -28,17 +36,40 @@ void freeAnimating()
 	for (int i = 0; i < 5; i++)
 		delete ai[i];
 	delete ai;
+
+	delete path;
 }
 
 void drawAnimating(float dt)
 {
-	drawAnimatingBg(dt);
+	//draw
+	memset(tile, 0x01, sizeof(uint8) * tileX * tileY);
 
-	// draw
 	sort->init();
 	for (int i = 0; i < 5; i++)
-		sort->add(ai[i]->position.y);
+	{
+		AIRobot* a = ai[i];
+		sort->add(a->position.y);
+		
+		// a->position => tile index
+		int x = ((int)a->position.x) / 64;
+		int y = ((int)a->position.y) / 64;
+		int index = tileX * y + x;
+		tile[index] = 9;
+
+	}
 	sort->update();
+	
+	drawAnimatingBg(dt);
+
+	setRGBA(0, 0, 0, 1);
+	for (int i = 0; i < pathNum; i++)
+	{
+		iPoint& p = path[i];
+		fillRect(p.x, p.y, 10, 10);
+	}
+	setRGBA(1, 1, 1, 1);
+
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -93,15 +124,34 @@ void keyAnimating(iKeyStat stat, iPoint point)
 	switch (stat) {
 
 	case iKeyStatBegan:
-		for (i = 0; i < 5; i++)
+		if (selectedAI == -1)
 		{
-			if (containPoint(point, ai[i]->touchRect()))
+			for (i = 0; i < 5; i++)
 			{
-				j = i;
-				break;
+				if (containPoint(point, ai[i]->touchRect()))
+				{
+					j = i;
+					break;
+				}
 			}
+			selectedAI = j;
 		}
-		selectedAI = j;
+		else
+		{
+			AIRobot* a = ai[selectedAI];
+			int x = ((int)a->position.x) / 64;
+			int y = ((int)a->position.y) / 64;
+			int s = tileX * y + x;
+
+			x = ((int)point.x) / 64;
+			y = ((int)point.y) / 64;
+			int e = tileX * y + x;
+
+			//runSP(tile, tileX, tileY, s, e, path, pathNum);
+			sp->set(tile, tileX, tileY, 64, 64);
+			sp->run(ai[selectedAI]->position, point, path, pathNum);
+			selectedAI = -1;
+		}
 		break;
 
 	case iKeyStatMoved:
@@ -116,24 +166,13 @@ void keyAnimating(iKeyStat stat, iPoint point)
 }
 
 int tileX, tileY;
-int* tile;// 1:이동가능 9:이동불가
+uint8* tile;// 1:이동가능 9:이동불가
 void loadAnimatingBG()
 {
 	// 640 x 480
 	// 10 x 8(7.5)
 	tileX = 10, tileY = 8;
-	tile = new int[tileX * tileY];
-	int t[10 * 8] = {
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-		1, 1, 9, 1, 1, 1, 1, 1,	1, 1,
-		1, 1, 9, 1, 1, 1, 1, 1,	1, 1,
-		1, 1, 1, 9, 1, 1, 1, 1,	1, 1,
-		1, 1, 1, 1, 9, 1, 1, 1,	1, 1,
-		1, 1, 1, 1, 9, 1, 1, 1,	1, 1,
-		1, 1, 1, 1, 1, 1, 1, 1,	1, 1,
-		1, 1, 1, 1, 1, 1, 1, 1,	1, 1,
-	};
-	memcpy(tile, t, sizeof(int) * tileX * tileY);
+	tile = new uint8[tileX * tileY];
 }
 void freeAnimatingBG()
 {
@@ -168,6 +207,7 @@ void drawAnimatingBg(float dt)
 		}
 	}
 }
+
 
 
 

@@ -405,7 +405,7 @@ float clamp(float f, float min, float max)
 // r : 30           => s+(e-s) *r
 
 
-void move(iPoint* cp, const iPoint* tp, iPoint mp)
+void move(iPoint* cp, const iPoint* tp, const iPoint& mp)
 {
     if (cp->x < tp->x)
     {
@@ -413,7 +413,7 @@ void move(iPoint* cp, const iPoint* tp, iPoint mp)
         if (cp->x > tp->x)
             cp->x = tp->x;
     }
-    else  if (cp->x > tp->x)
+    else if (cp->x > tp->x)
     {
         cp->x += mp.x;
         if (cp->x < tp->x)
@@ -426,7 +426,7 @@ void move(iPoint* cp, const iPoint* tp, iPoint mp)
         if (cp->y > tp->y)
             cp->y = tp->y;
     }
-    else  if (cp->y > tp->y)
+    else if (cp->y > tp->y)
     {
         cp->y += mp.y;
         if (cp->y < tp->y)

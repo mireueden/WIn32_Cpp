@@ -13,6 +13,7 @@
 
 #include "iFPS.h"
 #include "iSort.h"
+#include "iShortestPath.h"
 
 // keydown 눌럿을때 1번 발생
 // keystat 누르고 있을때 계속 발생
@@ -73,7 +74,7 @@ iPoint easeOut(iPoint s, iPoint e, float rate);
 
 float clamp(float f, float min, float max);
 
-void move(iPoint* cp, const iPoint* tp, iPoint mp);
+void move(iPoint* cp, const iPoint* tp, const iPoint& mp);
 
 char* loadFile(int& len, const char* szFormat, ...);
 void saveFile(char* buf, int bufLen, const char* szFormat, ...);

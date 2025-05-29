@@ -18,9 +18,9 @@ int selectedBtn;
 
 void loadGame()
 {
-
 #if 1
 	loadAnimating();
+	return;
 #elif
 	loadLotto();
 #elif 0 
@@ -83,6 +83,7 @@ void freeGame()
 {
 #if 1
 	freeAnimating();
+	return;
 #elif 0
 	freeLotto();
 #elif 0
@@ -107,6 +108,7 @@ void drawGame(float dt)
 
 	setRGBA(1, 1, 1, 1);
 
+#if 0
 	static float delta = 0.0f;
 	delta += dt;
 	iPoint off = iPointMake(50 * sin(delta), 0);
@@ -116,9 +118,11 @@ void drawGame(float dt)
 		imgBtn[i]->index = (selectedBtn == i);
 		imgBtn[i]->paint(dt, off);
 	}
-		
+#endif	
+
 #if 1
 	drawAnimating(dt);
+	return;
 #elif 0
 	drawLotto(dt);
 	return;
@@ -143,6 +147,7 @@ void KeyGame(iKeyStat stat, iPoint point)
 {
 #if 1
 	keyAnimating(stat, point);
+	return;
 #elif 0
 	keyLotto(stat, point);
 	return;

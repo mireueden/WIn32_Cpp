@@ -125,7 +125,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_KEYUP:
         printf("WM_KEYUP %d\n", wParam);
-        ctrlKey(true, keystat, wParam);
+        ctrlKey(false, keystat, wParam);
         break;
 
     case WM_LBUTTONDOWN:

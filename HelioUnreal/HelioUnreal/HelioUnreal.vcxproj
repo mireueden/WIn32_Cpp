@@ -147,6 +147,7 @@
     <ClInclude Include="std\iPoint.h" />
     <ClInclude Include="std\iPopup.h" />
     <ClInclude Include="std\iRect.h" />
+    <ClInclude Include="std\iShortestPath.h" />
     <ClInclude Include="std\iSize.h" />
     <ClInclude Include="std\iSort.h" />
     <ClInclude Include="std\iStd.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="std\iPoint.cpp" />
     <ClCompile Include="std\iPopup.cpp" />
     <ClCompile Include="std\iRect.cpp" />
+    <ClCompile Include="std\iShortestPath.cpp" />
     <ClCompile Include="std\iSize.cpp" />
     <ClCompile Include="std\iSort.cpp" />
     <ClCompile Include="std\iStd.cpp" />
