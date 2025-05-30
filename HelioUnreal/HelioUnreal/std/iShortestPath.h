@@ -23,6 +23,8 @@ public:
 	void set(uint8* tile, int tileX, int tileY, int tileW, int tileH);
 	void run(iPoint start, iPoint end, iPoint* result, int& resultNum);
 
+private:
+	void remove(int* path, int& pathNum);
 public:
 	uint8* tile;
 	int tileX, tileY, tileW, tileH;

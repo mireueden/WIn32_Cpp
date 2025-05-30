@@ -15,9 +15,15 @@ void testGame();
 iImage** imgBtn;
 int selectedBtn;
 
+#include "CtrlImage.h"
+Texture* texBg;
+Texture* texMirror;
 
 void loadGame()
 {
+	texBg = createImageFilter("assets/download0.png");
+	setImageFilter(ImageFilterMirror);
+	texMirror = createImageFilter("assets/download0.png");
 #if 1
 	loadAnimating();
 	return;
@@ -81,6 +87,8 @@ void loadGame()
 
 void freeGame()
 {
+	freeImage(texBg);
+	freeImage(texMirror);
 #if 1
 	freeAnimating();
 	return;
@@ -107,6 +115,8 @@ void drawGame(float dt)
 	clear();
 
 	setRGBA(1, 1, 1, 1);
+	drawImage(texBg, 0, 200, BOTTOM | LEFT);
+	drawImage(texMirror, 0, 200, TOP | LEFT);
 
 #if 0
 	static float delta = 0.0f;

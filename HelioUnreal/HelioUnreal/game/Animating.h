@@ -23,6 +23,9 @@ void loadAnimatingBG();
 void freeAnimatingBG();
 void drawAnimatingBg(float dt);
 
+class AIRobot;
+typedef void (*MethodAIRobotArrive)(AIRobot* ai);
+
 class AIRobot
 {
 public:
@@ -35,6 +38,7 @@ public:
 
 	iRect touchRect();
 
+	void go(iPoint point, MethodAIRobotArrive m);
 public:
 	int index;
 	iImage** imgs;// 0:wait, 1:walk, 2:repair
@@ -42,4 +46,8 @@ public:
 	float speed, rate;
 
 	Behave behave;
+
+	iPoint* path;
+	int pathNum,pathIndex;
+	MethodAIRobotArrive method;
 };

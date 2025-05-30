@@ -72,6 +72,7 @@ void iShortestPath::set(uint8* tile, int tileX, int tileY, int tileW, int tileH)
 // - 방문 X + 이동 0 => 가장 Min값
 // 목표지역 정보 = 내가 얻으려는 정보
 
+
 void iShortestPath::run(iPoint start, iPoint end, iPoint* result, int& resultNum)
 {
 	int x = (int)start.x / tileW;
@@ -155,39 +156,99 @@ void iShortestPath::run(iPoint start, iPoint end, iPoint* result, int& resultNum
 	}
 
 	Path* p = &path[e];// 결과
-	//memcpy(result, p->path, sizeof(int) * p->pathNum);
+	//remove(p->path, p->pathNum);
 
-#if 1 // 직선 사이에 필요없는 방문지 정리
-	// 대각선이 등장하는 위치부터 출발지 사이의 출력을 제거
-	/*int newS = s;
-	int n = p->pathNum - 2;
+	int j = p->pathNum - 1;
+	for (int i = 1; i < j; i++)
+	{
+		int x = p->path[i] % tileX;
+		int y = p->path[i] / tileX;
+		result[i] = iPointMake(	tileW * x + tileW / 2,
+								tileH * y + tileH / 2);
+	}
+	result[0] = start;
+	result[j] = end;
+	resultNum = p->pathNum;
+}
+
+void iShortestPath::remove(int* path, int& pathNum)
+{
+#if 1
+	// 대각선
+	// 경로중 좌,우 or 상,하 둘 주 하나씩 들고 있는 경우 자신 제거
+	int n = pathNum - 2;
 	for (int i = 0; i < n; i++)
 	{
-		int cx = p->path[i] % tileX;
-		int cy = p->path[i] / tileX;
-		for (int j = 0; j < n-i; j++)
+		int cx = path[i] % tileX;
+		int cy = path[i] / tileX;
+		int nx = path[i + 2] % tileX;
+		int ny = path[i + 2] / tileX;
+		if (abs(cx - nx) == 1 && abs(cy - ny) == 1)
 		{
-			int nx = p->path[i + j] % tileX;
-			int ny = p->path[i + j] / tileX;
-			if (abs(cx - nx) == 1 && abs(cy - ny) == 1)
-			{
-				// n+1이 대각선 노드임.
-				// a ~ b : b - a + 1
-				int len = s - i + 1;
-				
-				memcpy(&p->path[s], &p->path[i+1], sizeof(int) * len);
-				//p->pathNum -= 2;
-				p->pathNum-i;
-				n--;
+			// i+1이 되어야하는 이유 : 자기 자신은 제외해야함.
+			//int len = (p->pathNum - 1) - (i + 2) + 1; // a = i + 2, b = p->pathNum - 1
+			//int len = p->pathNum - 1 - i - 2 + 1; // a = i + 2, b = p->pathNum - 1
+			// a- b : b - a + 1
+			int len = pathNum - 1 - i - 2 + 1; // a = i + 2, b = p->pathNum - 1
+			memcpy(&path[i + 1], &path[i + 2], sizeof(int) * len);
+			//p->pathNum -= 2;
+			pathNum--;
+			//n -= 2;
+			n--;
+			//i--;
+		}
+	}
 
-				// 대각선 위치가 새로운 S
-				newS = p->path[i+1];
-			}
+	// 직선 사이에 필요없는 방문지 정리
+	for (int i = 0; i < n; i++)
+	{
+		int cx = path[i] % tileX;
+		int cy = path[i] / tileX;
+		int nx = path[i + 1] % tileX;
+		int ny = path[i + 1] / tileX;
+
+		bool sameX = (cx == nx); // x좌표가 같다는 것은 y방향으로 움직였다는 것
+
+		if (sameX == false)
+		{
+			if (cy != ny) // 대각선까지 중복되는 걸 제거하고 싶지만, 시간 관계상 패스
+				continue;
 		}
 
-	}*/
+		int j;
+		for (j = i + 2; j < pathNum; j++)
+		{
+			if (sameX) // x 좌표가 같은 경우 y 방향으로 이동
+			{
+				if (cx != path[j] % tileX) // x좌표의 변동 == 방향 변경
+					break;
+			}
+			else // x 좌표가 다른 겨우 x 방향으로 이동
+			{
+				if (cy != path[j] % tileX) // y좌표의 변동 == 방향 변경
+					break;
+			}
+
+			// 제거 대상이 i+1 ~ j-1
+			// j, pathNum-1 사이의 개수
+			// (pathNum - 1) - (j) + 1
+			int len = pathNum - 1 - j + 1;
+			// 틀어진 위치 이전까지 직선으로 이어진 상태
+			memcpy(&path[i + 1], &path[j], sizeof(int) * len);
 
 
+		}
+	}
+
+
+
+#elif 1 // 직선 사이에 필요없는 방문지 정리
+	// 대각선이 등장하는 위치부터 출발지 사이의 출력을 제거
+
+	// 현재 위치 i의 다음 위치인 i+1위치의 노드를 제거하기 위해서는
+	// i+2가 존재해야함.
+
+	
 	int newS = 0;
 	int n = p->pathNum - 2;
 	for (int i = 0; i < n; i++)
@@ -202,15 +263,15 @@ void iShortestPath::run(iPoint start, iPoint end, iPoint* result, int& resultNum
 		int sy = p->path[newS] / tileX;
 		if (abs(cx - nx) == 1 && abs(cy - ny) == 1)
 		{
-			
+
 			// n+1이 대각선 노드임.
 			// s 위치부터 ~ 대각선 노드 사이의 모든 노드 덮어버리기
 			// a ~ b : b - a + 1
-			int len = s - i-1 + 1;
+			int len = s - i - 1 + 1;
 
-			memcpy(&p->path[newS+1], &p->path[i + 1], sizeof(int) * len);
+			memcpy(&p->path[newS + 1], &p->path[i + 1], sizeof(int) * len);
 			//p->pathNum -= 2;
-			p->pathNum -=i;
+			p->pathNum -= i;
 			n--;
 
 			// 대각선 위치가 새로운 S
@@ -218,50 +279,17 @@ void iShortestPath::run(iPoint start, iPoint end, iPoint* result, int& resultNum
 		}
 		else if (abs(sx - cx) > 2 && abs(sy - cy))
 		{
-		
+
 		}
-		
+
 
 	}
 
-#elif 0
-	// 대각선
-	// 경로중 좌,우 or 상,하 둘 주 하나씩 들고 있는 경우 자신 제거
-	int n = p->pathNum - 2;
-	for (int i = 0; i < n; i++)
-	{
-		int cx = p->path[i] % tileX;
-		int cy = p->path[i] / tileX;
-		int nx = p->path[i + 2] % tileX;
-		int ny = p->path[i + 2] / tileX;
-		if (abs(cx - nx) == 1 && abs(cy - ny) == 1)
-		{
-			// i+1이 되어야하는 이유 : 자기 자신은 제외해야함.
-			//int len = (p->pathNum - 1) - (i + 2) + 1; // a = i + 2, b = p->pathNum - 1
-			//int len = p->pathNum - 1 - i - 2 + 1; // a = i + 2, b = p->pathNum - 1
-			// a- b : b - a + 1
-			int len = p->pathNum - 1 - i - 1 + 1; // a = i + 2, b = p->pathNum - 1
-			memcpy(&p->path[i+1], &p->path[i + 2], sizeof(int) * len);
-			//p->pathNum -= 2;
-			p->pathNum--;
-			//n -= 2;
-			n --;
-			i--;
-		}
-	}
 #endif
-	int j = p->pathNum - 1;
-	for (int i = 1; i < j; i++)
-	{
-		int x = p->path[i] % tileX;
-		int y = p->path[i] / tileX;
-		result[i] = iPointMake(	tileW * x + tileW / 2,
-								tileH * y + tileH / 2);
-	}
-	result[0] = start;
-	result[j] = end;
-	resultNum = p->pathNum;
+
 }
+
+
 
 
 

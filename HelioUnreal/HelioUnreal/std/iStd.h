@@ -74,7 +74,7 @@ iPoint easeOut(iPoint s, iPoint e, float rate);
 
 float clamp(float f, float min, float max);
 
-void move(iPoint* cp, const iPoint* tp, const iPoint& mp);
+bool move(iPoint* cp, const iPoint* tp, const iPoint& mp);
 
 char* loadFile(int& len, const char* szFormat, ...);
 void saveFile(char* buf, int bufLen, const char* szFormat, ...);
