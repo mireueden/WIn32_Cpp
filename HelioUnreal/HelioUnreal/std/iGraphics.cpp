@@ -127,13 +127,13 @@ void iGraphics::drawImage(Texture* tex, float x, float y, int sx, int sy, int sw
 	setGraphics(bk);
 }
 
-void iGraphics::drawString(float x, float y, const char* szFormat, ...)
+void iGraphics::drawString(float x, float y,int anc, const char* szFormat, ...)
 {
 	char szText[512];
 	va_start_end(szFormat, szText);
 
 	Graphics* bk = getGraphics();
 	setGraphics(g);
-	::drawString(x, y, szText);
+	::drawString(x, y, anc, szText);
 	setGraphics(bk);
 }

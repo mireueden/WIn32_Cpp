@@ -6,6 +6,8 @@
 struct iSize
 {
 	float width, height;
+
+	iSize& operator = (const iPoint& p);
 	
 	iSize& operator +=(const iPoint& s);
 	iSize& operator +=(const iSize& s);

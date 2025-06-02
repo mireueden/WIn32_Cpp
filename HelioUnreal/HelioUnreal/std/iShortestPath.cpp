@@ -156,7 +156,7 @@ void iShortestPath::run(iPoint start, iPoint end, iPoint* result, int& resultNum
 	}
 
 	Path* p = &path[e];// 결과
-	//remove(p->path, p->pathNum);
+	remove(p->path, p->pathNum);
 
 	int j = p->pathNum - 1;
 	for (int i = 1; i < j; i++)
@@ -225,7 +225,7 @@ void iShortestPath::remove(int* path, int& pathNum)
 			}
 			else // x 좌표가 다른 겨우 x 방향으로 이동
 			{
-				if (cy != path[j] % tileX) // y좌표의 변동 == 방향 변경
+				if (cy != path[j] / tileX) // y좌표의 변동 == 방향 변경
 					break;
 			}
 
@@ -235,7 +235,6 @@ void iShortestPath::remove(int* path, int& pathNum)
 			int len = pathNum - 1 - j + 1;
 			// 틀어진 위치 이전까지 직선으로 이어진 상태
 			memcpy(&path[i + 1], &path[j], sizeof(int) * len);
-
 
 		}
 	}

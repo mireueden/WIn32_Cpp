@@ -218,7 +218,7 @@ AIRobot::AIRobot(int index)
 
 			setStringSize(10);
 			setStringRGBA(0, 0, 0, 1);
-			g->drawString(0, 0, "%d", j);
+			g->drawString(0, 0, TOP | LEFT, "%d", j);
 
 			Texture* tex = g->getTexture();
 			img->add(tex);

@@ -90,6 +90,9 @@
     <ClInclude Include="game\CtrlImage.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="game\Oops.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelioUnreal.cpp">
@@ -156,6 +159,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="game\CtrlImage.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Oops.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

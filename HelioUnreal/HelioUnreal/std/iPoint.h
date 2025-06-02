@@ -23,9 +23,9 @@ struct iPoint
 };
 
 iPoint iPointMake(float x, float y);
-#define iPointZero iPointMake(0,0)
-
+#define iPointZero iPointMake(0, 0)
+void iPointAbs(iPoint& p);
 
 float iPointLength(const iPoint& p);
-float iPointDot(const iPoint& p0, const iPoint& p1);
+float ipointDot(const iPoint& p0, const iPoint& p1);
 

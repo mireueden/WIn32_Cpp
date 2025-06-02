@@ -7,6 +7,8 @@
 #include "Memory.h"
 #include "PS.h"
 #include "Animating.h"
+#include "Oops.h"
+
 ParticleSystem* ps;
 
 void testGame();
@@ -19,8 +21,12 @@ int selectedBtn;
 Texture* texBg;
 Texture* texMirror;
 
+
 void loadGame()
 {
+	loadOops();
+	return;
+
 	texBg = createImageFilter("assets/download0.png");
 	setImageFilter(ImageFilterMirror);
 	texMirror = createImageFilter("assets/download0.png");
@@ -74,7 +80,7 @@ void loadGame()
 			g->fillRect(0, 0, bi->size.width, bi->size.height);
 
 			setRGBA(bi->cS.r, bi->cS.g, bi->cS.b, bi->cS.a);
-			g->drawString(3, 3, bi->str);
+			g->drawString(3, 3, TOP | LEFT, bi->str);
 
 		Texture*  tex = g->getTexture();
 		img->add(tex);
@@ -87,6 +93,9 @@ void loadGame()
 
 void freeGame()
 {
+	freeOops();
+	return;
+
 	freeImage(texBg);
 	freeImage(texMirror);
 #if 1
@@ -113,6 +122,9 @@ void drawGame(float dt)
 {
 	setRGBA(0, 0, 0, 1);
 	clear();
+
+	drawOops(dt);
+	return;
 
 	setRGBA(1, 1, 1, 1);
 	drawImage(texBg, 0, 200, BOTTOM | LEFT);
@@ -155,6 +167,9 @@ void drawGame(float dt)
 
 void KeyGame(iKeyStat stat, iPoint point)
 {
+	keyOops(stat, point);
+	return;
+
 #if 1
 	keyAnimating(stat, point);
 	return;

@@ -18,9 +18,9 @@ public:
 	void drawLine(iPoint p0, iPoint p1);
 
 	void drawRect(float x, float y, float width, float height);
-	void drawRect(iRect r1);
+	void drawRect(iRect rt);
 	void fillRect(float x, float y, float width, float height);
-	void fillRect(iRect r1);
+	void fillRect(iRect rt);
 
 	void drawImage(Texture* tex, float x, float y, int anc);
 	void drawImage(Texture* tex, float x, float y,
@@ -28,7 +28,7 @@ public:
 		float rateX, float rateY,
 		int xyz, float degree, int anc, int reverse = REVERSE_NONE);
 
-	void drawString(float x, float y, const char* szFormat, ...);
+	void drawString(float x, float y, int anc, const char* szFormat, ...);
 
 
 public:

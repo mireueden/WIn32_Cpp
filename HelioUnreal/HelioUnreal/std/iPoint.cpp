@@ -90,6 +90,12 @@ iPoint iPointMake(float x, float y)
     return r;
 }
 
+void iPointAbs(iPoint& p)
+{
+    p.x = fabsf(p.x);
+    p.y = fabsf(p.y);
+}
+
 float iPointLength(const iPoint& p)
 {
     return sqrtf(p.x * p.x + p.y * p.y);

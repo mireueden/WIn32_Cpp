@@ -149,7 +149,7 @@ void Button::paint(float dt)
 
 	setStringSize(30);
 	setStringRGBA(1, 1, 1, scale);
-	drawString(position.x, position.y, "로또시작");
+	drawString(position.x, position.y, TOP | LEFT, "로또시작");
 }
 
 
@@ -205,7 +205,7 @@ void Logic::paint(float dt)
 
 		setStringSize(30);
 		setStringRGBA(1, 1, 1, 1);
-		drawString(position.x, position.y, s);
+		drawString(position.x, position.y, TOP | LEFT, s);
 
 		delta += dt;
 		if (delta >= 2.0f)
@@ -226,7 +226,7 @@ void Logic::paint(float dt)
 			setStringRGBA(1, 1, 1, a);
 			char s[10];
 			sprintf(s, "%d", number[i]);
-			drawString(position.x + 40 * i, position.y, s);
+			drawString(position.x + 40 * i, position.y, TOP | LEFT, s);
 		}
 
 		delta += dt;
@@ -243,13 +243,13 @@ void Logic::paint(float dt)
 
 			char s[10];
 			sprintf(s, "%d", number[i]);
-			drawString(position.x + 40 * i, position.y, s);
+			drawString(position.x + 40 * i, position.y, TOP | LEFT, s);
 		}
 		setStringRGBA(1, 1, 1, 1);
 
 		char s[20];
 		sprintf(s, "당첨여부 %d", rightNum);
-		drawString(position.x + 240, position.y, s);
+		drawString(position.x + 240, position.y, TOP | LEFT, s);
 
 		delta += dt;
 		if (delta > 3.7f)
@@ -354,6 +354,6 @@ void Result::paint(float dt)
 
 	setStringSize(30);
 	setStringRGBA(1, 1, 1, a);
-	drawString(position.x, position.y, "Complete");
+	drawString(position.x, position.y, TOP | LEFT, "Complete");
 	setStringRGBA(1, 1, 1, 1);
 }
