@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="game\AirShooting.h" />
     <ClInclude Include="game\Animating.h" />
+    <ClInclude Include="game\Comp.h" />
     <ClInclude Include="game\CtrlImage.h" />
     <ClInclude Include="game\Game.h" />
     <ClInclude Include="game\Lotto.h" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="game\AirShooting.cpp" />
     <ClCompile Include="game\Animating.cpp" />
+    <ClCompile Include="game\Comp.cpp" />
     <ClCompile Include="game\CtrlImage.cpp" />
     <ClCompile Include="game\Game.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

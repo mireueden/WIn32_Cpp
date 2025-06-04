@@ -10,6 +10,7 @@
 #include "iArray.h"
 #include "iGraphics.h"
 #include "iImage.h"
+#include "iPopup.h"
 
 #include "iFPS.h"
 #include "iSort.h"

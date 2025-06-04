@@ -8,6 +8,7 @@
 #include "PS.h"
 #include "Animating.h"
 #include "Oops.h"
+#include "Comp.h"
 
 ParticleSystem* ps;
 
@@ -24,16 +25,20 @@ Texture* texMirror;
 
 void loadGame()
 {
-	loadOops();
-	return;
-
 	texBg = createImageFilter("assets/download0.png");
 	setImageFilter(ImageFilterMirror);
 	texMirror = createImageFilter("assets/download0.png");
+
 #if 1
+	loadComp();
+	return;
+#elif 0
+	loadOops();
+	return;
+#elif 0
 	loadAnimating();
 	return;
-#elif
+#elif 0
 	loadLotto();
 #elif 0 
 	loadTripple();
@@ -93,12 +98,18 @@ void loadGame()
 
 void freeGame()
 {
-	freeOops();
-	return;
+
 
 	freeImage(texBg);
 	freeImage(texMirror);
+
+
 #if 1
+	freeComp();
+#elif 0
+	freeOops();
+	return;
+#elif 0
 	freeAnimating();
 	return;
 #elif 0
@@ -111,10 +122,11 @@ void freeGame()
 	freeMemory();
 #elif 0
 	delete ps;
-#endif
+#elif 0
 	for (int i = 0; i < 3; i++)
 		delete(imgBtn[i]);
 	delete imgBtn;
+#endif
 }
 
 
@@ -122,9 +134,6 @@ void drawGame(float dt)
 {
 	setRGBA(0, 0, 0, 1);
 	clear();
-
-	drawOops(dt);
-	return;
 
 	setRGBA(1, 1, 1, 1);
 	drawImage(texBg, 0, 200, BOTTOM | LEFT);
@@ -143,6 +152,11 @@ void drawGame(float dt)
 #endif	
 
 #if 1
+	drawComp(dt);
+#elif 0
+	drawOops(dt);
+	return;
+#elif 0
 	drawAnimating(dt);
 	return;
 #elif 0
@@ -167,10 +181,14 @@ void drawGame(float dt)
 
 void KeyGame(iKeyStat stat, iPoint point)
 {
-	keyOops(stat, point);
-	return;
 
 #if 1
+	keyComp(stat, point);
+	return;
+#elif 0
+	keyOops(stat, point);
+	return;
+#elif 0
 	keyAnimating(stat, point);
 	return;
 #elif 0

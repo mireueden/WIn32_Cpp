@@ -330,7 +330,7 @@ class iText
 public:
     iText()
     {
-        Bitmap* bmp = new Bitmap(devSize.width, devSize.height);
+        bmp = new Bitmap(devSize.width, devSize.height);
         g = Graphics::FromImage(bmp);
     }
     virtual ~iText()
@@ -458,6 +458,7 @@ iRect rectOfString(const char* szFormat, ...)
     char szText[512];
     va_start_end(szFormat, szText);
 
+    //graphics->MeasureString()
     if (txt == NULL)
         txt = new iText();
 
