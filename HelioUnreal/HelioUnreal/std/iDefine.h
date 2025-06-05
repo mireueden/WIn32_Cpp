@@ -4,11 +4,15 @@
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 #endif
 
+//#define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 #include <Windows.h>
 
 #include <gdiplus.h>
 using namespace Gdiplus;
 #pragma comment (lib, "Gdiplus.lib")
+
+#include <gl/GL.h>
+#pragma comment(lib, "opengl32")
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,8 +29,8 @@ typedef unsigned char uint8, byte;
 typedef signed char int8;
 typedef unsigned short uint16;
 typedef signed short int16;
-typedef unsigned int short uint32;
-typedef signed int short int32;
+typedef unsigned int uint32;
+typedef signed int int32;
 
 enum iKeyStat
 {
@@ -43,10 +47,6 @@ struct iRect;
 typedef void (*METHOD_VOID)();
 typedef void (*METHOD_FLOAT)(float dt);
 typedef void (*METHOD_KEY)(iKeyStat stat, iPoint point);
-
-extern int keydown;
-
-
 
 
 #define keydown_none  0//   000000 000000000 00000000 00000000
@@ -74,11 +74,10 @@ extern int keydown;
 
 struct Texture
 {
-	void* texID; // OpenGL이면 unsignede int,gdi+면 lmage
+	uint32 texID; // OpenGL이면 unsignede int,gdi+면 lmage
 	int width, height;
 	int potWidth, potHeight;
 	int retainCount;
-
 };
 
 #if 1

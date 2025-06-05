@@ -9,6 +9,7 @@ iRect rtClick;
 
 void loadOops()
 {
+#if 0
 	Bitmap* bmp = new Bitmap(devSize.width, devSize.height);
 	Texture* tex = new Texture;
 	tex->texID = bmp;
@@ -19,6 +20,7 @@ void loadOops()
 	tex->retainCount = 1;
 	texOops = tex;
 	gOops = Graphics::FromImage(bmp);
+#endif
 }
 
 void freeOops()
@@ -57,6 +59,7 @@ iRect dragRect(const iPoint& s, const iPoint& e)
 
 void drawOops(float dt)
 {
+#if 0
 	// back buffer 작업
 	static bool bDraw = false;
 	//if (bDraw == false)
@@ -118,6 +121,7 @@ void drawOops(float dt)
 		setRGBA(0, 0, 1, 1.0f);
 		drawRect(rt);
 	}
+#endif
 }
 
 iRect rectOfString(Bitmap* bmp, iPoint s, iPoint e)

@@ -14,6 +14,7 @@ C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp;C:\workspace\WIn32
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iFPS.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iFPS.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iGraphics.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iImage.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iImage.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iOpenGL.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iPoint.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iPoint.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iPopup.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iPopup.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iRect.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iRect.obj

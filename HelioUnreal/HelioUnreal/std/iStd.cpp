@@ -1,113 +1,83 @@
 #include "iStd.h"
 
 int keydown, keystat;
-iSize devSize;
+iSize devSize;// 640 x 480, 1920 x 1080
 iRect viewport;
 
-ULONG_PTR gdiplusToken;
-HDC hdc;
-Graphics* graphics;
+ULONG_PTR           gdiplusToken;
 
-Bitmap* bmp;
-Graphics* gFromBmp;
-Texture* texBmp;
-
-float _r, _g, _b, _a;
+static float _r, _g, _b, _a;
 
 METHOD_VOID methodFree;
 METHOD_FLOAT methodDraw;
-METHOD_KEY methodkey;
+METHOD_KEY methodKey;
 
-void LoadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, METHOD_FLOAT draw, METHOD_KEY key)
+void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, METHOD_FLOAT draw, METHOD_KEY key)
 {
     GdiplusStartupInput gdiplusStartupInput;
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-    hdc = GetDC(hWnd);
+    loadOpenGL(hWnd);
+#if 0
     graphics = new Graphics(hdc);
+#endif
 
     keydown = keydown_none;
     keystat = keydown_none;
     devSize = iSizeMake(DEV_WIDTH, DEV_HEIGHT);
     viewport = iRectMake(0, 0, 1, 1);
 
-    bmp = new Bitmap(devSize.width, devSize.height);
-    gFromBmp = Graphics::FromImage(bmp);
-    Texture* tex = new Texture;
-    tex->texID = bmp;
-    tex->width = bmp->GetWidth();
-    tex->height = bmp->GetHeight();
-    tex->potWidth = bmp->GetWidth();
-    tex->potHeight = bmp->GetHeight();
-    tex->retainCount++;
-    texBmp = tex;
-
-
     _r = 1.0f;
     _g = 1.0f;
     _b = 1.0f;
     _a = 1.0f;
 
+    setMakeCurrent(true);
     load();
+    setMakeCurrent(false);
     methodFree = free;
     methodDraw = draw;
-    methodkey = key;
+    methodKey = key;
 }
 
 void freeApp()
 {
+    freeOpenGL();
+    return;
+
     methodFree();
 
+
+#if 0
     delete graphics;
+#endif 
+
     GdiplusShutdown(gdiplusToken);
 }
 
 void drawApp(float dt)
 {
-    // back buffer
-    Graphics* bk = graphics;
-    graphics = gFromBmp;
-    
+    setMakeCurrent(true); 
+
+    resizeOpenGL(0, 0);
+
+    glClearColor(0,0,0,1);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+
     methodDraw(dt);
-  
-    graphics = bk;
 
-    // front buffer
-    //graphics->DrawImage(bmp, 0, 0);
-    //graphics->DrawString();
-
-    float r = viewport.size.width / texBmp->width;
-#if 0
-    static float delta = 0.0f;
-    delta += dt;
-    float t = 1.0f * 1.0f * fabsf(sin(delta)); // 1 ~ 2
-    r *= t;
-#endif
-    //setRGBA(1, 0, 0, 1);
-    //clear();
-
-    setRGBA(1, 1, 1, 1);
-
-    drawImage(texBmp, viewport.origin.x, viewport.origin.y,
-        0, 0, texBmp->width, texBmp->height, r, r, 2, 0, TOP | LEFT);
-
-    SwapBuffers(hdc);
+    swapBuffer();
+    setMakeCurrent(false);
+    return;
 }
 
 void keyApp(iKeyStat stat, iPoint point)
 {
-    methodkey(stat, point);
+    return;
+    methodKey(stat, point);
 }
 
-Graphics* getGraphics()
-{
-    return graphics;
-}
-
-void setGraphics(Graphics* g)
-{
-    graphics = g;
-}
 
 void getRGBA(float& r, float& g, float& b, float& a)
 {
@@ -124,19 +94,30 @@ void setRGBA(float r, float g, float b, float a)
 
 void clear()
 {
-    graphics->Clear(Color(_a * 0xFF,
-                          _r * 0xFF,
-                          _g * 0xFF,
-                          _b * 0xFF));
+    glClearColor(_r, _g, _b, _a);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
+
+float lineWidth = 1;
+void setLineWidth(float width)
+{
+    lineWidth = width;
+}
 void drawLine(float x0, float y0, float x1, float y1)
 {
-    Pen pen(Color(_a * 0xFF, 
-                  _r * 0xFF, 
-                  _g * 0xFF,
-                  _b * 0xFF));
-    graphics->DrawLine(&pen, x0, y0, x1, y1);
+    float position[] = { x0,y0,x1,y1 };
+
+    glLineWidth(lineWidth);
+    glColor4f(_r, _g, _b, _a);
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, position);
+
+    uint8 indices[] = { 0, 1 };
+    glDrawElements(GL_LINES, 2, GL_UNSIGNED_BYTE, indices);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void drawLine(iPoint p0, iPoint p1)
@@ -146,12 +127,10 @@ void drawLine(iPoint p0, iPoint p1)
 
 void drawRect(float x, float y, float width, float height)
 {
-    Pen pen(Color(_a * 0xFF,
-        _r * 0xFF,
-        _g * 0xFF,
-        _b * 0xFF));
-
-    graphics->DrawRectangle(&pen, x, y, width, height);
+    drawLine(x, y, x + width, y);
+    drawLine(x, y + height, x + width, y + height);
+    drawLine(x, y, x, y + height);
+    drawLine(x + width, y, x + width, y + height);
 }
 
 void drawRect(iRect r1)
@@ -161,11 +140,20 @@ void drawRect(iRect r1)
 
 void fillRect(float x, float y, float width, float height)
 {
-    SolidBrush brush(Color(_a * 0xFF,
-        _r * 0xFF,
-        _g * 0xFF,
-        _b * 0xFF));
-    graphics->FillRectangle(&brush, x, y, width, height);
+    float rt[] = {
+            x,y,         1, 0, 0, 1,      x + width, y,        0, 1, 0, 1,
+            x,y+height,  0, 0, 1, 1,      x+width, y+height,   1, 1, 1, 1,
+    };
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(2, GL_FLOAT, sizeof(float) * 6, &rt[0]);
+    glColorPointer(4, GL_FLOAT, sizeof(float) * 6, &rt[2]);
+
+    uint8 indices[] = { 0, 1, 2,    2, 1, 3 };
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
 }
 
 void fillRect(iRect r1)
@@ -200,22 +188,81 @@ uint32 nextPot(uint32 x)
     return x + 1;
 }
 
+uint8* bmp2rgba(Bitmap* bmp, int& width, int& height)
+{
+    Rect rt;
+    rt.X = 0, rt.Y = 0, rt.Width = bmp->GetWidth(),
+        rt.Height = bmp->GetHeight();
+    BitmapData bmpData;
+    bmp->LockBits(&rt, ImageLockModeRead, PixelFormat32bppARGB, &bmpData);
+
+    uint8* bgra = (uint8*)bmpData.Scan0;
+    int stride = bmpData.Stride;
+
+    int pw = nextPot(rt.Width), ph = nextPot(rt.Height);
+    uint8* rgba = new uint8[pw * ph * 4];
+    memset(rgba, 0x00, sizeof(uint8) * pw * ph * 4);
+    for (int j = 0; j < rt.Height; j++)
+    {
+        for (int i = 0; i < rt.Width; i++)
+        {
+            uint8* s = &bgra[stride * j + 4 * i];
+            uint8* d = &rgba[pw * 4 * j + 4 * i];
+            d[0] = s[2];
+            d[1] = s[1];
+            d[2] = s[0];
+            d[3] = s[3];
+        }
+    }
+
+    bmp->UnlockBits(&bmpData);
+
+    width = rt.Width;
+    height = rt.Height;
+    return rgba;
+}
+
+Texture* createImageWithRGBA(uint8* rgba, int width, int height)
+{
+    uint32 texID;
+    glGenTextures(1, &texID); 
+    glBindTexture(GL_TEXTURE_2D, texID);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); // GL_REPEAT // ST, UV
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // GL_LINEAR
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    int pw = nextPot(width), ph = nextPot(height);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pw, ph, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    Texture* tex = new Texture;
+    tex->texID = texID;
+    tex->width = width;
+    tex->height = height;
+    tex->potWidth = pw;
+    tex->potHeight = ph;
+    tex->retainCount++;
+
+    return tex;
+}
+
 Texture* createImage(const char* szFormat, ...)
 {
     char szText[512];
     va_start_end(szFormat, szText);
 
     wchar_t* path = utf8_to_utf16(szText);
-    Image* img = Image::FromFile(path);
+    Bitmap* bmp = Bitmap::FromFile(path);
     delete path;
+    int width, height;
+    uint8* rgba = bmp2rgba(bmp, width, height);
+    delete bmp;
 
-    Texture* tex = new Texture;
-    tex->texID = img;
-    tex->width = img->GetWidth();
-    tex->height = img->GetHeight();
-    tex->potWidth = nextPot(img->GetWidth());
-    tex->potHeight = nextPot(img->GetHeight());
-    tex->retainCount++;
+    Texture* tex = createImageWithRGBA(rgba, width, height);
+    delete rgba;
 
     return tex;
 }
@@ -227,8 +274,7 @@ void freeImage(Texture* tex)
         tex->retainCount--;
         return;
     }
-    Image* img = (Image*)tex->texID;
-    delete img;
+    glDeleteTextures(1, &tex->texID);
     delete tex;
 }
 
@@ -260,70 +306,68 @@ void drawImage(Texture* tex, float x, float y,
     case BOTTOM | RIGHT:    x -= w;         y -= h; break;
 
     }
-    iPoint p[3] = { {x,y},{x + w,y},{x,y + h} };
 
+    iPoint p[4] = { {-w / 2, -h / 2}, {w / 2, -h / 2},
+                    {-w / 2,  h / 2}, {w / 2,  h / 2} };
     if (reverse & REVERSE_WIDTH)
     {
-        p[0].x += w;
-        p[1].x -= w;
-        p[2].x += w;
+        for (int i = 0; i < 4; i++)
+            p[i].x *= -1;
     }
     if (reverse & REVERSE_HEIGHT)
     {
-        p[0].y += h;
-        p[1].y += h;
-        p[2].y -= h;
+        for (int i = 0; i < 4; i++)
+            p[i].y *= -1;
     }
 
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslatef(x + w / 2, y + h / 2, 0);
     if (degree)
-    {
-        int w2 = w / 2, h2 = h / 2;
-        if (xyz == 0)
-        {
-            float r = deg2rad(degree);
-            p[0].y =
-            p[2].y = y + h2 + h2 * cos(deg2rad(degree));
-            p[1].y = y + h2 + h2 * sin(deg2rad(270 + degree));
-        }
-        else if (xyz == 1)
-        {
-            float r = deg2rad(degree);
-            p[0].x =
-            p[2].x = x + w2 + w2 * sin(deg2rad(270 + degree));
-            p[1].x = x + w2 + w2 * cos(deg2rad(degree));
-        }
-        else if (xyz == 2)
-        {
-            float s = sin(deg2rad(degree));
-            float c = cos(deg2rad(degree));
+        glRotatef(degree, xyz == 0, xyz == 1, xyz == 2);
 
-            iPoint dp[] = {
-                {-w2, -h2},{w2, -h2},
-                {-w2,h2}
-            };
-
-            for (int i = 0; i < 3; i++)
-            {
-                p[i] = p[i] + iPointMake(w2, h2);
-                p[i].x = x + w2 + dp[i].x * c - dp[i].y * s;
-                p[i].y = y + h2 + dp[i].x * s + dp[i].y * c;
-            }
-        }
-    }
-
-    ColorMatrix m = {
-        _r, 0, 0, 0, 0,
-        0, _g, 0, 0, 0,
-        0, 0, _b, 0, 0,
-        0, 0, 0, _a, 0,
-        0, 0, 0, 0, 1
+    float pw = tex->potWidth, ph = tex->potHeight;
+    float texCoord[] = {
+        sx / pw, sy / ph,         (sx + sw) / pw, sy / ph,
+        sx / pw, (sy + sh) / ph,  (sx + sw) / pw, (sy + sh) / ph,
     };
-    ImageAttributes attr;
-    attr.SetColorMatrix(&m);
 
-    graphics->DrawImage((Image*)tex->texID, (PointF*)p, 3,
-        sx, sy, sw, sh, UnitPixel, &attr);
+    float color[] = {
+        _r,_g,_b,_a,        _r,_g,_b,_a,
+        _r,_g,_b,_a,        _r,_g,_b,_a,
+    };
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+    
+    glEnable(GL_TEXTURE_2D);
+    glVertexPointer(2, GL_FLOAT, 0, p);
+    glColorPointer(4, GL_FLOAT, 0, color);
+    glTexCoordPointer(2, GL_FLOAT, 0, texCoord);
+    glBindTexture(GL_TEXTURE_2D, tex->texID);
+
+    uint8 indices[] = { 0, 1, 2,  2, 1, 3 };
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisable(GL_TEXTURE_2D);
 }
+
+
+#if 1
+iRect rectOfString(const char* szFormat, ...)
+{
+    return iRectMake(0, 0, 0, 0);
+}
+void drawString(float x, float y, int anc, const char* szFormat, ...)
+{
+    return;
+}
+#else
 
 class iText
 {
@@ -520,6 +564,8 @@ void _drawString(float x, float y, const char* szFormat, ...)
     delete wStr;
 }
 
+#endif
+
 wchar_t* utf8_to_utf16(const char* szFormat, ...)
 {
     char szText[512];
@@ -649,3 +695,89 @@ void saveFile(char* buf, int bufLen, const char* szFormat, ...)
 
     fclose(pf);
 }
+
+
+static MethodImageFilter method = NULL;
+void setImageFilter(MethodImageFilter method)
+{
+    ::method = method;
+}
+
+Texture* createImageFilter(const char* szFormat, ...)
+{
+    char szText[512];
+    va_start_end(szFormat, szText);
+
+    wchar_t* path = utf8_to_utf16(szText);
+    Bitmap* bmp = Bitmap::FromFile(path);
+    delete path;
+    int width, height;
+    uint8* rgba = bmp2rgba(bmp, width, height);
+    delete bmp;
+
+    if (method)
+        method(rgba, width, height, nextPot(width));
+
+    Texture* tex = createImageWithRGBA(rgba, width, height);
+    delete rgba;
+
+    return tex;
+}
+
+void ImageFilterGrey(uint8* bgra, int width, int height, int stride)
+{
+    for (int j = 0; j < height; j++)
+    {
+        for (int i = 0; i < width; i++)
+        {
+            uint8* c = &bgra[stride * 4 * j + 4 * i];
+            uint8 grey = c[0] * 0.3f + c[1] * 0.4f + c[2] * 0.3f;
+            c[0] = grey;
+            c[1] = grey;
+            c[2] = grey;
+        }
+    }
+}
+
+void ImageFilterMirror(uint8* bgra, int width, int height, int stride)
+{
+    float rateHeight = 0.5f;
+    int h = height * rateHeight;
+
+    int* pixels = (int*)bgra;
+    for (int j = 0; j < h; j++)
+        memcpy(&pixels[stride * j], &pixels[stride * (int)(j / rateHeight)], sizeof(int) * stride);
+    for (int j = h; j < height; j++)
+        memset(&pixels[stride * j], 0x00, sizeof(int) * stride);
+
+
+    uint8 t[4];
+    int len = sizeof(uint8) * 4;
+    for (int j = 0; j < h / 2; j++)
+    {
+        for (int i = 0; i < width; i++)
+        {
+
+            uint8* s = &bgra[stride * 4 * j + 4 * i];
+            uint8* d = &bgra[stride * 4 * (h - 1 - j) + 4 * i];
+            //uint8 grey = c[0] * 0.3f + c[1] * 0.4f + c[2] * 0.3f;
+            //c[0] = grey;
+            //c[1] = grey;
+            //c[2] = grey;
+
+            memcpy(t, s, len);
+            memcpy(s, d, len);
+            memcpy(d, t, len);
+
+            s[3] = linear(0xFF, 0x00, (float)j / height);
+            d[3] = 0xFF - s[3];
+
+            //uint8 grey = c[0] * 0.3f + c[1] * 0.4f + c[2] * 0.3f;
+            //c[0] = grey;
+            //c[1] = grey;
+            //c[2] = grey;
+        }
+
+    }
+}
+

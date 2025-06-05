@@ -12,62 +12,69 @@
 #include "iImage.h"
 #include "iPopup.h"
 
+#include "iOpenGL.h"
 #include "iFPS.h"
 #include "iSort.h"
 #include "iShortestPath.h"
 
-// keydown 눌럿을때 1번 발생
+// keydown 눌렀을때 1번 발생
 // keystat 누르고 있을때 계속 발생
 extern int keydown, keystat;
 extern iSize devSize;
 extern iRect viewport;
 
-void LoadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, 
+void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free,
 	METHOD_FLOAT draw, METHOD_KEY key);
 void freeApp();
 void drawApp(float dt);
 void keyApp(iKeyStat stat, iPoint point);
-
-Graphics* getGraphics();
-void setGraphics(Graphics* g);
 
 void getRGBA(float& r, float& g, float& b, float& a);
 void setRGBA(float r, float g, float b, float a);
 
 void clear();
 
+void setLineWidth(float width);
 void drawLine(float x0, float y0, float x1, float y1);
 void drawLine(iPoint p0, iPoint p1);
 
 void drawRect(float x, float y, float width, float height);
-void drawRect(iRect r1);
+void drawRect(iRect rt);
 void fillRect(float x, float y, float width, float height);
-void fillRect(iRect r1);
+void fillRect(iRect rt);
+
+typedef void (*MethodImageFilter)(uint8* bgra, int width, int height, int stride);
+void setImageFilter(MethodImageFilter method);
+Texture* createImageFilter(const char* szFormat, ...);
+void imageFilterGrey(uint8* bgra, int width, int height, int stride);
+void imageFilterMirror(uint8* bgra, int width, int height, int stride);
 
 uint32 nextPot(uint32 x);
+uint8* bmp2rgba(Bitmap* bmp, int& width, int& height);
+Texture* createImageWithRGBA(uint8* rgba, int width, int height);
+
 Texture* createImage(const char* szFormat, ...);
 void freeImage(Texture* tex);
 void drawImage(Texture* tex, float x, float y, int anc);
 void drawImage(Texture* tex, float x, float y,
 	int sx, int sy, int sw, int sh,
-	float rateX, float rateY, 
+	float rateX, float rateY,
 	int xyz, float degree, int anc, int reverse = REVERSE_NONE);
-// 0 : x축으로 회전, 1 : y축으로 회전 , 2 : z축으로 회전
+// xyz 0:x축, 1:y축, 2:z축으로 회전
 
 
-void setStringSize(float size);
 void getStringRGBA(float& r, float& g, float& b, float& a);
+void setStringSize(float size);
 void setStringRGBA(float r, float g, float b, float a);
 iRect rectOfString(const char* szFormat, ...);
-iSize sizeOfString(const char* szFormat, ...);
 void _drawString(float x, float y, const char* szFormat, ...);
-void drawString(float x, float y, int anc,  const char* szFormat, ...);
+void drawString(float x, float y, int anc, const char* szFormat, ...);
 
 wchar_t* utf8_to_utf16(const char* szFormat, ...);
 char* utf16_to_utf8(const wchar_t* wStr);
 
-#define rad2deg(r) (r * 180.f / M_PI)
-#define deg2rad(d) (d * M_PI / 180.f)
+#define rad2deg(r) ((r) * 180 / M_PI)
+#define deg2rad(d) ((d) * M_PI / 180)
 
 float linear(float s, float e, float rate);
 iPoint linear(iPoint s, iPoint e, float rate);
