@@ -3,6 +3,7 @@ C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp;C:\workspace\W
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Comp.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\Comp.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\CtrlImage.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\CtrlImage.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Game.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\Game.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\ImageText.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\ImageText.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Lotto.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\Lotto.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Memory.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\Memory.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\Oops.obj
@@ -23,3 +24,4 @@ C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iSize.cpp;C:\workspace\WIn32_
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iSort.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iSort.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iStd.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iString.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStrTex.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iStrTex.obj

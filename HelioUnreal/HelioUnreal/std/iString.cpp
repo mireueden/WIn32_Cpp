@@ -123,6 +123,59 @@ iString iString::operator=(const char* s)
 	return *this;
 }
 
+char** iString::split(int& lineNum, const char* s, char d)
+{ // check
+	// split '\n'
+	lineNum = 1;
+	for (int i = 0; s[i]; i++)
+	{
+		if (s[i] == d)
+			lineNum++;
+	}
+
+	char** line = new char* [lineNum];
+	lineNum = 0;
+	int i, off;
+	for (i = 0, off = 0; s[i]; i++)
+	{
+		if (s[i] == d)
+		{
+			// off ~ i-1
+			int len = i - off;// i - 1 - off + 1;
+			char* t = new char[len + 1];
+			memcpy(t, &s[off], sizeof(char) * len);
+			t[len] = 0;
+
+			line[lineNum] = t;
+			lineNum++;
+
+			off = i + 1;
+		}
+	}
+	//int len = strlen(s) - off;
+	int len = i - off;// i - 1 - off + 1;
+	if (len)
+	{
+		char* t = new char[len + 1];
+		memcpy(t, &s[off], sizeof(char) * len);
+		t[len] = 0;
+
+		line[lineNum] = t;
+		lineNum++;
+	}
+
+	return line;
+}
+
+void iString::free(char** line, int lineNum)
+{
+	for (int i = 0; i < lineNum; i++)
+		delete line[i];
+	delete line;
+}
+
+
+
 
 
 

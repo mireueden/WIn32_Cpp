@@ -347,7 +347,8 @@ void checkCollision()
 		You* y = you[i];
 		if (containRect(y->rt(), rtDst))
 		{
-			y->hp--; if (y->hp == 0);
+			y->hp--;
+			if (y->hp == 0)
 			{
 				youNum--;
 				you[i] = you[youNum];

@@ -134,6 +134,7 @@
     <ClInclude Include="game\Comp.h" />
     <ClInclude Include="game\CtrlImage.h" />
     <ClInclude Include="game\Game.h" />
+    <ClInclude Include="game\ImageText.h" />
     <ClInclude Include="game\Lotto.h" />
     <ClInclude Include="game\Memory.h" />
     <ClInclude Include="game\Oops.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="std\iSort.h" />
     <ClInclude Include="std\iStd.h" />
     <ClInclude Include="std\iString.h" />
+    <ClInclude Include="std\iStrTex.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +168,7 @@
     <ClCompile Include="game\Game.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="game\ImageText.cpp" />
     <ClCompile Include="game\Lotto.cpp" />
     <ClCompile Include="game\Memory.cpp" />
     <ClCompile Include="game\Oops.cpp" />
@@ -186,6 +189,7 @@
     <ClCompile Include="std\iSort.cpp" />
     <ClCompile Include="std\iStd.cpp" />
     <ClCompile Include="std\iString.cpp" />
+    <ClCompile Include="std\iStrTex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HelioUnreal.rc" />

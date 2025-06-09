@@ -13,6 +13,8 @@ public:
 	void init(int width, int height);
 	Texture* getTexture();
 	void clean();
+	void clear();
+	static void clear(Graphics* graphics, float r, float g, float b, float a);
 
 	void drawLine(float x0, float y0, float x1, float y1);
 	void drawLine(iPoint p0, iPoint p1);
@@ -28,7 +30,12 @@ public:
 		float rateX, float rateY,
 		int xyz, float degree, int anc, int reverse = REVERSE_NONE);
 
+	// in func.
 	void drawString(float x, float y, int anc, const char* szFormat, ...);
+	// extern func.
+	static void drawString(Graphics* graphics, float x, float y, int anc, const char* szFormat, ...);
+	// for rectOfString
+	static void drawString(Graphics* graphics, float x, float y, const char* szFormat, ...);
 
 
 public:

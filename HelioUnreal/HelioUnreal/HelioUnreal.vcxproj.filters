@@ -99,6 +99,12 @@
     <ClInclude Include="std\iOpenGL.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="std\iStrTex.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ImageText.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelioUnreal.cpp">
@@ -174,6 +180,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="std\iOpenGL.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="std\iStrTex.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ImageText.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

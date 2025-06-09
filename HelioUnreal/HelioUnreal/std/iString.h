@@ -1,5 +1,7 @@
 #pragma once
 
+#include "iDefine.h"
+#include "iStd.h"
 
 struct iString
 {
@@ -23,6 +25,8 @@ struct iString
     iString& operator= (const iString& s);
     iString operator= (const char* s);
 
+    static char** split(int& lineNum, const char* s, char d = '\n');
+    static void free(char** line, int lineNum);
 
     bool trim();
     char* subString(int from, int to);

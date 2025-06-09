@@ -9,6 +9,7 @@
 #include "Animating.h"
 #include "Oops.h"
 #include "Comp.h"
+#include "ImageText.h"
 
 ParticleSystem* ps;
 
@@ -22,12 +23,16 @@ int selectedBtn;
 Texture* texBg;
 Texture* texMirror;
 
+iImage* imgSt;
+iStrTex* st;
 
 void loadGame()
 {
 	texBg = createImageFilter("assets/download0.png");
-	setImageFilter(ImageFilterMirror);
+	setImageFilter(imageFilterMirror);
 	texMirror = createImageFilter("assets/download0.png");
+
+	loadImageText();
 
 #if 1
 	loadComp();
@@ -98,11 +103,11 @@ void loadGame()
 
 void freeGame()
 {
-
-
 	freeImage(texBg);
 	freeImage(texMirror);
 
+
+	freeImageText();
 
 #if 1
 	freeComp();
@@ -122,7 +127,7 @@ void freeGame()
 	freeMemory();
 #elif 0
 	delete ps;
-#elif 0
+#elif 1
 	for (int i = 0; i < 3; i++)
 		delete(imgBtn[i]);
 	delete imgBtn;
@@ -138,8 +143,16 @@ void drawGame(float dt)
 	setRGBA(1, 1, 1, 1);
 	drawImage(texBg, 0, 200, BOTTOM | LEFT);
 	drawImage(texMirror, 0, 200, TOP | LEFT);
-
+	
+	drawImageText(dt);
 #if 0
+	static iStrTex* st = new iStrTex();
+	setStringSize(30);
+	setStringRGBA(1, 1, 1, 1);
+	st->paint(200, 200, TOP | LEFT, "안녕하세요");
+
+
+#elif 0
 	static float delta = 0.0f;
 	delta += dt;
 	iPoint off = iPointMake(50 * sin(delta), 0);

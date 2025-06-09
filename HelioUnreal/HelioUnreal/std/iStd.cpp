@@ -12,15 +12,13 @@ METHOD_VOID methodFree;
 METHOD_FLOAT methodDraw;
 METHOD_KEY methodKey;
 
-void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, METHOD_FLOAT draw, METHOD_KEY key)
+void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free,
+    METHOD_FLOAT draw, METHOD_KEY key)
 {
     GdiplusStartupInput gdiplusStartupInput;
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
     loadOpenGL(hWnd);
-#if 0
-    graphics = new Graphics(hdc);
-#endif
 
     keydown = keydown_none;
     keystat = keydown_none;
@@ -42,42 +40,31 @@ void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free, METHOD_FLOAT draw, M
 
 void freeApp()
 {
-    freeOpenGL();
-    return;
-
     methodFree();
 
-
-#if 0
-    delete graphics;
-#endif 
-
+    freeOpenGL();
     GdiplusShutdown(gdiplusToken);
 }
 
 void drawApp(float dt)
 {
-    setMakeCurrent(true); 
+    setMakeCurrent(true);
 
     resizeOpenGL(0, 0);
 
-    glClearColor(0,0,0,1);
+    glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
-
 
     methodDraw(dt);
 
     swapBuffer();
     setMakeCurrent(false);
-    return;
 }
 
 void keyApp(iKeyStat stat, iPoint point)
 {
-    return;
     methodKey(stat, point);
 }
-
 
 void getRGBA(float& r, float& g, float& b, float& a)
 {
@@ -86,10 +73,7 @@ void getRGBA(float& r, float& g, float& b, float& a)
 
 void setRGBA(float r, float g, float b, float a)
 {
-    _r = r;
-    _g = g;
-    _b = b;
-    _a = a;
+    _r = r; _g = g; _b = b; _a = a;
 }
 
 void clear()
@@ -98,15 +82,15 @@ void clear()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-
 float lineWidth = 1;
 void setLineWidth(float width)
 {
     lineWidth = width;
 }
+
 void drawLine(float x0, float y0, float x1, float y1)
 {
-    float position[] = { x0,y0,x1,y1 };
+    float position[] = { x0, y0, x1, y1 };
 
     glLineWidth(lineWidth);
     glColor4f(_r, _g, _b, _a);
@@ -132,54 +116,63 @@ void drawRect(float x, float y, float width, float height)
     drawLine(x, y, x, y + height);
     drawLine(x + width, y, x + width, y + height);
 }
-
-void drawRect(iRect r1)
+void drawRect(iRect rt)
 {
-    drawRect(r1.origin.x, r1.origin.y, r1.size.width, r1.size.height);
+    drawRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height);
 }
 
 void fillRect(float x, float y, float width, float height)
 {
     float rt[] = {
-            x,y,         1, 0, 0, 1,      x + width, y,        0, 1, 0, 1,
-            x,y+height,  0, 0, 1, 1,      x+width, y+height,   1, 1, 1, 1,
+    x, y,          _r, _g, _b, _a,   x + width, y,          _r, _g, _b, _a,
+    x, y + height, _r, _g, _b, _a,   x + width, y + height, _r, _g, _b, _a,
     };
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
     glVertexPointer(2, GL_FLOAT, sizeof(float) * 6, &rt[0]);
     glColorPointer(4, GL_FLOAT, sizeof(float) * 6, &rt[2]);
 
-    uint8 indices[] = { 0, 1, 2,    2, 1, 3 };
+    uint8 indices[] = { 0, 1, 2,  2, 1, 3 };
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
 }
-
-void fillRect(iRect r1)
+void fillRect(iRect rt)
 {
-    fillRect(r1.origin.x, r1.origin.y, r1.size.width, r1.size.height);
+    fillRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height);
 }
 
-float stringsize = 25.0f;
+float stringSize = 25.0f, stringLineHeight = 30.0f;
 float sr = 1.0f, sg = 1.0f, sb = 1.0f, sa = 1.0f;
 void setStringSize(float size)
 {
-    stringsize = size;
+    stringSize = size;
 }
-
+float getStringLineHeight()
+{
+    return stringLineHeight;
+}
+void setStringLineHeight(float height)
+{
+    stringLineHeight = height;
+}
+float getStringSize()
+{
+    return stringSize;
+}
 void getStringRGBA(float& r, float& g, float& b, float& a)
 {
-    r = sr, g = sg, b = sb, a = sa;
+    r = sr; g = sg; b = sb; a = sa;
 }
-
 void setStringRGBA(float r, float g, float b, float a)
 {
-    sr = r, sg = g, sb = b, sa = a;
+    sr = r; sg = g; sb = b; sa = a;
 }
+
 uint32 nextPot(uint32 x)
 {
-    x = x - 1; 
+    x = x - 1;
     x = x | (x >> 1);
     x = x | (x >> 2);
     x = x | (x >> 4);
@@ -222,16 +215,17 @@ uint8* bmp2rgba(Bitmap* bmp, int& width, int& height)
     return rgba;
 }
 
+#define GL_CLAMP_TO_EDGE 0x812F
 Texture* createImageWithRGBA(uint8* rgba, int width, int height)
 {
     uint32 texID;
-    glGenTextures(1, &texID); 
+    glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); // GL_REPEAT // ST, UV
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // GL_LINEAR
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);// GL_REPEAT
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);// GL_LINEAR
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//GL_NEAREST
 
     int pw = nextPot(width), ph = nextPot(height);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pw, ph, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
@@ -244,9 +238,86 @@ Texture* createImageWithRGBA(uint8* rgba, int width, int height)
     tex->height = height;
     tex->potWidth = pw;
     tex->potHeight = ph;
-    tex->retainCount++;
+    tex->retainCount = 1;
 
     return tex;
+}
+
+static MethodImageFilter method = NULL;
+void setImageFilter(MethodImageFilter method)
+{
+    ::method = method;
+}
+
+Texture* createImageFilter(const char* szFormat, ...)
+{
+    char szText[512];
+    va_start_end(szFormat, szText);
+
+    wchar_t* path = utf8_to_utf16(szText);
+    Bitmap* bmp = Bitmap::FromFile(path);
+    delete path;
+    int width, height;
+    uint8* rgba = bmp2rgba(bmp, width, height);
+    delete bmp;
+
+    if (method)
+        method(rgba, width, height, nextPot(width));
+
+    Texture* tex = createImageWithRGBA(rgba, width, height);
+    delete rgba;
+
+    return tex;
+}
+
+void imageFilterGrey(uint8* bgra, int width, int height, int stride)
+{
+    for (int j = 0; j < height; j++)
+    {
+        for (int i = 0; i < width; i++)
+        {
+            uint8* c = &bgra[stride * 4 * j + 4 * i];
+            uint8 grey = c[0] * 0.3f + c[1] * 0.4f + c[2] * 0.3f;
+            c[0] = grey;
+            c[1] = grey;
+            c[2] = grey;
+        }
+    }
+}
+
+void imageFilterMirror(uint8* bgra, int width, int height, int stride)
+{
+    float rateHeight = 0.5f;
+    int h = height * rateHeight;
+
+    int* pixels = (int*)bgra;
+    for (int j = 0; j < h; j++)
+        memcpy(&pixels[stride * j], &pixels[stride * (int)(j / rateHeight)], sizeof(int) * stride);
+    for (int j = h; j < height; j++)
+        memset(&pixels[stride * j], 0x00, sizeof(int) * stride);
+
+    uint8 t[4];
+    int len = sizeof(uint8) * 4;
+    for (int j = 0; j < h / 2; j++)
+    {
+        for (int i = 0; i < width; i++)
+        {
+            uint8* s = &bgra[stride * 4 * j + 4 * i];
+            uint8* d = &bgra[stride * 4 * (h - 1 - j) + 4 * i];
+
+            memcpy(t, s, len);
+            memcpy(s, d, len);
+            memcpy(d, t, len);
+
+            s[3] = linear(0xFF, 0x00, (float)j / h);
+            d[3] = 0xFF - s[3];
+
+            //uint8 grey = c[0] * 0.3f + c[1] * 0.4f + c[2] * 0.3f;
+            //c[0] = grey;
+            //c[1] = grey;
+            //c[2] = grey;
+        }
+    }
 }
 
 Texture* createImage(const char* szFormat, ...)
@@ -283,30 +354,24 @@ void drawImage(Texture* tex, float x, float y, int anc)
     drawImage(tex, x, y, 0, 0, tex->width, tex->height, 1.0f, 1.0f, 2, 0, anc);
 }
 
-void drawImage(Texture* tex, float x, float y, 
-    int sx, int sy, int sw, int sh, 
-    float rateX, float rateY, 
+void drawImage(Texture* tex, float x, float y,
+    int sx, int sy, int sw, int sh,
+    float rateX, float rateY,
     int xyz, float degree, int anc, int reverse)
 {
-    
     int w = sw * rateX;
     int h = sh * rateY;
-    switch (anc)
-    {
-    case TOP | LEFT:                          break;
-    case TOP | HCENTER:     x -= w / 2;    y; break;
-    case TOP | RIGHT:       x -= w;        y; break;
-
-    case VCENTER | LEFT:    x;             y -= h / 2; break;
-    case VCENTER | HCENTER: x -= w / 2;    y -= h / 2; break;
-    case VCENTER | RIGHT:   x -= w;        y -= h / 2; break;
-
-    case BOTTOM | LEFT:                     y -= h; break;
-    case BOTTOM | HCENTER:  x -= w / 2;     y -= h; break;
-    case BOTTOM | RIGHT:    x -= w;         y -= h; break;
-
+    switch (anc) {
+    case TOP | LEFT:                               break;
+    case TOP | HCENTER:     x -= w / 2;            break;
+    case TOP | RIGHT:       x -= w;                break;
+    case VCENTER | LEFT:    x;         y -= h / 2; break;
+    case VCENTER | HCENTER: x -= w / 2; y -= h / 2; break;
+    case VCENTER | RIGHT:   x -= w;    y -= h / 2; break;
+    case BOTTOM | LEFT:                y -= h;     break;
+    case BOTTOM | HCENTER:  x -= w / 2; y -= h;     break;
+    case BOTTOM | RIGHT:    x -= w;    y -= h;     break;
     }
-
     iPoint p[4] = { {-w / 2, -h / 2}, {w / 2, -h / 2},
                     {-w / 2,  h / 2}, {w / 2,  h / 2} };
     if (reverse & REVERSE_WIDTH)
@@ -333,15 +398,13 @@ void drawImage(Texture* tex, float x, float y,
     };
 
     float color[] = {
-        _r,_g,_b,_a,        _r,_g,_b,_a,
-        _r,_g,_b,_a,        _r,_g,_b,_a,
+        _r, _g, _b, _a,     _r, _g, _b, _a,
+        _r, _g, _b, _a,     _r, _g, _b, _a,
     };
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnableClientState(GL_NORMAL_ARRAY);
-    
     glEnable(GL_TEXTURE_2D);
     glVertexPointer(2, GL_FLOAT, 0, p);
     glColorPointer(4, GL_FLOAT, 0, color);
@@ -358,16 +421,11 @@ void drawImage(Texture* tex, float x, float y,
 }
 
 
-#if 1
-iRect rectOfString(const char* szFormat, ...)
-{
-    return iRectMake(0, 0, 0, 0);
-}
+
 void drawString(float x, float y, int anc, const char* szFormat, ...)
 {
-    return;
+    printf("직접 사용하지 말고, iString을 권장\n");
 }
-#else
 
 class iText
 {
@@ -377,28 +435,25 @@ public:
         bmp = new Bitmap(devSize.width, devSize.height);
         g = Graphics::FromImage(bmp);
     }
+
     virtual ~iText()
     {
         delete bmp;
         delete g;
     }
-    
+
     iRect rectOfString(const char* str)
     {
-        Graphics* bk = getGraphics();
-        setGraphics(g);
-
         float bkR, bkG, bkB, bkA;
         float bkFR, bkFG, bkFB, bkFA;
         getRGBA(bkR, bkG, bkB, bkA);
         getStringRGBA(bkFR, bkFG, bkFB, bkFA);
 
-        setRGBA(0, 0, 0, 0);
-        clear();
         setStringRGBA(1, 1, 1, 1);
-        _drawString(0, 0, str);
+        iGraphics::clear(g, 0, 0, 0, 0);
+        iGraphics::drawString(g, 0, 0, str);
 
-        setGraphics(bk);
+
         setRGBA(bkR, bkG, bkB, bkA);
         setStringRGBA(bkFR, bkFG, bkFB, bkFA);
 
@@ -409,7 +464,6 @@ public:
         bmp->LockBits(&rt, ImageLockModeRead,
             PixelFormat32bppARGB, &bmpData);
 
-        // 영역을 지정해서 해당 영역 내부의 문자 반환
         iRect rect = rectOfString((uint8*)bmpData.Scan0,
             bmpData.Stride, rt.Width, rt.Height);
 
@@ -436,8 +490,10 @@ public:
             if (found)
                 break;
         }
+        if (left == w)
+            return iRectMake(0, 0, 0, 0);
 
-        int right = w;
+        int right = -1;
         for (int i = w - 1; i > -1; i--)
         {
             bool found = false;
@@ -453,8 +509,10 @@ public:
             if (found)
                 break;
         }
+        if (right == -1)
+            return iRectMake(0, 0, 0, 0);
 
-        int top = 0;
+        int top = h;
         for (int j = 0; j < h; j++)
         {
             bool found = false;
@@ -470,8 +528,10 @@ public:
             if (found)
                 break;
         }
+        if (top == h)
+            return iRectMake(0, 0, 0, 0);
 
-        int bottom = 0;
+        int bottom = -1;
         for (int j = h - 1; j > -1; j--)
         {
             bool found = false;
@@ -487,12 +547,14 @@ public:
             if (found)
                 break;
         }
+        if (bottom == -1)
+            return iRectMake(0, 0, 0, 0);
+
         return iRectMake(left, top, right - left + 1, bottom - top + 1);
     }
 
     Bitmap* bmp;
     Graphics* g;
-
 };
 
 static iText* txt = NULL;
@@ -509,63 +571,6 @@ iRect rectOfString(const char* szFormat, ...)
     return txt->rectOfString(szText);
 }
 
-void drawString(float x, float y, int anc, const char* szFormat, ...)
-{
-    char szText[512];
-    va_start_end(szFormat, szText);
-
-    iRect rt = rectOfString(szText);
-    x -= rt.origin.x;
-    y -= rt.origin.y;
-    int w = rt.size.width, h = rt.size.height;
-    switch (anc)
-    {
-    case TOP | LEFT:                          break;
-    case TOP | HCENTER:     x -= w / 2;    y; break;
-    case TOP | RIGHT:       x -= w;        y; break;
-
-    case VCENTER | LEFT:    x;             y -= h / 2; break;
-    case VCENTER | HCENTER: x -= w / 2;    y -= h / 2; break;
-    case VCENTER | RIGHT:   x -= w;        y -= h / 2; break;
-
-    case BOTTOM | LEFT:                     y -= h; break;
-    case BOTTOM | HCENTER:  x -= w / 2;     y -= h; break;
-    case BOTTOM | RIGHT:    x -= w;         y -= h; break;
-    }
-    FontFamily  fontFamily(L"Times New Roman");
-    Font        font(&fontFamily, stringsize, FontStyleRegular, UnitPixel);
-    PointF      pointF(x, y);
-    SolidBrush  solidBrush(Color(sa * 0xFF,
-        sr * 0xFF,
-        sb * 0xFF,
-        sa * 0xFF));
-
-    wchar_t* wStr = utf8_to_utf16(szText);
-    graphics->DrawString(wStr, -1, &font, pointF, &solidBrush);
-    delete wStr;
-}
-
-// 내부함수
-void _drawString(float x, float y, const char* szFormat, ...)
-{
-    char szText[512];
-    va_start_end(szFormat, szText);
-
-    FontFamily  fontFamily(L"Times New Roman");
-    Font        font(&fontFamily, stringsize, FontStyleRegular, UnitPixel);
-    PointF      pointF(x, y);
-    SolidBrush  solidBrush(Color(sa * 0xFF,
-        sr * 0xFF,
-        sg * 0xFF,
-        sb * 0xFF));
-
-    wchar_t* wStr = utf8_to_utf16(szText);
-    graphics->DrawString(wStr, -1, &font, pointF, &solidBrush);
-    delete wStr;
-}
-
-#endif
-
 wchar_t* utf8_to_utf16(const char* szFormat, ...)
 {
     char szText[512];
@@ -577,6 +582,7 @@ wchar_t* utf8_to_utf16(const char* szFormat, ...)
 
     return wStr;
 }
+
 char* utf16_to_utf8(const wchar_t* wStr)
 {
     int len = WideCharToMultiByte(CP_UTF8, 0, wStr, lstrlen(wStr), NULL, 0, 0, NULL);
@@ -619,21 +625,15 @@ iPoint easeOut(iPoint s, iPoint e, float rate)
     return iPointZero;
 }
 
-
-// #define clamp(a,b,c) min(max(a,b),c)
-
+//#define clamp(a, b, c) min(max(a, b), c) 
 float clamp(float f, float min, float max)
 {
     if (f < min)
-       f = min;    
+        f = min;
     else if (f > max)
         f = max;
     return f;
 }
-
-// x : 20 - 100
-// r : 30           => s+(e-s) *r
-
 
 bool move(iPoint* cp, const iPoint* tp, const iPoint& mp)
 {
@@ -662,7 +662,6 @@ bool move(iPoint* cp, const iPoint* tp, const iPoint& mp)
         if (cp->y < tp->y)
             cp->y = tp->y;
     }
-
     return (cp->x == tp->x && cp->y == tp->y);
 }
 
@@ -670,11 +669,8 @@ char* loadFile(int& len, const char* szFormat, ...)
 {
     FILE* pf = fopen(szFormat, "rb");
 
-    // SEEK_CUR 파일 포이너의 현재 위치
-    // SEEK_END 파일 끝
-    // SEEK_START 파일 시작
-    fseek(pf, 0, SEEK_END); // 파일 끝
-    len = ftell(pf); // where
+    fseek(pf, 0, SEEK_END);// 파일 끝
+    len = ftell(pf);// where
     char* buf = new char[len + 1];
 
     fseek(pf, 0, SEEK_SET);// 파일 시작
@@ -683,8 +679,6 @@ char* loadFile(int& len, const char* szFormat, ...)
 
     fclose(pf);
     return buf;
-
-
 }
 
 void saveFile(char* buf, int bufLen, const char* szFormat, ...)
@@ -694,90 +688,5 @@ void saveFile(char* buf, int bufLen, const char* szFormat, ...)
     fwrite(buf, sizeof(char), bufLen, pf);
 
     fclose(pf);
-}
-
-
-static MethodImageFilter method = NULL;
-void setImageFilter(MethodImageFilter method)
-{
-    ::method = method;
-}
-
-Texture* createImageFilter(const char* szFormat, ...)
-{
-    char szText[512];
-    va_start_end(szFormat, szText);
-
-    wchar_t* path = utf8_to_utf16(szText);
-    Bitmap* bmp = Bitmap::FromFile(path);
-    delete path;
-    int width, height;
-    uint8* rgba = bmp2rgba(bmp, width, height);
-    delete bmp;
-
-    if (method)
-        method(rgba, width, height, nextPot(width));
-
-    Texture* tex = createImageWithRGBA(rgba, width, height);
-    delete rgba;
-
-    return tex;
-}
-
-void ImageFilterGrey(uint8* bgra, int width, int height, int stride)
-{
-    for (int j = 0; j < height; j++)
-    {
-        for (int i = 0; i < width; i++)
-        {
-            uint8* c = &bgra[stride * 4 * j + 4 * i];
-            uint8 grey = c[0] * 0.3f + c[1] * 0.4f + c[2] * 0.3f;
-            c[0] = grey;
-            c[1] = grey;
-            c[2] = grey;
-        }
-    }
-}
-
-void ImageFilterMirror(uint8* bgra, int width, int height, int stride)
-{
-    float rateHeight = 0.5f;
-    int h = height * rateHeight;
-
-    int* pixels = (int*)bgra;
-    for (int j = 0; j < h; j++)
-        memcpy(&pixels[stride * j], &pixels[stride * (int)(j / rateHeight)], sizeof(int) * stride);
-    for (int j = h; j < height; j++)
-        memset(&pixels[stride * j], 0x00, sizeof(int) * stride);
-
-
-    uint8 t[4];
-    int len = sizeof(uint8) * 4;
-    for (int j = 0; j < h / 2; j++)
-    {
-        for (int i = 0; i < width; i++)
-        {
-
-            uint8* s = &bgra[stride * 4 * j + 4 * i];
-            uint8* d = &bgra[stride * 4 * (h - 1 - j) + 4 * i];
-            //uint8 grey = c[0] * 0.3f + c[1] * 0.4f + c[2] * 0.3f;
-            //c[0] = grey;
-            //c[1] = grey;
-            //c[2] = grey;
-
-            memcpy(t, s, len);
-            memcpy(s, d, len);
-            memcpy(d, t, len);
-
-            s[3] = linear(0xFF, 0x00, (float)j / height);
-            d[3] = 0xFF - s[3];
-
-            //uint8 grey = c[0] * 0.3f + c[1] * 0.4f + c[2] * 0.3f;
-            //c[0] = grey;
-            //c[1] = grey;
-            //c[2] = grey;
-        }
-
-    }
 }
 
