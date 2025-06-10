@@ -5,7 +5,7 @@
 struct Node
 {
 	Node* prev;
-	Node* next;
+	//Node* next;
 	void* data;
 };
 
@@ -17,7 +17,7 @@ struct iArray
 	int count;
 	MethodArray method;
 
-	iArray(MethodArray method);
+	iArray(MethodArray method = NULL);
 	virtual ~iArray();
 
 	void add(void* data);

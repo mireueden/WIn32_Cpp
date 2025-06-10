@@ -140,6 +140,7 @@
     <ClInclude Include="game\Oops.h" />
     <ClInclude Include="game\PS.h" />
     <ClInclude Include="game\Tripple.h" />
+    <ClInclude Include="game\VN.h" />
     <ClInclude Include="HelioUnreal.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="std\iArray.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="game\Oops.cpp" />
     <ClCompile Include="game\PS.cpp" />
     <ClCompile Include="game\Tripple.cpp" />
+    <ClCompile Include="game\VN.cpp" />
     <ClCompile Include="HelioUnreal.cpp" />
     <ClCompile Include="std\iArray.cpp" />
     <ClCompile Include="std\iColor.cpp" />

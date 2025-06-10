@@ -123,6 +123,9 @@ void drawRect(iRect rt)
 
 void fillRect(float x, float y, float width, float height)
 {
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
     float rt[] = {
     x, y,          _r, _g, _b, _a,   x + width, y,          _r, _g, _b, _a,
     x, y + height, _r, _g, _b, _a,   x + width, y + height, _r, _g, _b, _a,
@@ -143,8 +146,25 @@ void fillRect(iRect rt)
     fillRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height);
 }
 
+char* stringName = NULL;
 float stringSize = 25.0f, stringLineHeight = 30.0f;
 float sr = 1.0f, sg = 1.0f, sb = 1.0f, sa = 1.0f;
+const char* getStringName()
+{
+    return stringName;
+}
+void setStringName(const char* name)
+{
+    //stringName = (char*)name; // 이렇게 작성할 경우 될ㄸ도 잇고 안될때도 잇음(주소가 휘발성 정보이기 때문)
+    if (stringName)
+    {
+        if (strcmp(stringName, name) == 0)
+            return;
+        delete stringName;
+
+    }
+    stringName = iString::copy(name);
+}
 void setStringSize(float size)
 {
     stringSize = size;

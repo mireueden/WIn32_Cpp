@@ -1,4 +1,5 @@
 #include "iStrTex.h"
+#include "ImageText.h"
 
 iStrTex::iStrTex(MethodSt m)
 {
@@ -88,7 +89,6 @@ void iStrTex::paint(float x, float y, int anc)
 }
 
 
-
 void iStrTex::paint(float x, float y, int anc, const char* szFormat, ...)
 {
 	char szText[512];
@@ -158,5 +158,4 @@ Texture* iStrTex::createImage(StInfo* si,int siNum, const char* szFormat, ...)
 	iString::free(line, lineNum);
 	return tex;
 }
-
 

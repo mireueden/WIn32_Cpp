@@ -72,23 +72,12 @@ void iArray::add(int index, void* data)
 
 void* iArray::at(int index)
 {
-	
 	int i = count - 1;
-	for (Node* n = node;n; i--, n = n->prev)
+	for (Node* n = node; n; n = n->prev, i--)
 	{
 		if (i == index)
 			return n->data;
 	}
-	
-	Node* n = node;
-	for (int i = count - 1; i< count-1; i++)
-	{
-		if (i == index)
-			return n->data;
-	}
-
-
-
 	return NULL;
 }
 

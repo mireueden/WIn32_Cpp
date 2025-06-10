@@ -7,8 +7,9 @@
 
 iFPS::iFPS()
 {
-
     lastUpdate = GetTickCount();
+    count = 0;
+    takeTime = 0.000001f;
 }
 
 
@@ -30,7 +31,23 @@ float iFPS::update()
     float delta = (now - lastUpdate) / 1000.0f;
     lastUpdate = now;
 
+    count++;
+    takeTime += delta;
+    while (takeTime > fpsInterval)
+    {
+        int m = count / takeTime; // 50 f/s
+        takeTime -= fpsInterval; // 0.1
+
+        count = m * takeTime;
+    }
+
     return delta;
+}
+
+int iFPS::framePerSec()
+{
+    int fps = count / takeTime;
+    return fps;
 }
 
 #else 

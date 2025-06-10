@@ -63,7 +63,8 @@ void drawImage(Texture* tex, float x, float y,
 	int xyz, float degree, int anc, int reverse = REVERSE_NONE);
 // xyz 0:x축, 1:y축, 2:z축으로 회전
 
-
+const char* getStringName();
+void setStringName(const char* name);
 float getStringSize();
 void setStringSize(float size);
 float getStringLineHeight();

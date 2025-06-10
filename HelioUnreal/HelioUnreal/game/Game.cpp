@@ -10,12 +10,12 @@
 #include "Oops.h"
 #include "Comp.h"
 #include "ImageText.h"
+#include "VN.h"
 
 ParticleSystem* ps;
 
 void testGame();
 
-//Texture** texBtn;
 iImage** imgBtn;
 int selectedBtn;
 
@@ -23,8 +23,9 @@ int selectedBtn;
 Texture* texBg;
 Texture* texMirror;
 
-iImage* imgSt;
-iStrTex* st;
+static METHOD_VOID methodFree;
+static METHOD_FLOAT methodDraw;
+static METHOD_KEY methodKey;
 
 void loadGame()
 {
@@ -35,22 +36,17 @@ void loadGame()
 	loadImageText();
 
 #if 1
-	loadComp();
-	return;
-#elif 0
-	loadOops();
-	return;
-#elif 0
-	loadAnimating();
-	return;
-#elif 0
-	loadLotto();
-#elif 0 
-	loadTripple();
-#elif 0 
-	loadAirShooting();
-#elif 0
-	loadMemory();
+	METHOD_VOID mLoad[] = { loadVN, loadComp, loadOops, loadAnimating, loadLotto, loadTripple, loadMemory };
+	METHOD_VOID mFree[] = { freeVN, freeComp, freeOops, freeAnimating, freeLotto, freeTripple, freeMemory };
+	METHOD_FLOAT mDraw[] = { drawVN, drawComp, drawOops, drawAnimating, drawLotto, drawTripple, drawMemory };
+	METHOD_KEY mKey[] = { keyVN, keyComp, keyOops, keyAnimating, keyLotto, keyTripple, keyMemory };
+	int runIndex = 0;// !!!!!!!!!!!!!!!!!!!!!!!!!!!
+	mLoad[runIndex]();
+	methodFree = mFree[runIndex];
+	methodDraw = mDraw[runIndex];
+	methodKey = mKey[runIndex];
+
+
 #elif 0
 	ps = new ParticleSystem();
 	ps->save("test.ptc");
@@ -110,28 +106,14 @@ void freeGame()
 	freeImageText();
 
 #if 1
-	freeComp();
-#elif 0
-	freeOops();
+	methodFree();
 	return;
-#elif 0
-	freeAnimating();
-	return;
-#elif 0
-	freeLotto();
-#elif 0
-	freeTripple();
-#elif 0
-	freeAirShooting();
-#elif 0
-	freeMemory();
 #elif 0
 	delete ps;
-#elif 1
+#endif
 	for (int i = 0; i < 3; i++)
 		delete(imgBtn[i]);
 	delete imgBtn;
-#endif
 }
 
 
@@ -165,24 +147,7 @@ void drawGame(float dt)
 #endif	
 
 #if 1
-	drawComp(dt);
-#elif 0
-	drawOops(dt);
-	return;
-#elif 0
-	drawAnimating(dt);
-	return;
-#elif 0
-	drawLotto(dt);
-	return;
-#elif 0
-	drawTripple(dt);
-	return;
-#elif 0
-	drawAirShooting(dt);
-	return;
-#elif 0
-	drawMemory(dt);
+	methodDraw(dt);
 	return;
 #elif 0
 	ps->paint(dt, iPointMake(DEV_WIDTH / 2, DEV_HEIGHT / 2));
@@ -194,27 +159,8 @@ void drawGame(float dt)
 
 void KeyGame(iKeyStat stat, iPoint point)
 {
-
 #if 1
-	keyComp(stat, point);
-	return;
-#elif 0
-	keyOops(stat, point);
-	return;
-#elif 0
-	keyAnimating(stat, point);
-	return;
-#elif 0
-	keyLotto(stat, point);
-	return;
-#elif 0
-	keyTripple(stat, point);
-	return;
-#elif 0
-	keyAirShooting(stat, point);
-	return;
-#elif 0
-	keyMemory(stat, point);
+	methodKey(stat, point);
 	return;
 #endif
 
