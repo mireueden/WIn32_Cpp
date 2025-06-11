@@ -28,6 +28,7 @@ void loadOpenGL(HWND hwnd)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_LINE_SMOOTH);
+
     setMakeCurrent(false);
 }
 
@@ -52,6 +53,7 @@ void resizeOpenGL(int width, int height)
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    
 }
 
 void swapBuffer()

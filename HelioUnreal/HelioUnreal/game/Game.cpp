@@ -27,8 +27,10 @@ static METHOD_VOID methodFree;
 static METHOD_FLOAT methodDraw;
 static METHOD_KEY methodKey;
 
+
 void loadGame()
 {
+
 	texBg = createImageFilter("assets/download0.png");
 	setImageFilter(imageFilterMirror);
 	texMirror = createImageFilter("assets/download0.png");

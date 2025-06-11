@@ -13,14 +13,18 @@ struct WhoSay
 	const char* say;
 };
 
-typedef void (*MethodSM)(char** line, int lineNum, int pageIndex, int pageNum);
+typedef void (*MethodSM)(char** line, int lineNum, 
+	int pageIndex, int pageNum,
+	const char* stringName, float stringSize);
 
 struct ScriptMgt
 {
 	ScriptMgt(MethodSM method);
 	virtual ~ScriptMgt();
 
-	void set(WhoSay* ws, int wsNum, int lw, int lop);
+	void set(WhoSay* ws, int wsNum,
+		const char* stringName, float stringSize,
+		int lineWidth, int linesOfPage, float aniDt = 0.1);
 	void clean();
 	void load(const char* say);
 	bool nextPage(); // pageIndex++
@@ -32,6 +36,8 @@ public:
 
 	// set
 	WhoSay* ws;
+	char* stringName;
+	float stringSize;
 	int wsNum, wsIndex;
 	int lineWidth, linesOfPage;
 
@@ -39,6 +45,10 @@ public:
 	char*** pageStr; 
 	int pageIndex, pageNum;
 
+	// animation
+	char** aniStr;
+	float aniDt, _aniDt;
+	int aniIndex, aniTotal;
 };
 
 extern WhoSay ws[10];
