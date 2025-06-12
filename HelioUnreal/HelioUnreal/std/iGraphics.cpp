@@ -176,7 +176,7 @@ void iGraphics::drawString(float x, float y,int anc, const char* szFormat, ...)
 	drawString(g, x, y, anc, szText);
 }
 
-void checkFontFamily(const char* stringName, FontFamily* ff,FontStyle& fs)
+void checkFontFamily(const char* stringName, FontFamily* ff, FontStyle& fs)
 {
 	if (strncmp(stringName, "ass", 3))
 	{
@@ -187,7 +187,7 @@ void checkFontFamily(const char* stringName, FontFamily* ff,FontStyle& fs)
 		fs = FontStyleRegular;
 	}
 	else
-	{ // path, pfc
+	{
 		PrivateFontCollection* pfc = new PrivateFontCollection();
 		wchar_t* path = utf8_to_utf16(stringName);
 		pfc->AddFontFile(path);
@@ -195,13 +195,13 @@ void checkFontFamily(const char* stringName, FontFamily* ff,FontStyle& fs)
 
 		int count = pfc->GetFamilyCount();
 		int found;
-		pfc->GetFamilies(count, ff, &found); // ff 구함
+		pfc->GetFamilies(count, ff, &found);// ff
 
 		for (int i = 0; i < found; i++)
 		{
-			if (ff->IsStyleAvailable(FontStyleRegular)) 
+			if (ff->IsStyleAvailable(FontStyleRegular))
 			{
-				fs = FontStyleRegular; // fs
+				fs = FontStyleRegular;// fs
 				break;
 			}
 			else if (ff->IsStyleAvailable(FontStyleBold))
@@ -212,8 +212,6 @@ void checkFontFamily(const char* stringName, FontFamily* ff,FontStyle& fs)
 		}
 		delete pfc;
 	}
-
-	
 }
 
 void iGraphics::drawString(Graphics* graphics, float x, float y, int anc, const char* szFormat, ...)
@@ -247,8 +245,7 @@ void iGraphics::drawString(Graphics* graphics, float x, float y, int anc, const 
 	FontStyle fs;
 	checkFontFamily(getStringName(), &ff, fs);
 	Font        font(&ff, getStringSize(), fs, UnitPixel);
-#endif 
-
+#endif
 	PointF      pointF(x, y);
 	float r, g, b, a;
 	getStringRGBA(r, g, b, a);
@@ -258,6 +255,7 @@ void iGraphics::drawString(Graphics* graphics, float x, float y, int anc, const 
 	graphics->DrawString(wStr, -1, &font, pointF, &solidBrush);
 	delete wStr;
 }
+
 
 void iGraphics::drawString(Graphics* graphics, float x, float y, const char* szFormat, ...)
 {

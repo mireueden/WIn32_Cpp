@@ -5,25 +5,58 @@ void methodSM(char** line, int lineNum,
 	int pageIndex, int pageNum,
 	const char* stringName, float stringSize);
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
+#include <glm/gtx/string_cast.hpp>
+
+Texture** texWho;
+
 void loadVN()
 {
+	WhoSay* whoSay = ws;
+	int whoSayNum = 10;
+	// File IO
+#if 0
+	ScriptMgt::save("assets/ws.scr", ws, 10);
+#elif 0
+	int whoSayNum;
+	WhoSay* whoSay = ScriptMgt::call("assets/ws.scr", whoSayNum);
+#endif
+
 	sm = new ScriptMgt(methodSM);
 	int lineWidth = 150;
 	int linesOfPage = 3;
-	sm->set(ws, 10,
+	sm->set(whoSay, whoSayNum,
 		"assets/CookieRun_Regular.ttf", 25,
 		//"assets/CRRegular.ttf", 25,
 		lineWidth, linesOfPage, 0.1f);
+
+	texWho = createImage(5, 2, "assets/who.jpg");
+	//texWho = createImage(5, 2, "assets/SON0.jpg");
+	for (int i = 0; i < 10; i++)
+	{
+		Texture* t = texWho[i];
+		t->width /= 8.;
+		t->height /= 8.;
+		t->potWidth /= 8.;
+		t->potHeight /= 8.;
+	}
 }
 
 void freeVN()
 {
 	delete sm;
+	for (int i = 0; i < 10; i++)
+		freeImage(texWho[i]);
+	delete texWho;
 }
 
 iStrTex** stVN = NULL;
 
-void methodSM(char** line, int lineNum, int pageIndex, int pageNum, const char* stringName, float stringSize)
+void methodSM(char** line, int lineNum,
+	int pageIndex, int pageNum,
+	const char* stringName, float stringSize)
 {
 	setRGBA(1, 0, 0, 1);
 	float x = 0, y = 0;
@@ -54,6 +87,9 @@ void drawVN(float dt)
 	clear();
 
 	sm->paint(dt);
+
+	for (int i = 0; i < 10; i++)
+		drawImage(texWho[i], 10 + 80 * (i % 5), 20 + 150 * (i / 5), TOP | LEFT);
 }
 
 void keyVN(iKeyStat stat, iPoint point)
@@ -63,6 +99,7 @@ void keyVN(iKeyStat stat, iPoint point)
 		sm->nextPage();
 	}
 }
+
 
 WhoSay ws[10]
 {
@@ -90,6 +127,55 @@ ScriptMgt::ScriptMgt(MethodSM method)
 ScriptMgt::~ScriptMgt()
 {
 	clean();
+}
+
+void ScriptMgt::save(const char* path, WhoSay* ws, int wsNum)
+{
+	FILE* pf = fopen(path, "wb");
+
+	fwrite(&wsNum, sizeof(int), 1, pf);
+	for (int i = 0; i < wsNum; i++)
+	{
+		const char* t = ws[i].who;
+		int len = strlen(t);
+		fwrite(&len, sizeof(int), 1, pf);
+		fwrite(t, sizeof(char), len, pf);
+
+		t = ws[i].say;
+		len = strlen(t);
+		fwrite(&len, sizeof(int), 1, pf);
+		fwrite(t, sizeof(char), len, pf);
+	}
+
+	fclose(pf);
+}
+WhoSay* ScriptMgt::call(const char* path, int& wsNum)
+{
+	FILE* pf = fopen(path, "rb");
+
+	int num;
+	fread(&num, sizeof(int), 1, pf);
+	WhoSay* ws = new WhoSay[num];
+	for (int i = 0; i < num; i++)
+	{
+		int len;
+		fread(&len, sizeof(int), 1, pf);
+		char* t = new char[len + 1];
+		fread(t, sizeof(char), len, pf);
+		t[len] = 0;
+		ws[i].who = t;
+
+		fread(&len, sizeof(int), 1, pf);
+		t = new char[len + 1];
+		fread(t, sizeof(char), len, pf);
+		t[len] = 0;
+		ws[i].say = t;
+	}
+
+	fclose(pf);
+
+	wsNum = num;
+	return ws;
 }
 
 void ScriptMgt::clean()
@@ -125,9 +211,9 @@ void ScriptMgt::set(WhoSay* ws, int wsNum,
 	for (int i = 0; i < lop; i++)
 		aniStr[i] = new char[512];
 	_aniDt = aDt;
+	aniDt = 0.0f;
 	aniIndex = 0;
 	load(ws[0].say);
-
 }
 
 void ScriptMgt::load(const char* say)
@@ -178,11 +264,6 @@ void ScriptMgt::load(const char* say)
 
 	setStringName(bkSN);
 	setStringSize(bkSS);
-
-	// ani Total
-
-	aniDt = 0.0f;
-	aniIndex = 0;
 }
 
 bool ScriptMgt::nextWs()
@@ -213,13 +294,13 @@ bool ScriptMgt::nextPage()
 			aniDt = 0.0f;
 		}
 	}
-	else // if (pageIndex == pageNum)
+	else// if (pageIndex == pageNum)
 	{
 		return nextWs();
 	}
-
 	return true;
 }
+
 
 
 void ScriptMgt::paint(float dt)
@@ -268,9 +349,11 @@ void ScriptMgt::paint(float dt)
 	//method(s, sNum, pageIndex, pageNum, stringName, stringSize);
 
 	// aniTotal, aniIndex 고려해서 aniStr입력, aniStrNum
-	void copyLine(char** src, int srcNum, char** dst, int& dstNum, int len);
-
+	void copyLine(char** src, int srcNum,
+		char** dst, int& dstNum, int len);
 	int aniNum;
+	for (int i = 0; i < linesOfPage; i++)
+		memset(aniStr[i], 0x00, sizeof(char) * 512);
 	copyLine(s, sNum, aniStr, aniNum, aniIndex);
 	//printf("============================= (%d, %d)\n", aniIndex, aniNum);
 	//for (int i = 0; i < aniNum; i++)
@@ -278,14 +361,15 @@ void ScriptMgt::paint(float dt)
 	method(aniStr, aniNum, pageIndex, pageNum, stringName, stringSize);
 }
 
-void copyLine(char** src, int srcNum, char** dst, int& dstNum, int len)
+void copyLine(char** src, int srcNum,
+	char** dst, int& dstNum, int len)
 {
 	int m = 0, n = 0;
 	for (int i = 0; i < len; i++)
 	{
 		int cpy = iString::isUTF8(&src[m][n]) ? 3 : 1;
 		memcpy(&dst[m][n], &src[m][n], cpy);
-		dst[m][n + cpy] = 0;// <<< end of string
+		//dst[m][n + cpy] = 0;// <<< end of string
 		n += cpy;
 		if (src[m][n] == 0)
 		{
@@ -293,7 +377,6 @@ void copyLine(char** src, int srcNum, char** dst, int& dstNum, int len)
 			n = 0;
 		}
 	}
-	// dstNum = m; 일때 한 줄만 계속 출력
 	dstNum = m + 1;
 	if (dstNum > srcNum)
 		dstNum = srcNum;

@@ -35,6 +35,8 @@ void setRGBA(float r, float g, float b, float a);
 
 void clear();
 
+void setClip(float x, float y, float width, float height);
+
 void setLineWidth(float width);
 void drawLine(float x0, float y0, float x1, float y1);
 void drawLine(iPoint p0, iPoint p1);
@@ -55,6 +57,7 @@ uint8* bmp2rgba(Bitmap* bmp, int& width, int& height);
 Texture* createImageWithRGBA(uint8* rgba, int width, int height);
 
 Texture* createImage(const char* szFormat, ...);
+Texture** createImage(int wNum, int hNum, const char* szFormat, ...);
 void freeImage(Texture* tex);
 void drawImage(Texture* tex, float x, float y, int anc);
 void drawImage(Texture* tex, float x, float y,
