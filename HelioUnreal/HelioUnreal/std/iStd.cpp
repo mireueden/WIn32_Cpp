@@ -18,12 +18,12 @@ void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free,
     GdiplusStartupInput gdiplusStartupInput;
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-    loadOpenGL(hWnd);
-
     keydown = keydown_none;
     keystat = keydown_none;
     devSize = iSizeMake(DEV_WIDTH, DEV_HEIGHT);
     viewport = iRectMake(0, 0, 1, 1);
+
+    loadOpenGL(hWnd);
 
     _r = 1.0f;
     _g = 1.0f;
@@ -52,7 +52,8 @@ void drawApp(float dt)
 
     resizeOpenGL(0, 0);// wm_size, wm_sizing, wm_move
 
-#if 0
+
+#if 0 // double buffering
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     methodDraw(dt);
@@ -61,17 +62,25 @@ void drawApp(float dt)
     fbo->bind();
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    
     methodDraw(dt);
     fbo->unbind();
 
     // front buffer(draw bmp)
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // Pre-multiplied alpha
 
     Texture* t = fbo->tex;
-    float r = viewport.size.width / devSize.width;
-    drawImage(t, viewport.origin.x, viewport.origin.y,
-        0, 0, t->width, t->height, r, r, 2, 0, TOP | LEFT, REVERSE_HEIGHT);
+    //float r = 1; // viewport.size.width / devSize.width;
+    //drawImage(t, viewport.origin.x, viewport.origin.y,
+    //    0, 0, t->width, t->height, r, r, 2, 0, TOP | LEFT, REVERSE_HEIGHT);
+
+    drawImage(t, 0, 0, 0, 0, t->width, t->height, 1, 1, 2, 0, TOP | LEFT, REVERSE_HEIGHT);
+    // MINI-MAP
+    //drawImage(t, devSize.width-10, devSize.height-10, 0, 0, t->width, t->height,
+    //    0.2f, 0.2f, 2, 0, BOTTOM | RIGHT, REVERSE_HEIGHT);
 #endif
 
     swapBuffer();
@@ -108,7 +117,9 @@ void setClip(float x, float y, float width, float height)
     else
     {
         glEnable(GL_SCISSOR_TEST);
-        glScissor(x, devSize.height - y, width, height);
+        //glScissor(x, devSize.height - y, width, height);
+        //glScissor(x, 1920 - y, width, height);
+        glScissor(x, devSize.height - y - height, width, height);
     }
 }
 

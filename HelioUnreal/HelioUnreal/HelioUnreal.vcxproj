@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="game\4Myen.h" />
     <ClInclude Include="game\AirShooting.h" />
     <ClInclude Include="game\Animating.h" />
     <ClInclude Include="game\Comp.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="game\4Myen.cpp" />
     <ClCompile Include="game\AirShooting.cpp" />
     <ClCompile Include="game\Animating.cpp" />
     <ClCompile Include="game\Comp.cpp" />

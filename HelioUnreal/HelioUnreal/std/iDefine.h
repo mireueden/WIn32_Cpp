@@ -15,6 +15,7 @@ using namespace Gdiplus;
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #pragma comment(lib, "opengl32")
+//#pragma comment(lib, "glu32")
 
 #include <stdio.h>
 #include <stdlib.h>

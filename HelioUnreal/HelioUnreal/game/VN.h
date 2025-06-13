@@ -56,6 +56,25 @@ public:
 
 extern WhoSay ws[10];
 
+struct DicWho
+{
+	Texture* tex;
+	char* key;
+};
+void loadDicWho();
+void freeDicWho();
+Texture* getDicWho(const char* key);
+
+// ============================================================
+// popTest
+// ============================================================
+
+
+void createPopTest();
+void freePopTest();
+void showPopTest(bool show);
+void drawPopTest(float dt);
+bool keyPopTest(iKeyStat stat, iPoint point);
 
 #if 0
 #define GLM_ENABLE_EXPERIMENTAL
@@ -82,3 +101,6 @@ void testGLM()
 }
 
 #endif
+
+
+

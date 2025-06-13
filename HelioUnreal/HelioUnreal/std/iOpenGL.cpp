@@ -32,12 +32,31 @@ void loadOpenGL(HWND hwnd)
         return;
 
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    // DST (0,0,0,1)        SRC(1,1,1,0.2);
+    // 0 * (1.0 - 0.2) + 1 * 0.2
+    // RGB (0.2,0.2,0.2,?)
+
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    // Input Color.rgb = DST.rgb * (1.0 - SRC.alpha)  + SRC.rgb * SRC.alpha
+    // Input Color.a   = DST.a * (1.0 - SRC.alpha) + SRC.alpha * SRC.alpha
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    // DST(background)  SRC(image)
+    // Input Color.rgb = DST.rgb * (1.0 - SRC.alpha)  + SRC.rgb * SRC.alpha
+    // Input Color.a   = DST.a * (1.0 - SRC.alpha) + SRC.alpha
+    
+    // fbo : frame buffer에 바인딩된 텍스쳐는 이렇게
+    // Input Color.rgb = DST.rgb * (1.0 - SRC.alpha)  + SRC.rgb//(SRC.rgb * SRC.alpha)
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    //glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_LINE_SMOOTH);
 
     //fbo = new iFBO(devSize.width, devSize.height);
     fbo = new iFBO(1920, 1080);
+    fbo->tex->width = devSize.width;
+    fbo->tex->height = devSize.height;
+    
 
     setMakeCurrent(false);
 }
@@ -126,6 +145,9 @@ iFBO::iFBO(int width, int height)
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    texPrev = new Texture * [10];
+    numPrev = 0;
 }
 
 iFBO::~iFBO()
@@ -135,6 +157,8 @@ iFBO::~iFBO()
 
     glDeleteRenderbuffers(1, &depthBuffer);
     freeImage(tex);
+
+    delete texPrev;
 }
 
 void iFBO::bind()
@@ -142,11 +166,7 @@ void iFBO::bind()
     bind(tex);
 }
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
-#include <glm/gtx/string_cast.hpp>
-void iFBO::bind(Texture* tex)
+void iFBO::_bind(Texture* tex)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);// fbo screen
 
@@ -162,14 +182,32 @@ void iFBO::bind(Texture* tex)
     glOrtho(0, tex->width, tex->height, 0, -1024, 1024);
 }
 
+void iFBO::bind(Texture* tex)
+{
+    _bind(tex);
+
+    texPrev[numPrev] = tex; // [0] = tex, 1
+    numPrev++;
+}
+
 void iFBO::unbind()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);// real screen
+    numPrev--;
+    if (numPrev)
+        //_bind(texPrev[numPrev]);
+        _bind(texPrev[numPrev - 1]);
+    else
+    {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);// real screen
 
-    glViewport(viewport.origin.x, viewport.origin.y,
-        viewport.size.width, viewport.size.height);
+        glViewport(viewport.origin.x, viewport.origin.y,
+            viewport.size.width, viewport.size.height);
 
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, devSize.width, devSize.height, 0, -1024, 1024);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, devSize.width, devSize.height, 0, -1024, 1024);
+    }
+
+        
+
 }

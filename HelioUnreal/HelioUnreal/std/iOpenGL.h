@@ -28,12 +28,18 @@ public:
 	static Texture* createImage(int width, int height);
 
 	void bind();
+private:
+	void _bind(Texture* tex);
+public:
 	void bind(Texture* tex);
 	void unbind();
 
 	uint32 fbo;
 	uint32 depthBuffer;
 	Texture* tex;
+
+	Texture** texPrev;
+	int numPrev;
 };
 
 extern iFBO* fbo;

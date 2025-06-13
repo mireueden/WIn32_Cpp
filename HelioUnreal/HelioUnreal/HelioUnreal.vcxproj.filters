@@ -108,6 +108,9 @@
     <ClInclude Include="game\VN.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="game\4Myen.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelioUnreal.cpp">
@@ -195,6 +198,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="glew.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\4Myen.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
