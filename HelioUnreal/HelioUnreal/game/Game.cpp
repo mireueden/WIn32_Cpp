@@ -12,6 +12,7 @@
 #include "ImageText.h"
 #include "VN.h"
 #include "4Myen.h"
+#include "Lemon.h"
 
 ParticleSystem* ps;
 
@@ -39,11 +40,11 @@ void loadGame()
 	loadImageText();
 
 #if 1
-	METHOD_VOID mLoad[] = { load4Myen, loadVN, loadComp, loadOops, loadAnimating, loadLotto, loadTripple, loadMemory };
-	METHOD_VOID mFree[] = { free4Myen, freeVN, freeComp, freeOops, freeAnimating, freeLotto, freeTripple, freeMemory };
-	METHOD_FLOAT mDraw[] = { draw4Myen, drawVN, drawComp, drawOops, drawAnimating, drawLotto, drawTripple, drawMemory };
-	METHOD_KEY mKey[] = { key4Myen, keyVN, keyComp, keyOops, keyAnimating, keyLotto, keyTripple, keyMemory };
-	int runIndex = 1;// !!!!!!!!!!!!!!!!!!!!!!!!!!!
+	METHOD_VOID mLoad[] = { loadLemon, load4Myen, loadVN, loadComp, loadOops, loadAnimating, loadLotto, loadTripple, loadMemory };
+	METHOD_VOID mFree[] = { freeLemon, free4Myen, freeVN, freeComp, freeOops, freeAnimating, freeLotto, freeTripple, freeMemory };
+	METHOD_FLOAT mDraw[] = { drawLemon, draw4Myen, drawVN, drawComp, drawOops, drawAnimating, drawLotto, drawTripple, drawMemory };
+	METHOD_KEY mKey[] = { keyLemon, key4Myen, keyVN, keyComp, keyOops, keyAnimating, keyLotto, keyTripple, keyMemory };
+	int runIndex = 0;// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 	mLoad[runIndex]();
 	methodFree = mFree[runIndex];
 	methodDraw = mDraw[runIndex];

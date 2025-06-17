@@ -111,6 +111,15 @@
     <ClInclude Include="game\4Myen.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="game\Lemon.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\LemonMenu.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\LemonProc.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelioUnreal.cpp">
@@ -201,6 +210,15 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="game\4Myen.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Lemon.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\LemonMenu.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\LemonProc.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

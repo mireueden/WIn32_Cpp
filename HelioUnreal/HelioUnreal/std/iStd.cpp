@@ -48,6 +48,23 @@ void freeApp()
 
 void drawApp(float dt)
 {
+
+#if 1
+    setMakeCurrent(true);
+
+    glClearColor(1, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // 선긋기, 사각형 (fill,draw) / 이미지
+    setLineWidth(3);
+    drawLine(11, 10, 100, 100);
+
+
+    swapBuffer();
+    setMakeCurrent(false);
+    return;
+#endif
+
     setMakeCurrent(true);
 
     resizeOpenGL(0, 0);// wm_size, wm_sizing, wm_move
@@ -129,7 +146,7 @@ void setLineWidth(float width)
     lineWidth = width;
 }
 
-void drawLine(float x0, float y0, float x1, float y1)
+void drawLine_deprecated(float x0, float y0, float x1, float y1)
 {
     float position[] = { x0, y0, x1, y1 };
 
@@ -143,6 +160,136 @@ void drawLine(float x0, float y0, float x1, float y1)
     glDrawElements(GL_LINES, 2, GL_UNSIGNED_BYTE, indices);
 
     glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+
+
+void checkShaderID(uint32 id)
+{
+    GLint result;
+    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+    if (result == GL_TRUE)
+        return;
+
+    int length;
+    glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+    char* s = new char[1 + length];
+    glGetShaderInfoLog(id, length, NULL, s);
+    s[length] = 0;
+    printf("checkShaderID error()%s)\n", s);
+    delete s;
+}
+
+void checkProgramID(uint32 id)
+{
+    GLint result;
+    glGetProgramiv(id, GL_LINK_STATUS, &result);
+    if (result == GL_TRUE)
+        return;
+
+    int length;
+    glGetProgramiv(id, GL_INFO_LOG_LENGTH, &length);
+    char* s = new char[1 + length];
+    glGetProgramInfoLog(id, length, NULL, s);
+    s[length] = 0;
+    printf("checkProgramID error()%s)\n", s);
+    delete s;
+}
+
+uint32 build(const char* strVert, const char* strFrag)
+{
+    uint32 vertID = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertID, 1, &strVert, NULL);
+    glCompileShader(vertID);
+    checkShaderID(vertID);
+
+    uint32 fragID = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragID, 1, &strFrag, NULL);
+    glCompileShader(fragID);
+    checkShaderID(fragID);
+
+    uint32 programID = glCreateProgram();
+    glAttachShader(programID, vertID);
+    glAttachShader(programID, fragID);
+    glLinkProgram(programID);
+    glDetachShader(programID, vertID);
+    glDetachShader(programID, fragID);
+    checkProgramID(programID);
+
+    glDeleteShader(vertID);
+    glDeleteShader(fragID);
+
+    return programID;
+}
+
+uint32 buildFromPath(const char* pathVertex, const char* pathFrag)
+{
+    int len;
+    char* strVert = loadFile(len, pathVertex);
+    char* strFrag = loadFile(len, pathFrag);
+    uint32 programID = build(strVert, strFrag);
+    delete strVert;
+    delete strFrag;
+
+    return programID;
+}
+
+
+void drawLine(float x0, float y0, float x1, float y1)
+{
+    static uint32 programID = buildFromPath("assets/line.vert", "assets/line.frag");
+    glUseProgram(programID);
+
+    float half = lineWidth / 2 + 0.5f;
+    float dx = x1 - x0, dy = y1 - y0;
+    float d = sqrtf(dx * dx + dy * dy) / 2 + half;
+    float x = (x0 + x1) / 2.0f;
+    float y = (y0 + y1) / 2.0f;
+    float position[] = {
+        -d, -half, 0, 1,            d, -half, 0, 1,
+        -d, +half, 0, 1,            d, +half, 0, 1,
+    };
+    //glDisable(GL_CULL_FACE);
+    //glFrontFace(GL_CCW);
+
+    //glm::mat4 projMatrix = glm::ortho(0.0f, devSize.width, devSize.height, 0.0f, -1000.0f, 1000.0f);
+    glm::mat4 projMatrix = glm::ortho(0.0f, devSize.width, 0.0f, devSize.height, -1000.0f, 1000.0f);
+
+    float m[4][4];
+
+    memcpy(&projMatrix, m, sizeof(float) * 16);
+
+    glm::mat4 viewMatrix(1.0f);
+    viewMatrix = glm::translate(viewMatrix, glm::vec3(x, y, 0));
+    float theta = atan((float)dy / dx);// *180 / M_PI;
+    viewMatrix = glm::rotate(viewMatrix, theta, glm::vec3(0, 0, 1));
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);// 1
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 16, position);
+    uint32 pAttr = glGetAttribLocation(programID, "position");
+    glEnableVertexAttribArray(pAttr);// 2
+    glVertexAttribPointer(pAttr, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (const void*)0);
+
+    uint32 pID = glGetUniformLocation(programID, "projMatrix");
+    glUniformMatrix4fv(pID, 1, false, (float*)&projMatrix);
+    uint32 vID = glGetUniformLocation(programID, "viewMatrix");
+    glUniformMatrix4fv(vID, 1, false, (float*)&viewMatrix);
+
+    glUniform2f(glGetUniformLocation(programID, "u_start"), x0, y0);
+    glUniform2f(glGetUniformLocation(programID, "u_end"), x1, y1);
+    glUniform1f(glGetUniformLocation(programID, "u_width"), lineWidth);
+    glUniform4f(glGetUniformLocation(programID, "u_color"), _r, _g, _b, _a);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbe); // 3
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // 3
+    //uint8 indices[] = { 0, 1, 2,  2, 1, 3 };
+    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+
+
+    glDisableVertexAttribArray(pAttr); // 2
+    glBindBuffer(GL_ARRAY_BUFFER, vbo); // 1
+
 }
 
 void drawLine(iPoint p0, iPoint p1)

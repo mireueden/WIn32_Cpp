@@ -53,13 +53,12 @@ void iImage::paint(float dt, iPoint position)
 		}
 	}
 
-	tex = (Texture*)array->at(0);
+	tex = (Texture*)array->at(index);
 	iPoint p = this->position * rate + position;
 	drawImage(tex, p.x, p.y,
 		0, 0, tex->width, tex->height,
 		rate, rate, 2, 0, anc, reverse);
 }
-
 
 void iImage::startAnimation(iImageAnimation m, void* p)
 {
@@ -71,11 +70,9 @@ void iImage::startAnimation(iImageAnimation m, void* p)
 	parm = p;
 }
 
-
-
 iRect iImage::touchRect(iPoint position)
 {
-	if (tex == NULL)
+	if( tex==NULL )
 		return iRectMake(0, 0, 0, 0);
 
 	iPoint p = this->position + position;

@@ -12,6 +12,7 @@ using namespace Gdiplus;
 #pragma comment (lib, "Gdiplus.lib")
 
 #include <gl/glew.h>
+#include <gl/wglew.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #pragma comment(lib, "opengl32")
@@ -20,9 +21,15 @@ using namespace Gdiplus;
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 //#include <malloc.h>
 //#include <memory.h>
 //#include <tchar.h>
+
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 
 #define DEV_WIDTH 640

@@ -1,240 +1,35 @@
-﻿  HelioUnreal.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(122,16): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'WPARAM'입니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(122,16):
-      서식 문자열에서 '%lld'을(를) 사용하는 것이 좋습니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(122,16):
-      서식 문자열에서 '%Id'을(를) 사용하는 것이 좋습니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(122,16):
-      서식 문자열에서 '%I64d'을(를) 사용하는 것이 좋습니다.
-  
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(123,32): warning C4244: '인수': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(124,32): warning C4244: '인수': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(127,16): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'WPARAM'입니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(127,16):
-      서식 문자열에서 '%lld'을(를) 사용하는 것이 좋습니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(127,16):
-      서식 문자열에서 '%Id'을(를) 사용하는 것이 좋습니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(127,16):
-      서식 문자열에서 '%I64d'을(를) 사용하는 것이 좋습니다.
-  
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(128,33): warning C4244: '인수': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(132,16): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'WPARAM'입니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(132,16):
-      서식 문자열에서 '%lld'을(를) 사용하는 것이 좋습니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(132,16):
-      서식 문자열에서 '%Id'을(를) 사용하는 것이 좋습니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(132,16):
-      서식 문자열에서 '%I64d'을(를) 사용하는 것이 좋습니다.
-  
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(137,16): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'WPARAM'입니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(137,16):
-      서식 문자열에서 '%lld'을(를) 사용하는 것이 좋습니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(137,16):
-      서식 문자열에서 '%Id'을(를) 사용하는 것이 좋습니다.
-      C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(137,16):
-      서식 문자열에서 '%I64d'을(를) 사용하는 것이 좋습니다.
-  
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(198,14): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\HelioUnreal.cpp(210,14): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  4Myen.cpp
-  AirShooting.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\AirShooting.cpp(211,31): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\AirShooting.cpp(213,22): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\AirShooting.cpp(357,30): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
-  Animating.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(19,50): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(19,36): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(180,24): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(180,16): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(183,32): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(183,20): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(217,35): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(217,24): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(228,46): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp(228,41): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Comp.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Comp.cpp(56,33): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Comp.cpp(83,26): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Comp.cpp(83,14): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Comp.cpp(116,26): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Comp.cpp(116,14): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Comp.cpp(181,6): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
-  CtrlImage.cpp
-  Game.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Game.cpp(76,37): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Game.cpp(82,36): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Game.cpp(82,20): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  ImageText.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\ImageText.cpp(27,15): warning C4244: '/=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\ImageText.cpp(28,16): warning C4244: '/=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\ImageText.cpp(29,18): warning C4244: '/=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\ImageText.cpp(30,19): warning C4244: '/=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\ImageText.cpp(47,23): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\ImageText.cpp(92,33): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\ImageText.cpp(92,18): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Lotto.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Lotto.cpp(20,43): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Lotto.cpp(27,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Memory.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Memory.cpp(85,11): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Oops.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(142,8): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(142,28): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(143,8): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(143,30): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(225,19): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(226,19): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(227,34): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(228,35): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(371,38): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(371,33): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(379,61): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(379,43): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(379,25): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(379,19): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(397,27): warning C4312: '형식 캐스트': 'uint32'에서 더 큰 'Gdiplus::Bitmap *'(으)로의 변환입니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Oops.cpp(399,27): warning C4312: '형식 캐스트': 'uint32'에서 더 큰 'Gdiplus::Bitmap *'(으)로의 변환입니다.
-  PS.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\PS.cpp(17,6): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\PS.cpp(17,19): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\PS.cpp(90,47): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\PS.cpp(90,29): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Tripple.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Tripple.cpp(297,49): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Tripple.cpp(297,29): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  VN.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(36,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(46,26): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(46,14): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(174,11): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(179,15): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(261,7): warning C4101: 't' :참조되지 않은 지역 변수입니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(444,15): warning C4244: '/=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(445,16): warning C4244: '/=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(446,18): warning C4244: '/=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\VN.cpp(447,19): warning C4244: '/=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  iColor.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(19,10): warning C4244: '=': 'float'에서 'byte'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(20,10): warning C4244: '=': 'float'에서 'byte'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(21,10): warning C4244: '=': 'float'에서 'byte'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(22,10): warning C4244: '=': 'float'에서 'byte'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(29,16): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(29,13): warning C4244: '=': 'float'에서 'byte'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(30,16): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(30,13): warning C4244: '=': 'float'에서 'byte'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(31,16): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(31,13): warning C4244: '=': 'float'에서 'byte'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(32,16): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp(32,13): warning C4244: '=': 'float'에서 'byte'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  iGraphics.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(22,55): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(22,45): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(22,35): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(22,25): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(27,56): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(27,46): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(27,36): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(27,26): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(77,48): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(77,38): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(77,28): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(77,18): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(104,48): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(104,38): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(104,28): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(104,18): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(130,57): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(130,47): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(130,37): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(130,27): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(225,8): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(225,27): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(252,63): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(252,53): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(252,43): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(252,33): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(279,63): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(279,53): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(279,43): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp(279,33): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  iImage.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iImage.cpp(12,11): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iImage.cpp(82,44): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iImage.cpp(82,32): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  iOpenGL.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(57,30): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(58,31): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(77,88): warning C4244: '인수': 'float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(77,67): warning C4244: '인수': 'float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(77,50): warning C4244: '인수': 'float'에서 'GLint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(77,31): warning C4244: '인수': 'float'에서 'GLint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(204,47): warning C4244: '인수': 'float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(204,26): warning C4244: '인수': 'float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(203,54): warning C4244: '인수': 'float'에서 'GLint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp(203,35): warning C4244: '인수': 'float'에서 'GLint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  iPopup.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iPopup.cpp(10,52): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iPopup.cpp(10,37): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iPopup.cpp(93,17): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iPopup.cpp(94,18): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  iShortestPath.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iShortestPath.cpp(167,19): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iShortestPath.cpp(166,37): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  코드를 생성하고 있습니다...
-  컴파일하고 있습니다...
-  iStd.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(122,58): warning C4244: '인수': 'float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(122,51): warning C4244: '인수': 'float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(122,41): warning C4244: '인수': 'float'에서 'GLint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(122,19): warning C4244: '인수': 'float'에서 'GLint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(341,24): warning C4244: '초기화 중': 'float'에서 'uint8'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(352,11): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(373,26): warning C4244: '=': 'float'에서 'uint8'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(479,11): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(480,11): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(492,25): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(492,25): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(492,33): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(492,33): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(492,42): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(492,42): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(492,50): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(492,50): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(493,25): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(493,25): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(493,33): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(493,33): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(493,42): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(493,42): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(493,50): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(493,50): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(511,14): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(511,34): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(552,48): warning C4244: '인수': 'float'에서 'INT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(552,33): warning C4244: '인수': 'float'에서 'INT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(670,68): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(670,50): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(670,32): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(670,26): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  iStrTex.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStrTex.cpp(43,11): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStrTex.cpp(62,34): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStrTex.cpp(62,19): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStrTex.cpp(117,15): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStrTex.cpp(120,9): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStrTex.cpp(148,21): warning C4267: '+=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  iString.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(18,10): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(27,10): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(42,11): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(43,11): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(55,11): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(56,11): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(71,11): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(72,11): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(102,10): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(115,10): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(245,10): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iString.cpp(253,10): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  코드를 생성하고 있습니다...
+﻿  iStd.cpp
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(139,58): warning C4244: '인수': 'float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(139,51): warning C4244: '인수': 'float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(139,41): warning C4244: '인수': 'float'에서 'GLint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(139,19): warning C4244: '인수': 'float'에서 'GLint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(488,24): warning C4244: '초기화 중': 'float'에서 'uint8'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(499,11): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(520,26): warning C4244: '=': 'float'에서 'uint8'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(626,11): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(627,11): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(639,25): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(639,25): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(639,33): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(639,33): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(639,42): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(639,42): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(639,50): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(639,50): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(640,25): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(640,25): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(640,33): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(640,33): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(640,42): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(640,42): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(640,50): warning C4838: 'int'에서 'float'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(640,50): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(658,14): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(658,34): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(699,48): warning C4244: '인수': 'float'에서 'INT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(699,33): warning C4244: '인수': 'float'에서 'INT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(817,68): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(817,50): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(817,32): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iStd.cpp(817,26): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   HelioUnreal.vcxproj -> C:\workspace\WIn32_Cpp\HelioUnreal\x64\Debug\HelioUnreal.exe

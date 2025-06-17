@@ -136,6 +136,9 @@
     <ClInclude Include="game\CtrlImage.h" />
     <ClInclude Include="game\Game.h" />
     <ClInclude Include="game\ImageText.h" />
+    <ClInclude Include="game\Lemon.h" />
+    <ClInclude Include="game\LemonMenu.h" />
+    <ClInclude Include="game\LemonProc.h" />
     <ClInclude Include="game\Lotto.h" />
     <ClInclude Include="game\Memory.h" />
     <ClInclude Include="game\Oops.h" />
@@ -172,6 +175,9 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="game\ImageText.cpp" />
+    <ClCompile Include="game\Lemon.cpp" />
+    <ClCompile Include="game\LemonMenu.cpp" />
+    <ClCompile Include="game\LemonProc.cpp" />
     <ClCompile Include="game\Lotto.cpp" />
     <ClCompile Include="game\Memory.cpp" />
     <ClCompile Include="game\Oops.cpp" />

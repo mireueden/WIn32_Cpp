@@ -6,6 +6,9 @@ HWND hwnd;
 HDC hdc;
 HGLRC hrc;
 
+uint32 vao, vbo, vbe;
+Vertex* vertex;
+
 void loadOpenGL(HWND hwnd)
 {
     ::hwnd = hwnd;
@@ -31,6 +34,32 @@ void loadOpenGL(HWND hwnd)
     if (error != GLEW_OK)
         return;
 
+    if (wglewIsSupported("WGL_ARB_create_context"))
+    {
+        setMakeCurrent(false);
+        wglCreateContext(hdc);
+
+        int attr[] = {
+            WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
+            WGL_CONTEXT_MAJOR_VERSION_ARB, 2,
+            WGL_CONTEXT_FLAGS_ARB, 0,
+            0,
+        };
+        wglCreateContextAttribsARB(hdc, NULL, attr);
+    }
+
+    setMakeCurrent(true);
+
+#if 1 // 3.2 / 2.1.0 / 1.5
+    const char* strGL = (const char*)glGetString(GL_VERSION);
+    const char* strGLEW = (const char*)glGetString(GLEW_VERSION);
+    const char* strGLSL = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+    printf("OpenGL Version : %s\nGLEW Version : %s\nGLSL Version : %s\n",
+        strGL, strGLEW, strGLSL);
+#endif // 1
+
+
+
     glEnable(GL_BLEND);
 
     // DST (0,0,0,1)        SRC(1,1,1,0.2);
@@ -52,6 +81,20 @@ void loadOpenGL(HWND hwnd)
 
     glEnable(GL_LINE_SMOOTH);
 
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 4, NULL, GL_STATIC_DRAW);
+    vertex = new Vertex[4];
+
+    glGenBuffers(1, &vbe);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbe);
+    uint8 indices[] = { 0, 1, 2,  2, 1, 3 };
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint8) * 6, indices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
     //fbo = new iFBO(devSize.width, devSize.height);
     fbo = new iFBO(1920, 1080);
     fbo->tex->width = devSize.width;
@@ -63,6 +106,8 @@ void loadOpenGL(HWND hwnd)
 
 void freeOpenGL()
 {
+    glDeleteVertexArrays(1, &vao);
+
     wglMakeCurrent(NULL, NULL); // 지금부터 OpenGL 사용 끝
     wglDeleteContext(hrc);
     ReleaseDC(hwnd, hdc);
