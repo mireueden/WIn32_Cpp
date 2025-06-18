@@ -28,9 +28,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
     runApp = false;
     int x = 0, y = 0, w = 640, h = 480;
-
+    //
     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-        0, 0, 1980, 1080, nullptr, nullptr, hInstance, nullptr);
+        0, 0, 1920, 1080, nullptr, nullptr, hInstance, nullptr);
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 

@@ -41,10 +41,10 @@ void setLineWidth(float width);
 void drawLine(float x0, float y0, float x1, float y1);
 void drawLine(iPoint p0, iPoint p1);
 
-void drawRect(float x, float y, float width, float height);
-void drawRect(iRect rt);
-void fillRect(float x, float y, float width, float height);
-void fillRect(iRect rt);
+void drawRect(float x, float y, float width, float height, float radius = 0.0f);
+void drawRect(iRect rt, float radius = 0.0f);
+void fillRect(float x, float y, float width, float height, float radius = 0.0f);
+void fillRect(iRect rt, float radius = 0.0f);
 
 typedef void (*MethodImageFilter)(uint8* bgra, int width, int height, int stride);
 void setImageFilter(MethodImageFilter method);

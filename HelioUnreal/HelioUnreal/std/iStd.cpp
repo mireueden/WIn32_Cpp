@@ -52,13 +52,22 @@ void drawApp(float dt)
 #if 1
     setMakeCurrent(true);
 
+    glViewport(viewport.origin.x, viewport.origin.y, viewport.size.width, viewport.size.height);
+
     glClearColor(1, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // 선긋기, 사각형 (fill,draw) / 이미지
-    setLineWidth(3);
-    drawLine(11, 10, 100, 100);
+    // 선긋기 / 사각형(fill/draw) / 이미지
+    setLineWidth(20);
 
+    setRGBA(0, 1, 0, 0.5f);
+    drawLine(30, 30, 300, 200);
+    setRGBA(0, 0, 1, 0.5f);
+    fillRect(50, 60, 400, 150);
+
+    static Texture* tex = createImage("assets/def.png");
+    setRGBA(1, 1, 1, 1);
+    drawImage(tex, 0, 0, TOP | LEFT);
 
     swapBuffer();
     setMakeCurrent(false);
@@ -80,7 +89,7 @@ void drawApp(float dt)
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    
+
     methodDraw(dt);
     fbo->unbind();
 
@@ -162,8 +171,6 @@ void drawLine_deprecated(float x0, float y0, float x1, float y1)
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-
-
 void checkShaderID(uint32 id)
 {
     GLint result;
@@ -176,9 +183,10 @@ void checkShaderID(uint32 id)
     char* s = new char[1 + length];
     glGetShaderInfoLog(id, length, NULL, s);
     s[length] = 0;
-    printf("checkShaderID error()%s)\n", s);
+    printf("checkShaderID Error!!\n(%s)\n", s);
     delete s;
 }
+
 
 void checkProgramID(uint32 id)
 {
@@ -192,9 +200,10 @@ void checkProgramID(uint32 id)
     char* s = new char[1 + length];
     glGetProgramInfoLog(id, length, NULL, s);
     s[length] = 0;
-    printf("checkProgramID error()%s)\n", s);
+    printf("checkProgramID Error!!\n(%s)\n", s);
     delete s;
 }
+
 
 uint32 build(const char* strVert, const char* strFrag)
 {
@@ -221,11 +230,10 @@ uint32 build(const char* strVert, const char* strFrag)
 
     return programID;
 }
-
-uint32 buildFromPath(const char* pathVertex, const char* pathFrag)
+uint32 buildFromPath(const char* pathVert, const char* pathFrag)
 {
     int len;
-    char* strVert = loadFile(len, pathVertex);
+    char* strVert = loadFile(len, pathVert);
     char* strFrag = loadFile(len, pathFrag);
     uint32 programID = build(strVert, strFrag);
     delete strVert;
@@ -237,27 +245,19 @@ uint32 buildFromPath(const char* pathVertex, const char* pathFrag)
 
 void drawLine(float x0, float y0, float x1, float y1)
 {
-    static uint32 programID = buildFromPath("assets/line.vert", "assets/line.frag");
+    static uint32 programID = buildFromPath("assets/shader/gdi.vert", "assets/shader/line.frag");
     glUseProgram(programID);
 
+    float x = (x0 + x1) / 2.0f;
+    float y = (y0 + y1) / 2.0f;
     float half = lineWidth / 2 + 0.5f;
     float dx = x1 - x0, dy = y1 - y0;
     float d = sqrtf(dx * dx + dy * dy) / 2 + half;
-    float x = (x0 + x1) / 2.0f;
-    float y = (y0 + y1) / 2.0f;
     float position[] = {
         -d, -half, 0, 1,            d, -half, 0, 1,
         -d, +half, 0, 1,            d, +half, 0, 1,
     };
-    //glDisable(GL_CULL_FACE);
-    //glFrontFace(GL_CCW);
-
-    //glm::mat4 projMatrix = glm::ortho(0.0f, devSize.width, devSize.height, 0.0f, -1000.0f, 1000.0f);
-    glm::mat4 projMatrix = glm::ortho(0.0f, devSize.width, 0.0f, devSize.height, -1000.0f, 1000.0f);
-
-    float m[4][4];
-
-    memcpy(&projMatrix, m, sizeof(float) * 16);
+    glm::mat4 projMatrix = glm::ortho(0.0f, devSize.width, devSize.height, 0.0f, -1000.0f, 1000.0f);
 
     glm::mat4 viewMatrix(1.0f);
     viewMatrix = glm::translate(viewMatrix, glm::vec3(x, y, 0));
@@ -274,22 +274,26 @@ void drawLine(float x0, float y0, float x1, float y1)
     glUniformMatrix4fv(pID, 1, false, (float*)&projMatrix);
     uint32 vID = glGetUniformLocation(programID, "viewMatrix");
     glUniformMatrix4fv(vID, 1, false, (float*)&viewMatrix);
+    // x0, y0 in 640x480 => in viewport
+    float r = viewport.size.width / devSize.width;
+    x0 = viewport.origin.x + x0 * r;
+    y0 = devSize.height - y0;
+    y0 = viewport.origin.y + y0 * r;
+    x1 = viewport.origin.x + x1 * r;
+    y1 = devSize.height - y1;
+    y1 = viewport.origin.y + y1 * r;
 
     glUniform2f(glGetUniformLocation(programID, "u_start"), x0, y0);
     glUniform2f(glGetUniformLocation(programID, "u_end"), x1, y1);
     glUniform1f(glGetUniformLocation(programID, "u_width"), lineWidth);
     glUniform4f(glGetUniformLocation(programID, "u_color"), _r, _g, _b, _a);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbe); // 3
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbe);// 3
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // 3
-    //uint8 indices[] = { 0, 1, 2,  2, 1, 3 };
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);// 3
 
-
-    glDisableVertexAttribArray(pAttr); // 2
-    glBindBuffer(GL_ARRAY_BUFFER, vbo); // 1
-
+    glDisableVertexAttribArray(pAttr);// 2
+    glBindBuffer(GL_ARRAY_BUFFER, 0);// 1
 }
 
 void drawLine(iPoint p0, iPoint p1)
@@ -297,19 +301,19 @@ void drawLine(iPoint p0, iPoint p1)
     drawLine(p0.x, p0.y, p1.x, p1.y);
 }
 
-void drawRect(float x, float y, float width, float height)
+void drawRect(float x, float y, float width, float height, float radius)
 {
     drawLine(x, y, x + width, y);
     drawLine(x, y + height, x + width, y + height);
     drawLine(x, y, x, y + height);
     drawLine(x + width, y, x + width, y + height);
 }
-void drawRect(iRect rt)
+void drawRect(iRect rt, float radius)
 {
-    drawRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height);
+    drawRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height, radius);
 }
 
-void fillRect(float x, float y, float width, float height)
+void fillRect_deprecated(float x, float y, float width, float height, float radius)
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -329,9 +333,51 @@ void fillRect(float x, float y, float width, float height)
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
 }
-void fillRect(iRect rt)
+void fillRect(float x, float y, float width, float height, float radius)
 {
-    fillRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height);
+    static uint32 programID = buildFromPath("assets/shader/gdi.vert", "assets/shader/rect.frag");
+    glUseProgram(programID);
+
+    float position[] = {
+        x, y,          0, 1,   x + width, y,          0, 1,
+        x, y + height, 0, 1,   x + width, y + height, 0, 1,
+    };
+    glm::mat4 projMatrix = glm::ortho(0.0f, devSize.width, devSize.height, 0.0f, -1000.0f, 1000.0f);
+    glm::mat4 viewMatrix(1.0f);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);// 1
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 16, position);
+    uint32 pAttr = glGetAttribLocation(programID, "position");
+    glEnableVertexAttribArray(pAttr);// 2
+    glVertexAttribPointer(pAttr, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (const void*)0);
+
+    uint32 pID = glGetUniformLocation(programID, "projMatrix");
+    glUniformMatrix4fv(pID, 1, false, (float*)&projMatrix);
+    uint32 vID = glGetUniformLocation(programID, "viewMatrix");
+    glUniformMatrix4fv(vID, 1, false, (float*)&viewMatrix);
+
+    // x, y, width, height in 640x480
+    float r = viewport.size.width / devSize.width;
+    x = viewport.origin.x + x * r;
+    y = devSize.height - y;
+    y = viewport.origin.y + y * r;
+    width *= r;
+    height *= r;
+    radius *= r;
+    glUniform4f(glGetUniformLocation(programID, "u_rect"), x, y, width, height);
+    glUniform4f(glGetUniformLocation(programID, "u_color"), _r, _g, _b, _a);
+    glUniform1f(glGetUniformLocation(programID, "u_radius"), radius);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbe);// 3
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);// 3
+
+    glDisableVertexAttribArray(pAttr);// 2
+    glBindBuffer(GL_ARRAY_BUFFER, 0);// 1
+}
+void fillRect(iRect rt, float radius)
+{
+    fillRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height, radius);
 }
 
 char* stringName = NULL;
@@ -343,7 +389,7 @@ const char* getStringName()
 }
 void setStringName(const char* name)
 {
-    //stringName = (char*)name; // 이렇게 작성할 경우 될ㄸ도 잇고 안될때도 잇음(주소가 휘발성 정보이기 때문)
+    //stringName = (char*)name; // 이렇게 작성할 경우 될때도 잇고 안될때도 잇음(주소가 휘발성 정보이기 때문)
     if (stringName)
     {
         if (strcmp(stringName, name) == 0)
@@ -649,11 +695,12 @@ void drawImage(Texture* tex, float x, float y,
             p[i].y *= -1;
     }
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glTranslatef(x + w / 2, y + h / 2, 0);
+    glm::mat4 projMatrix = glm::ortho(0.0f, devSize.width, devSize.height, 0.0f, -1000.0f, 1000.0f);
+    glm::mat4 viewMatrix(1.0f);
+    viewMatrix = glm::translate(viewMatrix, glm::vec3(x + w / 2, y + h / 2, 0));
     if (degree)
-        glRotatef(degree, xyz == 0, xyz == 1, xyz == 2);
+        viewMatrix = glm::rotate(viewMatrix,
+            glm::radians(degree), glm::vec3(xyz == 0, xyz == 1, xyz == 2));
 
     float pw = tex->potWidth, ph = tex->potHeight;
     float texCoord[] = {
@@ -666,22 +713,62 @@ void drawImage(Texture* tex, float x, float y,
         _r, _g, _b, _a,     _r, _g, _b, _a,
     };
 
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnable(GL_TEXTURE_2D);
-    glVertexPointer(2, GL_FLOAT, 0, p);
-    glColorPointer(4, GL_FLOAT, 0, color);
-    glTexCoordPointer(2, GL_FLOAT, 0, texCoord);
+    static uint32 programID = buildFromPath("assets/shader/std.vert", "assets/shader/alpha.frag");
+    glUseProgram(programID);
+
+    uint32 pID = glGetUniformLocation(programID, "projMatrix");
+    glUniformMatrix4fv(pID, 1, false, (float*)&projMatrix);
+    uint32 vID = glGetUniformLocation(programID, "viewMatrix");
+    glUniformMatrix4fv(vID, 1, false, (float*)&viewMatrix);
+
+    static float iTime = 0.0f; iTime += 0.017f;
+    uint32 tID = glGetUniformLocation(programID, "iTime");
+    glUniform1f(tID, iTime);
+    
+    for (int i = 0; i < 4; i++)
+    {
+        Vertex* v = &vertex[i];
+        memcpy(v->position, &p[i], sizeof(float) * 2);
+        v->position[2] = 0;
+        v->position[3] = 1;
+        memcpy(v->texCoord, &texCoord[2 * i], sizeof(float) * 2);
+        memcpy(v->color, &color[4 * i], sizeof(float) * 4);
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);// 1
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertex) * 4, vertex);
+
+    uint32 pAttr = glGetAttribLocation(programID, "position");
+    uint32 cAttr = glGetAttribLocation(programID, "color");
+    uint32 tAttr = glGetAttribLocation(programID, "texCoord");
+    glEnableVertexAttribArray(pAttr);// 2
+    glEnableVertexAttribArray(cAttr);// 2
+    glEnableVertexAttribArray(tAttr);// 2
+    glVertexAttribPointer(pAttr, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(float) * 0));
+    glVertexAttribPointer(cAttr, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(float) * 4));
+    glVertexAttribPointer(tAttr, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(float) * 8));
+    //glEnableClientState(GL_VERTEX_ARRAY);
+    //glEnableClientState(GL_COLOR_ARRAY);
+    //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    //glVertexPointer(2, GL_FLOAT, 0, p);
+    //glColorPointer(4, GL_FLOAT, 0, color);
+    //glTexCoordPointer(2, GL_FLOAT, 0, texCoord);
+    //glEnable(GL_TEXTURE_2D);
+    glUniform1i(glGetUniformLocation(programID, "tex"), 0);
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, tex->texID);
 
-    uint8 indices[] = { 0, 1, 2,  2, 1, 3 };
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbe);// 3
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);// 3
 
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_COLOR_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    glDisable(GL_TEXTURE_2D);
+    //glDisableClientState(GL_VERTEX_ARRAY);
+    //glDisableClientState(GL_COLOR_ARRAY);
+    //glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableVertexAttribArray(pAttr);// 2
+    glDisableVertexAttribArray(cAttr);// 2
+    glDisableVertexAttribArray(tAttr);// 2
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 

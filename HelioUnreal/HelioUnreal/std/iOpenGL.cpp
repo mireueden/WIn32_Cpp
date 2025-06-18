@@ -13,7 +13,6 @@ void loadOpenGL(HWND hwnd)
 {
     ::hwnd = hwnd;
     hdc = GetDC(hwnd);
-    // OpenGL Setiing
     PIXELFORMATDESCRIPTOR pfd;
     memset(&pfd, 0x00, sizeof(PIXELFORMATDESCRIPTOR));
     pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
@@ -37,26 +36,26 @@ void loadOpenGL(HWND hwnd)
     if (wglewIsSupported("WGL_ARB_create_context"))
     {
         setMakeCurrent(false);
-        wglCreateContext(hdc);
+        wglDeleteContext(hrc);
 
         int attr[] = {
             WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
-            WGL_CONTEXT_MAJOR_VERSION_ARB, 2,
+            WGL_CONTEXT_MINOR_VERSION_ARB, 2,
             WGL_CONTEXT_FLAGS_ARB, 0,
             0,
         };
-        wglCreateContextAttribsARB(hdc, NULL, attr);
+        hrc = wglCreateContextAttribsARB(hdc, NULL, attr);
     }
 
     setMakeCurrent(true);
 
-#if 1 // 3.2 / 2.1.0 / 1.5
+#if 0 // 3.2 / 2.1.0 / 1.5
     const char* strGL = (const char*)glGetString(GL_VERSION);
     const char* strGLEW = (const char*)glGetString(GLEW_VERSION);
     const char* strGLSL = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
     printf("OpenGL Version : %s\nGLEW Version : %s\nGLSL Version : %s\n",
         strGL, strGLEW, strGLSL);
-#endif // 1
+#endif 
 
 
 
@@ -94,11 +93,11 @@ void loadOpenGL(HWND hwnd)
     uint8 indices[] = { 0, 1, 2,  2, 1, 3 };
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint8) * 6, indices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-    //fbo = new iFBO(devSize.width, devSize.height);
-    fbo = new iFBO(1920, 1080);
-    fbo->tex->width = devSize.width;
-    fbo->tex->height = devSize.height;
+     
+    ////fbo = new iFBO(devSize.width, devSize.height);
+    //fbo = new iFBO(1920, 1080);
+    //fbo->tex->width = devSize.width;
+    //fbo->tex->height = devSize.height;
     
 
     setMakeCurrent(false);
@@ -107,6 +106,8 @@ void loadOpenGL(HWND hwnd)
 void freeOpenGL()
 {
     glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &vbo);
+    glDeleteBuffers(1, &vbe);
 
     wglMakeCurrent(NULL, NULL); // 지금부터 OpenGL 사용 끝
     wglDeleteContext(hrc);
@@ -119,7 +120,8 @@ extern iRect viewport;
 extern iSize devSize;
 void resizeOpenGL(int width, int height)
 {
-    glViewport(viewport.origin.x, viewport.origin.y, viewport.size.width, viewport.size.height);
+     glViewport(viewport.origin.x, viewport.origin.y,
+        viewport.size.width, viewport.size.height);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();

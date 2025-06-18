@@ -9,8 +9,8 @@ uniform vec2 u_end;
 uniform float u_width;
 uniform vec4 u_color;
 
-out vec4 fragColor;         
-              
+out vec4 fragColor;
+
 float getDistance(vec2 p, vec2 s, vec2 e, float width)
 {
 	vec2 m = p - s;
@@ -23,13 +23,9 @@ float getDistance(vec2 p, vec2 s, vec2 e, float width)
 	return length(m - proj) - width / 2.;
 }
 
-
-void main() 
-{           
-	float d = getDistance(gl_FragCoord.xy, u_start,u_end,u_width);
-	float a = clamp(-d, 0.0, 0.1);
-
+void main()
+{
+	float d = getDistance(gl_FragCoord.xy, u_start, u_end, u_width);
+	float a = clamp(-d, 0.0, 1.0);
     fragColor = vec4(u_color.rgb, u_color.a * a);
-}                           
-
-
+}
