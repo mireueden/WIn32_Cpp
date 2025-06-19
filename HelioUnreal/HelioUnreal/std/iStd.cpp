@@ -48,8 +48,7 @@ void freeApp()
 
 void drawApp(float dt)
 {
-
-#if 1
+#if 0
     setMakeCurrent(true);
 
     glViewport(viewport.origin.x, viewport.origin.y, viewport.size.width, viewport.size.height);
@@ -63,11 +62,11 @@ void drawApp(float dt)
     setRGBA(0, 1, 0, 0.5f);
     drawLine(30, 30, 300, 200);
     setRGBA(0, 0, 1, 0.5f);
-    fillRect(50, 60, 400, 150);
+    fillRect(100, 60, 60, 60, 30);
 
-    static Texture* tex = createImage("assets/def.png");
-    setRGBA(1, 1, 1, 1);
-    drawImage(tex, 0, 0, TOP | LEFT);
+    //static Texture* tex = createImage("assets/def.png");
+    //setRGBA(1, 1, 1, 1);
+    //drawImage(tex, 0, 0, TOP | LEFT);
 
     swapBuffer();
     setMakeCurrent(false);
@@ -78,8 +77,7 @@ void drawApp(float dt)
 
     resizeOpenGL(0, 0);// wm_size, wm_sizing, wm_move
 
-
-#if 0 // double buffering
+#if 0// double buffering
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     methodDraw(dt);
@@ -96,13 +94,9 @@ void drawApp(float dt)
     // front buffer(draw bmp)
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // Pre-multiplied alpha
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);// Pre-multiplied Apha
 
     Texture* t = fbo->tex;
-    //float r = 1; // viewport.size.width / devSize.width;
-    //drawImage(t, viewport.origin.x, viewport.origin.y,
-    //    0, 0, t->width, t->height, r, r, 2, 0, TOP | LEFT, REVERSE_HEIGHT);
-
     drawImage(t, 0, 0, 0, 0, t->width, t->height, 1, 1, 2, 0, TOP | LEFT, REVERSE_HEIGHT);
     // MINI-MAP
     //drawImage(t, devSize.width-10, devSize.height-10, 0, 0, t->width, t->height,
@@ -143,8 +137,7 @@ void setClip(float x, float y, float width, float height)
     else
     {
         glEnable(GL_SCISSOR_TEST);
-        //glScissor(x, devSize.height - y, width, height);
-        //glScissor(x, 1920 - y, width, height);
+        //glScissor(x, y, width, height);
         glScissor(x, devSize.height - y - height, width, height);
     }
 }
@@ -171,81 +164,9 @@ void drawLine_deprecated(float x0, float y0, float x1, float y1)
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void checkShaderID(uint32 id)
-{
-    GLint result;
-    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
-    if (result == GL_TRUE)
-        return;
-
-    int length;
-    glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-    char* s = new char[1 + length];
-    glGetShaderInfoLog(id, length, NULL, s);
-    s[length] = 0;
-    printf("checkShaderID Error!!\n(%s)\n", s);
-    delete s;
-}
-
-
-void checkProgramID(uint32 id)
-{
-    GLint result;
-    glGetProgramiv(id, GL_LINK_STATUS, &result);
-    if (result == GL_TRUE)
-        return;
-
-    int length;
-    glGetProgramiv(id, GL_INFO_LOG_LENGTH, &length);
-    char* s = new char[1 + length];
-    glGetProgramInfoLog(id, length, NULL, s);
-    s[length] = 0;
-    printf("checkProgramID Error!!\n(%s)\n", s);
-    delete s;
-}
-
-
-uint32 build(const char* strVert, const char* strFrag)
-{
-    uint32 vertID = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertID, 1, &strVert, NULL);
-    glCompileShader(vertID);
-    checkShaderID(vertID);
-
-    uint32 fragID = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragID, 1, &strFrag, NULL);
-    glCompileShader(fragID);
-    checkShaderID(fragID);
-
-    uint32 programID = glCreateProgram();
-    glAttachShader(programID, vertID);
-    glAttachShader(programID, fragID);
-    glLinkProgram(programID);
-    glDetachShader(programID, vertID);
-    glDetachShader(programID, fragID);
-    checkProgramID(programID);
-
-    glDeleteShader(vertID);
-    glDeleteShader(fragID);
-
-    return programID;
-}
-uint32 buildFromPath(const char* pathVert, const char* pathFrag)
-{
-    int len;
-    char* strVert = loadFile(len, pathVert);
-    char* strFrag = loadFile(len, pathFrag);
-    uint32 programID = build(strVert, strFrag);
-    delete strVert;
-    delete strFrag;
-
-    return programID;
-}
-
-
 void drawLine(float x0, float y0, float x1, float y1)
 {
-    static uint32 programID = buildFromPath("assets/shader/gdi.vert", "assets/shader/line.frag");
+    static uint32 programID = iShader::buildFromPath("assets/shader/gdi.vert", "assets/shader/line.frag");
     glUseProgram(programID);
 
     float x = (x0 + x1) / 2.0f;
@@ -275,14 +196,13 @@ void drawLine(float x0, float y0, float x1, float y1)
     uint32 vID = glGetUniformLocation(programID, "viewMatrix");
     glUniformMatrix4fv(vID, 1, false, (float*)&viewMatrix);
     // x0, y0 in 640x480 => in viewport
-    float r = viewport.size.width / devSize.width;
-    x0 = viewport.origin.x + x0 * r;
-    y0 = devSize.height - y0;
-    y0 = viewport.origin.y + y0 * r;
-    x1 = viewport.origin.x + x1 * r;
-    y1 = devSize.height - y1;
-    y1 = viewport.origin.y + y1 * r;
-
+    //float r = viewport.size.width / devSize.width;
+    //x0 = viewport.origin.x + x0 * r;
+    //y0 = devSize.height - y0;
+    //y0 = viewport.origin.y + y0 * r;
+    //x1 = viewport.origin.x + x1 * r;
+    //y1 = devSize.height - y1;
+    //y1 = viewport.origin.y + y1 * r;
     glUniform2f(glGetUniformLocation(programID, "u_start"), x0, y0);
     glUniform2f(glGetUniformLocation(programID, "u_end"), x1, y1);
     glUniform1f(glGetUniformLocation(programID, "u_width"), lineWidth);
@@ -313,7 +233,7 @@ void drawRect(iRect rt, float radius)
     drawRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height, radius);
 }
 
-void fillRect_deprecated(float x, float y, float width, float height, float radius)
+void fillRect_deprecated(float x, float y, float width, float height)
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -335,7 +255,7 @@ void fillRect_deprecated(float x, float y, float width, float height, float radi
 }
 void fillRect(float x, float y, float width, float height, float radius)
 {
-    static uint32 programID = buildFromPath("assets/shader/gdi.vert", "assets/shader/rect.frag");
+    static uint32 programID = iShader::buildFromPath("assets/shader/gdi.vert", "assets/shader/rect.frag");
     glUseProgram(programID);
 
     float position[] = {
@@ -357,14 +277,14 @@ void fillRect(float x, float y, float width, float height, float radius)
     glUniformMatrix4fv(vID, 1, false, (float*)&viewMatrix);
 
     // x, y, width, height in 640x480
-    float r = viewport.size.width / devSize.width;
-    x = viewport.origin.x + x * r;
-    y = devSize.height - y;
-    y = viewport.origin.y + y * r;
-    width *= r;
-    height *= r;
-    radius *= r;
-    glUniform4f(glGetUniformLocation(programID, "u_rect"), x, y, width, height);
+    //float r = viewport.size.width / devSize.width;
+    //x = viewport.origin.x + x * r;
+    //y = devSize.height - y;
+    //y = viewport.origin.y + y * r;
+    //width *= r;
+    //height *= r;
+    //radius *= r;
+    glUniform4f(glGetUniformLocation(programID, "u_rect"), x + width / 2, y + height / 2, width / 2, height / 2);
     glUniform4f(glGetUniformLocation(programID, "u_color"), _r, _g, _b, _a);
     glUniform1f(glGetUniformLocation(programID, "u_radius"), radius);
 
@@ -389,15 +309,18 @@ const char* getStringName()
 }
 void setStringName(const char* name)
 {
-    //stringName = (char*)name; // 이렇게 작성할 경우 될때도 잇고 안될때도 잇음(주소가 휘발성 정보이기 때문)
     if (stringName)
     {
         if (strcmp(stringName, name) == 0)
             return;
         delete stringName;
-
     }
     stringName = iString::copy(name);
+}
+
+float getStringSize()
+{
+    return stringSize;
 }
 void setStringSize(float size)
 {
@@ -411,10 +334,7 @@ void setStringLineHeight(float height)
 {
     stringLineHeight = height;
 }
-float getStringSize()
-{
-    return stringSize;
-}
+
 void getStringRGBA(float& r, float& g, float& b, float& a)
 {
     r = sr; g = sg; b = sb; a = sa;
@@ -469,15 +389,16 @@ uint8* bmp2rgba(Bitmap* bmp, int& width, int& height)
     return rgba;
 }
 
-#define GL_CLAMP_TO_EDGE 0x812F
 Texture* createImageWithRGBA(uint8* rgba, int width, int height)
 {
     uint32 texID;
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);// GL_REPEAT
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);// GL_REPEAT
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);// 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);// GL_LINEAR
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//GL_NEAREST
 
@@ -612,34 +533,29 @@ Texture** createImage(int wNum, int hNum, const char* szFormat, ...)
     int pw = nextPot(w), ph = nextPot(h);
     uint8* tmp = new uint8[pw * ph * 4];
     memset(tmp, 0x00, sizeof(uint8) * pw * ph * 4);
-
     for (int j = 0; j < hNum; j++)
     {
         for (int i = 0; i < wNum; i++)
         {
-            // tmp << rgba (i,j)
+            // tmp << rgba (i, j)
             for (int n = 0; n < h; n++)
             {
-                memcpy(&tmp[pw * 4 * n],
-                       &rgba[potWidth * 4 * (h * j + n) + w * 4 * i],  // i , j 고려
-                       pw * 4);
+                memcpy(&tmp[pw * 4 * n], &rgba[potWidth * 4 * (h * j + n) + w * 4 * i], pw * 4);
             }
-#if 1 // for test
-            // 흰 배경 지우기
+
+#if 0//for testing
             for (int q = 0; q < h; q++)
             {
                 for (int p = 0; p < w; p++)
                 {
                     uint8* c = &tmp[pw * 4 * q + 4 * p];
-                    if (c[0] == 0xFF && c[1] == 0xFF && c[2] == 0xFF)
-                    {
-                        c[3] = 0; // alpha = 0
-                    }
+                    if (c[0] == 0xFF &&
+                        c[1] == 0xFF &&
+                        c[2] == 0xFF)
+                        c[3] = 0;
                 }
             }
-#endif // 0
-
-
+#endif
             texs[wNum * j + i] = createImageWithRGBA(tmp, w, h);
         }
     }
@@ -713,7 +629,7 @@ void drawImage(Texture* tex, float x, float y,
         _r, _g, _b, _a,     _r, _g, _b, _a,
     };
 
-    static uint32 programID = buildFromPath("assets/shader/std.vert", "assets/shader/alpha.frag");
+    static uint32 programID = iShader::buildFromPath("assets/shader/std.vert", "assets/shader/alpha.frag");
     glUseProgram(programID);
 
     uint32 pID = glGetUniformLocation(programID, "projMatrix");
@@ -721,20 +637,15 @@ void drawImage(Texture* tex, float x, float y,
     uint32 vID = glGetUniformLocation(programID, "viewMatrix");
     glUniformMatrix4fv(vID, 1, false, (float*)&viewMatrix);
 
-    static float iTime = 0.0f; iTime += 0.017f;
-    uint32 tID = glGetUniformLocation(programID, "iTime");
-    glUniform1f(tID, iTime);
-    
     for (int i = 0; i < 4; i++)
     {
         Vertex* v = &vertex[i];
-        memcpy(v->position, &p[i], sizeof(float) * 2);
+        memcpy(v->position, &p[i], sizeof(iPoint));
         v->position[2] = 0;
         v->position[3] = 1;
         memcpy(v->texCoord, &texCoord[2 * i], sizeof(float) * 2);
         memcpy(v->color, &color[4 * i], sizeof(float) * 4);
     }
-
     glBindBuffer(GL_ARRAY_BUFFER, vbo);// 1
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertex) * 4, vertex);
 
@@ -746,7 +657,7 @@ void drawImage(Texture* tex, float x, float y,
     glEnableVertexAttribArray(tAttr);// 2
     glVertexAttribPointer(pAttr, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(float) * 0));
     glVertexAttribPointer(cAttr, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(float) * 4));
-    glVertexAttribPointer(tAttr, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(float) * 8));
+    glVertexAttribPointer(tAttr, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(float) * 8));
     //glEnableClientState(GL_VERTEX_ARRAY);
     //glEnableClientState(GL_COLOR_ARRAY);
     //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -765,13 +676,90 @@ void drawImage(Texture* tex, float x, float y,
     //glDisableClientState(GL_VERTEX_ARRAY);
     //glDisableClientState(GL_COLOR_ARRAY);
     //glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    //glDisable(GL_TEXTURE_2D);
     glDisableVertexAttribArray(pAttr);// 2
     glDisableVertexAttribArray(cAttr);// 2
     glDisableVertexAttribArray(tAttr);// 2
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void drawShadertoy(float dt)
+{
+    iPoint position[] = {
+        0, 0,                   devSize.width, 0,
+        0, devSize.height,      devSize.width, devSize.height,
+    };
+    glm::mat4 projMatrix = glm::ortho(0.0f, devSize.width, devSize.height, 0.0f, -1000.0f, 1000.0f);
+    glm::mat4 viewMatrix(1.0f);
 
+    static uint32 programID = iShader::buildShaderToy("assets/shader/gdi.vert",
+        "assets/shader/st.frag");
+    glUseProgram(programID);
+
+    uint32 pID = glGetUniformLocation(programID, "projMatrix");
+    glUniformMatrix4fv(pID, 1, false, (float*)&projMatrix);
+    uint32 vID = glGetUniformLocation(programID, "viewMatrix");
+    glUniformMatrix4fv(vID, 1, false, (float*)&viewMatrix);
+
+#define uniform3f(id, x, y, z)  glUniform3f(glGetUniformLocation(programID, id), x, y, z)
+#define uniform1f(id, x)        glUniform1f(glGetUniformLocation(programID, id), x)
+#define uniform1i(id, x)        glUniform1i(glGetUniformLocation(programID, id), x)
+    uniform3f("iResolution", devSize.width, devSize.height, 0);
+    static float iTime = 0.0f;
+    uniform1f("iTime", iTime);
+    iTime += dt;
+    uniform1f("iTimeDelta", dt);
+    uniform1f("iFrameRate", 0);
+    uniform1f("iFrameRate", 0);
+    static int iFrame = 0;
+    uniform1i("iFrame", iFrame);
+    iFrame++;
+#if 0
+    uniform float     iChannelTime[4];
+    uniform vec3      iChannelResolution[4];
+    uniform sampler2D iChannel0;
+    uniform sampler2D iChannel1;
+    uniform sampler2D iChannel2;
+    uniform sampler2D iChannel3;
+    uniform vec4      iMouse;
+    uniform vec4      iDate;
+    uniform float     iSampleRate;
+#endif
+    static Texture** texs = NULL;
+    if (texs == NULL)
+    {
+        texs = new Texture * [4];
+        for (int i = 0; i < 4; i++)
+            texs[i] = createImage("assets/shader/%d.%s", i, i == 2 ? "png" : "jpg");
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        char id[16];
+        sprintf(id, "iChannel%d", i);
+        glUniform1i(glGetUniformLocation(programID, id), i);
+        glActiveTexture(GL_TEXTURE0 + i);
+        glBindTexture(GL_TEXTURE_2D, texs[i]->texID);
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);// 1
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 16, position);
+
+    uint32 pAttr = glGetAttribLocation(programID, "position");
+    glEnableVertexAttribArray(pAttr);// 2
+    glVertexAttribPointer(pAttr, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(float) * 0));
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbe);// 3
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);// 3
+
+    glDisableVertexAttribArray(pAttr);// 2
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);// 1
+    for (int i = 0; i < 4; i++)
+    {
+        glActiveTexture(GL_TEXTURE0 + i);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+}
 
 void drawString(float x, float y, int anc, const char* szFormat, ...)
 {
@@ -804,7 +792,6 @@ public:
         iGraphics::clear(g, 0, 0, 0, 0);
         iGraphics::drawString(g, 0, 0, str);
 
-
         setRGBA(bkR, bkG, bkB, bkA);
         setStringRGBA(bkFR, bkFG, bkFB, bkFA);
 
@@ -825,7 +812,7 @@ public:
 
     iRect rectOfString(uint8* bgra, int stride, int w, int h)
     {
-        int left = 0;
+        int left = w;
         for (int i = 0; i < w; i++)
         {
             bool found = false;

@@ -20,6 +20,11 @@ float getDistance(vec2 p, vec2 size, float radius)
 void main()
 {
 	float d = getDistance(gl_FragCoord.xy - u_rect.xy, u_rect.zw, u_radius);
-	float a = clamp(-d, 0.0, 1.0);
+	float a = clamp(abs(d), 0.0, 1.0);
     fragColor = vec4(u_color.rgb, u_color.a * a);
 }
+
+// cpu에서 값이 제대로 설정
+// cpu에서 gpu데이터 넘길때, 값이 제대로 전달(attr, uniform)
+// 쉐이더에서 값을 제대로 사용
+

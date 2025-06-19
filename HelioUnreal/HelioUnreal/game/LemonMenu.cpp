@@ -12,7 +12,7 @@ Texture* methodStExp(const char* s);
 #define _page 3
 int page;
 
-iImage** imgMenuBtn; // 여러개의 버튼
+iImage** imgMenuBtn;
 iStrTex*** stMenuBtn;
 Texture* methodStBtn(const char* s);
 int selectedMenu;
@@ -161,6 +161,11 @@ void drawLemonMenu(float dt)
 		imgMenuBtn[i]->index = (i == selectedMenu);
 		imgMenuBtn[i]->paint(dt, iPointZero);
 	}
+
+	void drawShadertoy(float dt);
+	glClearColor(0, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	drawShadertoy(dt);
 }
 
 void keyLemonMenu(iKeyStat stat, iPoint point)

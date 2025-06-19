@@ -4,10 +4,9 @@ Lemon* lemon;// 17 x 10
 Texture** texLemonBg;
 Texture** texLemonNum;
 
-// =============================================
-// Proc(17 x 10 타일로 1 ~ 9 숫자로 구성)
-// =============================================
-
+// =====================================
+// Proc(17 x 10 타일에 1~9숫자로 구성)
+// =====================================
 void loadLemonProc()
 {
 	// proc 리소스 로딩
@@ -85,7 +84,6 @@ void freeLemonProc()
 	freeLemonCountDown();
 }
 
-
 void drawLemonProc(float dt)
 {
 	setRGBA(0, 0, 0, 1);
@@ -95,15 +93,6 @@ void drawLemonProc(float dt)
 	// proc
 	for (int i = 0; i < 170; i++)
 	{
-		// type No.0 (Choice)
-		// 사각형(선택o, 선택x, 없음) + 숫자
-		// 그리는 난이도는 높음
-		// 그릴때마다 사용하는 메모리 적음
-		
-		// type No.1
-		// iStrTex
-		// 그리는 난이도는 낮음
-		// 그릴때마다 생성함으로써 메모리 과다사용
 		int x = LEMON_SX + 30 * (i % 17);
 		int y = LEMON_SY + 30 * (i / 17);
 		Lemon* l = &lemon[i];
@@ -120,10 +109,9 @@ void drawLemonProc(float dt)
 		}
 		else// if (l->num == 10)
 		{
-			drawImage(texLemonBg[0], x, y, TOP | LEFT);
+			drawImage(texLemonBg[l->selected], x, y, TOP | LEFT);
 			drawImage(texLemonNum[10], x, y, TOP | LEFT);
 		}
-
 	}
 
 	drawLemonProcUI(dt);
@@ -147,6 +135,12 @@ void keyLemonProc(iKeyStat stat, iPoint point)
 		x /= LEMON_W;
 		int y = point.y - LEMON_SY;
 		y /= LEMON_H;
+#if 1// exception
+		if (x < 0) x = 0;
+		else if (x > 16) x = 16;
+		if (y < 0) y = 0;
+		else if (y > 9) y = 9;
+#endif
 
 		Lemon* l = &lemon[17 * y + x];
 		l->selected = true;
@@ -158,103 +152,99 @@ void keyLemonProc(iKeyStat stat, iPoint point)
 	break;
 
 	case iKeyStatMoved:
-	if (dragLemon)
-	{
-		int x = point.x - LEMON_SX;
-		x /= LEMON_W;
-		int y = point.y - LEMON_SY;
-		y /= LEMON_H;
-#if 1
-		if (x < 0) x = 0;
-		else if (x > 16) x = 16;
-
-		if (y < 0) y = 0;
-		else if (y > 9) y = 9;
+		if (dragLemon)
+		{
+			int x = point.x - LEMON_SX;
+			x /= LEMON_W;
+			int y = point.y - LEMON_SY;
+			y /= LEMON_H;
+#if 1// exception
+			if (x < 0) x = 0;
+			else if (x > 16) x = 16;
+			if (y < 0) y = 0;
+			else if (y > 9) y = 9;
 #endif
-		if (x == sx && y == sy)
-		{
-			for (int i = 0; i < 170; i++)
+			if (x == sx && y == sy)
 			{
-				Lemon* l = &lemon[i];
-				l->selected = false;
-			}
-			Lemon* l = &lemon[17 * sy + sx];
-			l->selected = true;
-		}
-		if (x != sx || y != sy) 
-		{
-			// 전체 선택해제
-			for (int i = 0; i < 170; i++)
-			{
-				Lemon* l = &lemon[i];
-				l->selected = false;
-			}
-
-			// 모두 선택해야함.
-			int cx = x < sx ? x : sx;
-			int cy = y < sy ? y : sy;
-			int nx = cx + abs(x - sx) + 1;
-			int ny = cy + abs(y - sy) + 1;
-			for (int j = cy; j < ny; j++)
-			{
-				for (int i = cx; i < nx; i++)
+				for (int i = 0; i < 170; i++)
 				{
-					Lemon* l = &lemon[17 * j + i];
-					l->selected = true;
+					Lemon* l = &lemon[i];
+					l->selected = false;
+				}
+				Lemon* l = &lemon[17 * sy + sx];
+				l->selected = true;
+			}
+			else// if (x != sx || y != sy)
+			{
+				for (int i = 0; i < 170; i++)
+				{
+					Lemon* l = &lemon[i];
+					l->selected = false;
+				}
+
+				// 모두 선택해야 함.
+				int cx = x < sx ? x : sx;
+				int cy = y < sy ? y : sy;
+				int nx = cx + abs(x - sx) + 1;
+				int ny = cy + abs(y - sy) + 1;
+				for (int j = cy; j < ny; j++)
+				{
+					for (int i = cx; i < nx; i++)
+					{
+						Lemon* l = &lemon[17 * j + i];
+						l->selected = true;
+					}
 				}
 			}
-
 		}
-	}
-	break;
+		break;
 
 	case iKeyStatEnded:
-	if (dragLemon)
-	{
-		dragLemon = false;
+		if (dragLemon)
+		{
+			dragLemon = false;
 
-		int sum = 0;
-		for (int i = 0; i < 170; i++)
-		{
-			Lemon* l = &lemon[i];
-			if (l->selected == false ||
-				l->num == 10) continue;
-			sum += l->num;
-		}
-		if (sum == 10)
-		{
-			int n = 0;
-			// 선택된걸 모두 삭제
+			int sum = 0;
 			for (int i = 0; i < 170; i++)
 			{
 				Lemon* l = &lemon[i];
-				if (l->selected == false) continue;
-				l->selected = false;
-				if (l->num == 10) continue;
-				l->num = 10;// 삭제
-				n += 1 + 5 * l->exist;
+				if (l->selected == false ||
+					l->num == 10) continue;
+				sum += l->num;
 			}
-			//score += n;
-			score->add(n);
-		}
-		else
-		{
-			for (int i = 0; i < 170; i++)
+			if (sum == 10)
 			{
-				Lemon* l = &lemon[i];
-				l->selected = false;
+				int n = 0;
+
+				for (int i = 0; i < 170; i++)
+				{
+					Lemon* l = &lemon[i];
+					if (l->selected == false) continue;
+					l->selected = false;
+					if (l->num == 10) continue;
+					l->num = 10;// 삭제
+					n += 1 + 5 * l->exist;
+				}
+
+				//score += n;
+				score->add(n);
+			}
+			else
+			{
+				for (int i = 0; i < 170; i++)
+				{
+					Lemon* l = &lemon[i];
+					l->selected = false;
+				}
 			}
 		}
-
-	}
 		break;
 	}
 }
 
-
-// =============================================
-// ProcUI(위 : 점수&남은시간, 아래 : 현재 점수)
-// =============================================
+// =====================================
+// ProcUI(위-점수,남은시간, 아래-현재점수)
+// =====================================
 Number* score;
 float takeTime;
 
@@ -269,12 +259,12 @@ void loadLemonProcUI()
 	stProcUI = new iStrTex * [2];
 	for (int i = 0; i < 2; i++)
 		stProcUI[i] = new iStrTex(methodStUI);
-
 }
 
 void freeLemonProcUI()
 {
 	delete score;
+
 	for (int i = 0; i < 2; i++)
 		delete stProcUI[i];
 	delete stProcUI;
@@ -295,7 +285,6 @@ Texture* methodStUI(const char* s)
 	setRGBA(0, 0, 0, 1);
 	g->drawRect(5, 5, size.width - 10, size.height - 10);
 	setRGBA(1, 1, 1, 1);
-
 
 	setStringSize(25);
 	if (index == 0)
@@ -318,11 +307,11 @@ Texture* methodStUI(const char* s)
 	g->clean();
 	return tex;
 }
+
 void drawLemonProcUI(float dt)
 {
 	score->update(dt);
 	stProcUI[0]->paint(10, 10, TOP | LEFT, "0\n%d", score->get());
-
 
 	if (numCountDown == 0)
 		takeTime += dt;
@@ -367,11 +356,9 @@ void Number::add(int n)
 	delta = 0.0f;
 }
 
-
-// =============================================
+// =====================================
 // Setting
-// =============================================
-
+// =====================================
 void loadLemonSetting()
 {
 }
@@ -389,13 +376,12 @@ bool keyLemonSetting(iKeyStat stat, iPoint point)
 	return false;
 }
 
-// =============================================
+// =====================================
 // CountDown
-// =============================================
+// =====================================
 iStrTex* stCountDown;
 int numCountDown;
-float deltaCountDown; // 0 ~ 1흐르게 
-// 3,2,1로 나와야함. 3 > 2,9x... 1초가 흐르기전 숫자 변경우려
+float deltaCountDown;// 0 ~ 1
 
 void loadLemonCountDown()
 {
@@ -416,7 +402,7 @@ void drawLemonCountDown(float dt)
 
 	setStringSize(100);
 	setStringRGBA(0, 1, 0, 1);
-	
+
 	float rate;
 	if (deltaCountDown < 0.15f)
 		rate = 1.0f;
@@ -437,8 +423,49 @@ void drawLemonCountDown(float dt)
 
 bool keyLemonCountDown(iKeyStat stat, iPoint point)
 {
-	if (numCountDown == 0)
-		return false;
-	return true;
+	if (numCountDown)
+		return true;
+	return false;
 }
 
+float getDistance(iPoint p, iPoint s, iPoint e)
+{
+	return 0;
+}
+
+#if 0
+float getDistance(vec2 p, vec2 s, vec2 e, float width)
+{
+	vec2 m = p - s;
+	vec2 n = e - s;
+	float len = length(n);
+	n /= len;
+
+	vec2 proj = clamp(dot(m, n), 0.0, len) * n;
+
+	return length(m - proj) - width / 2.;
+}
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+
+#if 1
+	vec2 s = vec2(50., 100.);
+	vec2 e = vec2(600, 250.);
+	fragColor = vec4(clamp(getDistance(fragCoord, s, e, 50.), 0.0, 1.0));
+#else
+	vec2 c = iResolution.xy / 2.;
+
+	if (fragCoord.x < iResolution.x / 2.)
+	{
+		fragColor = vec4(clamp(length(fragCoord - c) - 50., 0.0, 1.0));
+	}
+	else
+	{
+		if (length(fragCoord - c) < 50.)
+			fragColor = vec4(0.);
+		else
+			fragColor = vec4(1.);
+	}
+#endif
+}
+#endif
