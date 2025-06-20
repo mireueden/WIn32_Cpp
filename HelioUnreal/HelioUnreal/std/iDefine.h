@@ -90,6 +90,18 @@ struct Texture
 	int retainCount;
 };
 
+enum TextureWrap
+{
+	TextureWrapClamp = 0,
+	TextureWrapRepeat,
+};
+
+enum TextureFilter
+{
+	TextureFilterLinear = 1, 
+	TextureFilterNearest, 
+};
+
 #if 1
 // window
 #define VSNPRINTF _vsnprintf

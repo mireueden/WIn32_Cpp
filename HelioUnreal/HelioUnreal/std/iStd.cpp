@@ -494,6 +494,54 @@ void imageFilterMirror(uint8* bgra, int width, int height, int stride)
         }
     }
 }
+static TextureWrap wrap = TextureWrapClamp;
+static TextureFilter filter = TextureFilterLinear;
+
+void setImage(TextureWrap w, TextureFilter f)
+{
+    wrap = w;
+    filter = f;
+}
+
+void applyImage()
+{
+    if (wrap == TextureWrapClamp)
+    {    
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);// GL_REPEAT
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    }
+    else if (wrap == TextureWrapRepeat)
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);// GL_REPEAT
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    }
+
+    if (filter == TextureFilterLinear)
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    }
+    else if (filter == TextureFilterNearest)
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    }
+
+}
+
+void setImage(Texture* tex, TextureWrap w, TextureFilter f)
+{
+    
+    TextureWrap _w = wrap;
+    TextureFilter _f = filter;
+    setImage(w, f);
+
+    glBindTexture(GL_TEXTURE_2D,tex->texID);
+    applyImage();
+    glBindTexture(GL_TEXTURE_2D, 0);
+  
+    setImage(_w, _f);
+}
 
 Texture* createImage(const char* szFormat, ...)
 {
@@ -685,9 +733,9 @@ void drawImage(Texture* tex, float x, float y,
 
 void drawShadertoy(float dt)
 {
-    iPoint position[] = {
-        0, 0,                   devSize.width, 0,
-        0, devSize.height,      devSize.width, devSize.height,
+    float position[] = {
+        0, 0, 0, 1,                   devSize.width, 0, 0, 1,
+        0, devSize.height, 0, 1,      devSize.width, devSize.height, 0, 1,
     };
     glm::mat4 projMatrix = glm::ortho(0.0f, devSize.width, devSize.height, 0.0f, -1000.0f, 1000.0f);
     glm::mat4 viewMatrix(1.0f);
@@ -746,7 +794,7 @@ void drawShadertoy(float dt)
 
     uint32 pAttr = glGetAttribLocation(programID, "position");
     glEnableVertexAttribArray(pAttr);// 2
-    glVertexAttribPointer(pAttr, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(float) * 0));
+    glVertexAttribPointer(pAttr, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (const void*)(sizeof(float) * 0));
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbe);// 3
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
