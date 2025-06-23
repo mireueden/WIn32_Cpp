@@ -36,7 +36,7 @@ public:
 	iFBO(int width, int height);
 	virtual ~iFBO();
 
-	static Texture* createImage(int width, int height);
+	static Texture* createImage(int width, int height, bool rgba32f = false);
 
 	void bind();
 private:

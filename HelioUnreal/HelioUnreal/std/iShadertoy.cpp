@@ -8,7 +8,7 @@ iShadertoy::iShadertoy(STInfo* info)
 	memset(programID, 0xFF, sizeof(uint32) * 5);
 
 	//memset(texs, 0x00, sizeof(Texture*) * 8);
-	texs = new Texture * *[4];
+	texs = new Texture **[4];
 	memset(texs, 0x00, sizeof(Texture**) * 4);
 
 	texiChannel = new Texture * *[5];
@@ -145,7 +145,11 @@ void iShadertoy::setUniform(float dt, uint32 programID)
 }
 
 void iShadertoy::paint(float dt)
-{
+{	
+	// 원래 ㅣ런식으로 작성했어야했음.
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
 	glDisable(GL_BLEND);
 	for (int i = 0; i < 5; i++) // buffer A ~ D + Image
 	{	// programID는 총 5개
@@ -223,6 +227,8 @@ void iShadertoy::paint(float dt)
 		}
 	}
 	toggle = !toggle;
+
+	glEnable(GL_BLEND);
 }
 
 void iShadertoy::key(iKeyStat stat, iPoint point)

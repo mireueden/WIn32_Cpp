@@ -134,6 +134,12 @@
     <ClInclude Include="game\Animating.h" />
     <ClInclude Include="game\Comp.h" />
     <ClInclude Include="game\CtrlImage.h" />
+    <ClInclude Include="game\DT.h" />
+    <ClInclude Include="game\DTLoading.h" />
+    <ClInclude Include="game\DTLogin.h" />
+    <ClInclude Include="game\DTObject.h" />
+    <ClInclude Include="game\DTProc.h" />
+    <ClInclude Include="game\DTProcUI.h" />
     <ClInclude Include="game\Game.h" />
     <ClInclude Include="game\ImageText.h" />
     <ClInclude Include="game\Lemon.h" />
@@ -172,6 +178,12 @@
     <ClCompile Include="game\Animating.cpp" />
     <ClCompile Include="game\Comp.cpp" />
     <ClCompile Include="game\CtrlImage.cpp" />
+    <ClCompile Include="game\DT.cpp" />
+    <ClCompile Include="game\DTLoading.cpp" />
+    <ClCompile Include="game\DTLogin.cpp" />
+    <ClCompile Include="game\DTObject.cpp" />
+    <ClCompile Include="game\DTProc.cpp" />
+    <ClCompile Include="game\DTProcUI.cpp" />
     <ClCompile Include="game\Game.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

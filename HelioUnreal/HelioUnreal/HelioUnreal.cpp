@@ -129,12 +129,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_LBUTTONDOWN:
-        printf("WM_LBUTTONDOWN %d (%d, %d)\n", wParam, LOWORD(lParam), HIWORD(lParam));
+        //printf("WM_LBUTTONDOWN %d (%d, %d)\n", wParam, LOWORD(lParam), HIWORD(lParam));
         keyApp(iKeyStatBegan, convertCoord(LOWORD(lParam), HIWORD(lParam)));
         mouseMoving = true;
         break;
     case WM_LBUTTONUP:
-        printf("WM_LBUTTONDOWN %d (%d, %d)\n", wParam, LOWORD(lParam), HIWORD(lParam));
+        //printf("WM_LBUTTONDOWN %d (%d, %d)\n", wParam, LOWORD(lParam), HIWORD(lParam));
         keyApp(iKeyStatEnded, convertCoord(LOWORD(lParam), HIWORD(lParam)));
         mouseMoving = false;
         break;
@@ -225,6 +225,6 @@ iPoint convertCoord(float x, float y)
     iPoint p;
     p.x = (x - viewport.origin.x) / viewport.size.width * devSize.width;
     p.y = (y - viewport.origin.y) / viewport.size.height * devSize.height;
-    printf("(%.0f,%.0f) => (%.0f,%.0f)\n", x, y, p.x, p.y);
+    //printf("(%.0f,%.0f) => (%.0f,%.0f)\n", x, y, p.x, p.y);
     return p;
 }

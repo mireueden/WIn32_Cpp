@@ -17,7 +17,6 @@ iStrTex*** stMenuBtn;
 Texture* methodStBtn(const char* s);
 int selectedMenu;
 
-iShadertoy* shadertoy;
 
 void loadLemonMenu()
 {
@@ -43,32 +42,6 @@ void loadLemonMenu()
 	}
 	selectedMenu = -1;
 
-	Texture* texElevated = createImage("assets/shader/noise.png");
-	STInfo stInfo = {
-		"assets/shader/gdi.vert",
-		{
-			"assets/shader/Elevated0.frag",
-			NULL,
-			NULL,
-			NULL,
-			"assets/shader/Elevated4.frag",
-		},
-		{
-			{ texElevated, NULL, NULL, NULL },	// bufferA
-			{  }, // bufferB
-			{  }, // bufferC
-			{  }, // bufferD
-			{  }, // Image
-		},
-		{
-			{ -1, -1, -1, -1 },	// bufferA
-			{ -1, -1, -1, -1 }, // bufferB
-			{ -1, -1, -1, -1 }, // bufferC
-			{ -1, -1, -1, -1 }, // bufferD
-			{  0, -1, -1, -1 }, // Image
-		},
-	};
-	shadertoy = new iShadertoy(&stInfo);
 }
 
 void freeLemonMenu()
@@ -191,17 +164,15 @@ void drawLemonMenu(float dt)
 		imgMenuBtn[i]->paint(dt, iPointZero);
 	}
 
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClearColor(0, 0, 0, 1);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//void drawShadertoy(float dt);
 	//drawShadertoy(dt);
-	shadertoy->paint(dt);
+	//shadertoy->paint(dt);
 }
 
 void keyLemonMenu(iKeyStat stat, iPoint point)
 {
-	shadertoy->key(stat, point);
-	return;
 
 	int i, j = -1;
 

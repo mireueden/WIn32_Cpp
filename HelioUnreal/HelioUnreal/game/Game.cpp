@@ -13,6 +13,7 @@
 #include "VN.h"
 #include "4Myen.h"
 #include "Lemon.h"
+#include "DT.h"
 
 ParticleSystem* ps;
 
@@ -30,6 +31,10 @@ static METHOD_FLOAT methodDraw;
 static METHOD_KEY methodKey;
 
 
+Texture* texGame;
+iShadertoy** shadertoy;
+int indexShadertoy;
+
 void loadGame()
 {
 
@@ -40,10 +45,10 @@ void loadGame()
 	loadImageText();
 
 #if 1
-	METHOD_VOID mLoad[] = { loadLemon, load4Myen, loadVN, loadComp, loadOops, loadAnimating, loadLotto, loadTripple, loadMemory };
-	METHOD_VOID mFree[] = { freeLemon, free4Myen, freeVN, freeComp, freeOops, freeAnimating, freeLotto, freeTripple, freeMemory };
-	METHOD_FLOAT mDraw[] = { drawLemon, draw4Myen, drawVN, drawComp, drawOops, drawAnimating, drawLotto, drawTripple, drawMemory };
-	METHOD_KEY mKey[] = { keyLemon, key4Myen, keyVN, keyComp, keyOops, keyAnimating, keyLotto, keyTripple, keyMemory };
+	METHOD_VOID mLoad[] = { loadDT, loadLemon, load4Myen, loadVN, loadComp, loadOops, loadAnimating, loadLotto, loadTripple, loadMemory };
+	METHOD_VOID mFree[] = { freeDT, freeLemon, free4Myen, freeVN, freeComp, freeOops, freeAnimating, freeLotto, freeTripple, freeMemory };
+	METHOD_FLOAT mDraw[] = { drawDT, drawLemon, draw4Myen, drawVN, drawComp, drawOops, drawAnimating, drawLotto, drawTripple, drawMemory };
+	METHOD_KEY mKey[] = { keyDT, keyLemon, key4Myen, keyVN, keyComp, keyOops, keyAnimating, keyLotto, keyTripple, keyMemory };
 	int runIndex = 0;// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 	mLoad[runIndex]();
 	methodFree = mFree[runIndex];
@@ -99,13 +104,118 @@ void loadGame()
 		imgBtn[i] = img;
 	}
 	selectedBtn = -1;
+
+	texGame = iFBO::createImage(devSize.width, devSize.height);
+
+	Texture* texVCR = createImage("assets/shader/noise.png");
+	STInfo stInfo[4] = {
+		{
+			"assets/shader/gdi.vert",
+			{
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				"assets/shader/vcr.frag"
+			},
+			{
+				{ NULL, NULL, NULL, NULL },// buffer A
+				{ },// buffer B
+				{ },// buffer C
+				{ },// buffer D
+				{ texGame, texVCR, NULL, NULL},// Image
+			},
+			{
+				{ -1, -1, -1, -1 },// buffer A
+				{ -1, -1, -1, -1 },// buffer B
+				{ -1, -1, -1, -1 },// buffer C
+				{ -1, -1, -1, -1 },// buffer D
+				{ -1, -1, -1, -1 },// Image
+			}
+		},
+		{
+			"assets/shader/gdi.vert",
+			{
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				"assets/shader/vcrContra.frag"
+			},
+			{
+				{ NULL, NULL, NULL, NULL },// buffer A
+				{ },// buffer B
+				{ },// buffer C
+				{ },// buffer D
+				{ texGame, NULL, NULL, NULL},// Image
+			},
+			{
+				{ -1, -1, -1, -1 },// buffer A
+				{ -1, -1, -1, -1 },// buffer B
+				{ -1, -1, -1, -1 },// buffer C
+				{ -1, -1, -1, -1 },// buffer D
+				{ -1, -1, -1, -1 },// Image
+			}
+		},
+		{
+			"assets/shader/gdi.vert",
+			{
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				"assets/shader/vcrSnow.frag"
+			},
+			{
+				{ NULL, NULL, NULL, NULL },// buffer A
+				{ },// buffer B
+				{ },// buffer C
+				{ },// buffer D
+				{ texGame, NULL, NULL, NULL},// Image
+			},
+			{
+				{ -1, -1, -1, -1 },// buffer A
+				{ -1, -1, -1, -1 },// buffer B
+				{ -1, -1, -1, -1 },// buffer C
+				{ -1, -1, -1, -1 },// buffer D
+				{ -1, -1, -1, -1 },// Image
+			}
+		},
+		{
+			"assets/shader/gdi.vert",
+			{
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				"assets/shader/vcrRain.frag"
+			},
+			{
+				{ NULL, NULL, NULL, NULL },// buffer A
+				{ },// buffer B
+				{ },// buffer C
+				{ },// buffer D
+				{ texGame, NULL, NULL, NULL},// Image
+			},
+			{
+				{ -1, -1, -1, -1 },// buffer A
+				{ -1, -1, -1, -1 },// buffer B
+				{ -1, -1, -1, -1 },// buffer C
+				{ -1, -1, -1, -1 },// buffer D
+				{ -1, -1, -1, -1 },// Image
+			}
+		}
+	};
+	shadertoy = new iShadertoy * [3];
+	for (int i = 0; i < 4; i++)
+		shadertoy[i] = new iShadertoy(&stInfo[i]);
+	indexShadertoy = -1;
 }
 
 void freeGame()
 {
 	freeImage(texBg);
 	freeImage(texMirror);
-
 
 	freeImageText();
 
@@ -115,54 +225,57 @@ void freeGame()
 #elif 0
 	delete ps;
 #endif
-	for (int i = 0; i < 3; i++)
-		delete(imgBtn[i]);
+	for (int i = 0; i < 4; i++)
+		delete imgBtn[i];
 	delete imgBtn;
+
+	freeImage(texGame);
+	for (int i = 0; i < 4; i++)
+		delete shadertoy[i];
+	delete shadertoy;
 }
 
 
 void drawGame(float dt)
 {
+	// back buffer
+	fbo->bind(texGame);
+	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
 	setRGBA(0, 0, 0, 1);
 	clear();
 
-	setRGBA(1, 1, 1, 1);
-	drawImage(texBg, 0, 200, BOTTOM | LEFT);
-	drawImage(texMirror, 0, 200, TOP | LEFT);
-	
-	drawImageText(dt);
-#if 0
-	static iStrTex* st = new iStrTex();
-	setStringSize(30);
-	setStringRGBA(1, 1, 1, 1);
-	st->paint(200, 200, TOP | LEFT, "안녕하세요");
-
-
-#elif 0
-	static float delta = 0.0f;
-	delta += dt;
-	iPoint off = iPointMake(50 * sin(delta), 0);
-
-	for (int i = 0; i < 3; i++)
-	{
-		imgBtn[i]->index = (selectedBtn == i);
-		imgBtn[i]->paint(dt, off);
-	}
-#endif	
-
-#if 1
 	methodDraw(dt);
-	return;
-#elif 0
-	ps->paint(dt, iPointMake(DEV_WIDTH / 2, DEV_HEIGHT / 2));
-	return;
-#endif
+
+	fbo->unbind();
+	// front buffer
+	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);// Pre-multiplied Apha
+
+	if (indexShadertoy == -1)
+		drawImage(texGame, 0, 0, 0, 0, texGame->width, texGame->height,
+			1.0f, 1.0f, 2, 0, TOP | LEFT, REVERSE_HEIGHT);
+	else
+		shadertoy[indexShadertoy]->paint(dt);
+	//drawImage(texGame, devSize.width - 10, devSize.height - 10,
+	//	0, 0, texGame->width, texGame->height,
+	//	0.25f, 0.25f, 2, 0, BOTTOM | RIGHT, REVERSE_HEIGHT);
+
+	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	
+	if (keydown & keydown_space)
+	{
+		indexShadertoy++;
+		if (indexShadertoy == 4)
+			indexShadertoy = -1;
+	}
 }
 
 
 
 void KeyGame(iKeyStat stat, iPoint point)
 {
+	//shadertoy->key(stat, point);
+	//return;
 #if 1
 	methodKey(stat, point);
 	return;
