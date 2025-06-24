@@ -28,7 +28,7 @@ iFPS* iFPS::share()
 float iFPS::update()
 {
     DWORD now = GetTickCount();
-    float delta = (now - lastUpdate) / 1000.0f;
+     delta = (now - lastUpdate) / 1000.0f;
     lastUpdate = now;
 
     count++;

@@ -8,6 +8,7 @@ C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTLoading.cpp;C:\workspace\W
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTLogin.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DTLogin.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DTObject.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTProc.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DTProc.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTProcPop.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DTProcPop.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTProcUI.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DTProcUI.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Game.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\Game.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\ImageText.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\ImageText.obj

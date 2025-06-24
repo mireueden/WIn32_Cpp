@@ -25,6 +25,14 @@ extern int keydown, keystat;
 extern iSize devSize;
 extern iRect viewport;
 
+struct DelayPoint
+{
+	iKeyStat s;
+	iPoint p;
+};
+extern DelayPoint* delayPoint;
+extern int delayNum;
+
 void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free,
 	METHOD_FLOAT draw, METHOD_KEY key);
 void freeApp();

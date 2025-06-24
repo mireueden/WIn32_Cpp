@@ -12,6 +12,7 @@ void drawDTProcUI(float dt)
 {
 }
 
-void keyDTProcUI(iKeyStat stat, iPoint point)
+bool keyDTProcUI(iKeyStat stat, iPoint point)
 {
+	return false;
 }

@@ -12,6 +12,9 @@ METHOD_VOID methodFree;
 METHOD_FLOAT methodDraw;
 METHOD_KEY methodKey;
 
+DelayPoint* delayPoint;
+int delayNum = 0;
+
 void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free,
     METHOD_FLOAT draw, METHOD_KEY key)
 {

@@ -25,6 +25,7 @@ Q) 디버깅 nan, inf 언제 등장
 
 Q)링크 리스트 헤드 타입
 Q)WM_SIZING reinterpret_cast 에 대해
-Q)iPointAbs(수식) 왜 여기에 에러? 수식이 들어가면 에러발생
+Q)iPointAbs(수식) 왜 여기에 에러 ? 수식이 들어가면 에러발생
 
 #endif
+

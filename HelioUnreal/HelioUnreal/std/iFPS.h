@@ -15,7 +15,7 @@ public:
 	
 	unsigned long lastUpdate;
 	int count;
-	float takeTime;
+	float takeTime, delta;
 };
 #define fpsInterval 5.0f
 
