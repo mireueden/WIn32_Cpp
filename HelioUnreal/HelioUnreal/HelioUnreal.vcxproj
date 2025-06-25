@@ -163,6 +163,7 @@
     <ClInclude Include="std\iOpenGL.h" />
     <ClInclude Include="std\iPoint.h" />
     <ClInclude Include="std\iPopup.h" />
+    <ClInclude Include="std\iQueueKey.h" />
     <ClInclude Include="std\iRect.h" />
     <ClInclude Include="std\iShadertoy.h" />
     <ClInclude Include="std\iShortestPath.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="std\iOpenGL.cpp" />
     <ClCompile Include="std\iPoint.cpp" />
     <ClCompile Include="std\iPopup.cpp" />
+    <ClCompile Include="std\iQueueKey.cpp" />
     <ClCompile Include="std\iRect.cpp" />
     <ClCompile Include="std\iShadertoy.cpp" />
     <ClCompile Include="std\iShortestPath.cpp" />

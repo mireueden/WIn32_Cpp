@@ -28,7 +28,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
     runApp = false;
     int x = 0, y = 0, w = 640, h = 480;
-    //
     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
         0, 0, 1920, 1080, nullptr, nullptr, hInstance, nullptr);
     ShowWindow(hWnd, nCmdShow);
@@ -50,7 +49,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
         else
         {
             drawApp(iFPS::share()->update());
-            keydown = keydown_none;
+            iKeyboardUpdate(iFPS::share()->delta);
         }
     }
 
@@ -62,41 +61,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 #include <stdio.h>
 
 bool mouseMoving = false;
-void ctrlKey(bool pressed, int& keydown, int key)
-{
-    int keys[][2] = {
-        {87, keydown_w}, {65, keydown_a}, {83, keydown_s}, {68, keydown_d},
-        //{87, keydown_w}, {65, keydown_a}, {83, keydown_s}, {68, keydown_d},
-        //{87, keydown_w}, {65, keydown_a}, {83, keydown_s}, {68, keydown_d},
-        {32, keydown_space},
-    };
-    int nKey = sizeof(keys) / sizeof(int) / 2;
-
-    if (pressed)
-    {
-        for (int i = 0; i < nKey; i++)
-        {
-            if (key == keys[i][0])
-            {
-                keydown |= keys[i][1];
-                break;
-            }
-        }
-    }
-    else
-    {
-        for (int i = 0; i < nKey; i++)
-        {
-            if (key == keys[i][0])
-            {
-                keydown &= ~keys[i][1];
-                break;
-            }
-        }
-    }
-}
-
-
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -122,22 +86,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     case WM_KEYDOWN:
         printf("WM_KEYDOWN %d\n", wParam);
-        ctrlKey(true, keystat, wParam);
-        ctrlKey(true, keydown, wParam);
+        iKeyboardAdd(true, wParam);
         break;
     case WM_KEYUP:
         printf("WM_KEYUP %d\n", wParam);
-        ctrlKey(false, keystat, wParam);
+        iKeyboardAdd(false, wParam);
         break;
-
+                       
     case WM_LBUTTONDOWN:
         //printf("WM_LBUTTONDOWN %d (%d, %d)\n", wParam, LOWORD(lParam), HIWORD(lParam));
 #if 0
         keyApp(iKeyStatBegan, convertCoord(LOWORD(lParam), HIWORD(lParam)));
 #else
-        delayPoint[delayNum].s = iKeyStatBegan;
-        delayPoint[delayNum].p = convertCoord(LOWORD(lParam), HIWORD(lParam));
-        delayNum++;
+        iQueueKeyAdd(iKeyStatBegan, convertCoord(LOWORD(lParam), HIWORD(lParam)));
 #endif
         mouseMoving = true;
         break;
@@ -146,9 +107,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 #if 0
         keyApp(iKeyStatEnded, convertCoord(LOWORD(lParam), HIWORD(lParam)));
 #else
-        delayPoint[delayNum].s = iKeyStatEnded;
-        delayPoint[delayNum].p = convertCoord(LOWORD(lParam), HIWORD(lParam));
-        delayNum++;
+        iQueueKeyAdd(iKeyStatEnded, convertCoord(LOWORD(lParam), HIWORD(lParam)));
 #endif
         mouseMoving = false;
         break;
@@ -157,9 +116,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 #if 0
         keyApp(iKeyStatMoved, convertCoord(LOWORD(lParam), HIWORD(lParam)));
 #else
-        delayPoint[delayNum].s = iKeyStatMoved;
-        delayPoint[delayNum].p = convertCoord(LOWORD(lParam), HIWORD(lParam));
-        delayNum++;
+        iQueueKeyAdd(iKeyStatMoved, convertCoord(LOWORD(lParam), HIWORD(lParam)));
 #endif
         break;
 

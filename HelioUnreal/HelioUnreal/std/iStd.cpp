@@ -12,20 +12,19 @@ METHOD_VOID methodFree;
 METHOD_FLOAT methodDraw;
 METHOD_KEY methodKey;
 
-DelayPoint* delayPoint;
-int delayNum = 0;
-
 void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free,
     METHOD_FLOAT draw, METHOD_KEY key)
 {
     GdiplusStartupInput gdiplusStartupInput;
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-    keydown = keydown_none;
-    keystat = keydown_none;
+    iQueueKeySet(1000, keyApp);
+    iKeyboardSet();
     devSize = iSizeMake(DEV_WIDTH, DEV_HEIGHT);
     viewport = iRectMake(0, 0, 1, 1);
 
+    //iQueueKey::share()->set(1000, keyApp);
+        
     loadOpenGL(hWnd);
 
     _r = 1.0f;
@@ -43,6 +42,8 @@ void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free,
 
 void freeApp()
 {
+    delete iQueueKey::share();
+
     methodFree();
 
     freeOpenGL();
@@ -90,6 +91,9 @@ void drawApp(float dt)
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
+    //iQueueKey::share()->update(dt);
+    iQueueKeyUpdate(dt)
 
     methodDraw(dt);
     fbo->unbind();

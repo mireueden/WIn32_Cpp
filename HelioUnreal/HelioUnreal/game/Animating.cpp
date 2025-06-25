@@ -77,10 +77,10 @@ void drawAnimating(float dt)
 	if (ai->behave != BehaveRepair)
 	{
 		iPoint v = iPointZero;
-		if (keystat & keydown_a)	  v.x = -1;
-		else if (keystat & keydown_d) v.x = +1;
-		if (keystat & keydown_w)	  v.y = -1;
-		else if (keystat & keydown_s) v.y = +1;
+		if (iKeyboardDown(keydown_a))		v.x = -1;
+		else if (iKeyboardDown(keydown_d))	v.x = +1;
+		if (iKeyboardDown(keydown_w))		v.y = -1;
+		else if (iKeyboardDown(keydown_s))	v.y = +1;
 
 		Behave be;
 		if (v == iPointZero)
@@ -91,7 +91,7 @@ void drawAnimating(float dt)
 			v.loadIdentity();
 		}
 
-		if (keydown & keydown_space)
+		if (iKeyboardDown(keydown_space))
 			be = BehaveRepair;
 		ai->behave = be;
 		ai->position += v * (ai->speed * dt);

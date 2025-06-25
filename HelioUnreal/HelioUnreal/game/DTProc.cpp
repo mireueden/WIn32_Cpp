@@ -107,7 +107,6 @@ void keyDTProcfield(iKeyStat stat, iPoint point)
 	case iKeyStatEnded:
 		dragField = false;
 		break;
-
 	}
 
 }

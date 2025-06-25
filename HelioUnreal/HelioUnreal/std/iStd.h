@@ -12,6 +12,7 @@
 #include "iImage.h"
 #include "iPopup.h"
 #include "iStrTex.h"
+#include "iQueueKey.h"
 
 #include "iOpenGL.h"
 #include "iFPS.h"
@@ -19,19 +20,9 @@
 #include "iShortestPath.h"
 #include "iShadertoy.h"
 
-// keydown 눌렀을때 1번 발생
-// keystat 누르고 있을때 계속 발생
-extern int keydown, keystat;
+
 extern iSize devSize;
 extern iRect viewport;
-
-struct DelayPoint
-{
-	iKeyStat s;
-	iPoint p;
-};
-extern DelayPoint* delayPoint;
-extern int delayNum;
 
 void loadApp(HWND hWnd, METHOD_VOID load, METHOD_VOID free,
 	METHOD_FLOAT draw, METHOD_KEY key);

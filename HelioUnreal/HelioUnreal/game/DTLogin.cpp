@@ -94,6 +94,7 @@ void drawDTLogin(float dt)
 		setLoading(DTStateProc, freeDTLogin, loadDTProc);
 	}
 
+#if DISPLAY_THREAD
 	setRGBA(1, 0, 0, 1);
 	for (int i = 0; i < 10; i++)
 	{
@@ -101,6 +102,13 @@ void drawDTLogin(float dt)
 		fillRect(10, 10 + 20 * i, (devSize.width - 20) * r, 10);
 	}
 	setRGBA(1, 1, 1, 1);
+#endif
+
+	setRGBA(1, 1, 1, 1);
+	setLineWidth(10);
+	//drawRect(10, 10, devSize.width - 20, devSize.height - 20);
+	//drawLine(10, 10, devSize.width - 20, devSize.height - 20);
+	fillRect(100, 200, 50, 50);
 }
 
 

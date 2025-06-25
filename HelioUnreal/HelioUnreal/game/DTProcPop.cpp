@@ -115,6 +115,11 @@ void showPopCaption(bool show, iPoint center, const char* str)
 		popCaption->sp = p;
 		popCaption->ep = p;
 	}
+	else
+	{
+		//stCaption->str = NULL; // 힙메모리 할당한 주소를 잃어버림 => strcmp
+		stCaption->str[0] = 0; // 힙메모리 할당 유지(버퍼 크기를 가짐) + 문자열길이 0
+	}
 
 	popCaption->show(show);
 }

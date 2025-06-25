@@ -144,6 +144,9 @@
     <ClInclude Include="game\DTProcPop.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="std\iQueueKey.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelioUnreal.cpp">
@@ -267,6 +270,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="game\DTProcPop.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="std\iQueueKey.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

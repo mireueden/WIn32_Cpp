@@ -13,6 +13,7 @@
 #include "VN.h"
 #include "4Myen.h"
 #include "Lemon.h"
+
 #include "DT.h"
 
 ParticleSystem* ps;
@@ -30,13 +31,38 @@ static METHOD_VOID methodFree;
 static METHOD_FLOAT methodDraw;
 static METHOD_KEY methodKey;
 
-
 Texture* texGame;
 iShadertoy** shadertoy;
 int indexShadertoy;
 
+struct Parent
+{
+	Parent() { printf("Parent()\n"); }
+	virtual ~Parent() { printf("~Parent()\n"); }
+
+	virtual void run() { printf("Parent::run\n"); };
+};
+
+struct Child : Parent
+{
+	Child() { printf("Child\n"); }
+	virtual ~Child() { printf("~Child\n"); }
+
+	virtual void run() {
+		Parent::run();
+		printf("Child::run\n");
+	};
+};
+
 void loadGame()
 {
+	{
+		Parent* p = new Child();
+		p->run();
+
+		delete p;
+	}
+
 
 	texBg = createImageFilter("assets/download0.png");
 	setImageFilter(imageFilterMirror);
@@ -261,8 +287,8 @@ void drawGame(float dt)
 	//	0.25f, 0.25f, 2, 0, BOTTOM | RIGHT, REVERSE_HEIGHT);
 
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	
-	if (keydown & keydown_space)
+
+	if (iKeyboardDown(keydown_space))
 	{
 		indexShadertoy++;
 		if (indexShadertoy == 4)

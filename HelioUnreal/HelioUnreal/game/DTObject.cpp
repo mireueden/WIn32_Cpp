@@ -6,6 +6,17 @@ DTUnit** unit;
 int selectedUnit;
 iPoint positionUnit;
 
+int target, curr, complete, broken;
+
+void startMake(int target)
+{
+	// 주문 우선순위는 나중에 처리
+	::target = target;
+	curr = 0;
+	complete = 0;
+	broken = 0;
+}
+
 void loadDTObject()
 {
 	unit = new DTUnit * [5];
@@ -16,6 +27,9 @@ void loadDTObject()
 	}
 	selectedUnit = -1;
 	positionUnit = iPointZero;
+
+	target = 0;
+	curr = 0;
 }
 
 void freeDTObject()
@@ -37,6 +51,12 @@ void drawDTObject(float dt, iPoint off)
 		showToast(positionUnit, NULL);
 	else
 		showToast(positionUnit, "unit[%d] 선택됨\n", selectedUnit);
+
+	if (curr < target)
+	{
+		if (unit[0]->start(DTUnitMake::cbWorked0))
+			curr++;
+	}
 }
 
 bool keyDTObject(iKeyStat stat, iPoint point)
@@ -82,9 +102,35 @@ DTUnit::DTUnit(int index)
 	_delta = 0.0f;
 	delta = 0.0f;
 }
+
 DTUnit::~DTUnit()
 {
-	delete img;
+	if(img)
+		delete img;
+}
+
+
+
+
+
+float DTUnit::run(float dt)
+{
+	if (delta < _delta) 
+	{
+		delta += dt;
+		float r = delta / _delta; // 진행 비율
+
+		if (delta >= _delta)
+		{
+			methodWorked(this);
+		}
+		if (r > 1.0f)
+		{
+			r = 1.0f;
+		}
+		return r;
+	}
+	return 1.0f;
 }
 
 iRect DTUnit::touchRect(iPoint position)
@@ -115,46 +161,242 @@ DTUnitMake::DTUnitMake(int index) : DTUnit(index)
 		{0, 0, 1, 1},
 		{1, 1, 0, 1},
 		{1, 0, 1, 1},
-		{1, 1, 1, 1},
 	};
 
-	iGraphics* g = iGraphics::share();
-
-	iSize* s = &sizes[index];
-	g->init(s->width, s->height);
+	const char* str[4] = { "대기","생산","고장","완료" };
+	int num[4] = { 3,10,2,5 };
+	imgs = new iImage * [StateMakeMax];
 
 	iColor4f* c = &colors[index];
 	setRGBA(c->r, c->g, c->b, c->a);
-	g->fillRect(0, 0, s->width, s->height);
-	setRGBA(1, 1, 1, 1);
 
-	setStringSize(30);
+	setStringSize(18);
 	setStringRGBA(0, 0, 0, 1);
-	g->drawString(s->width / 2, s->height / 2, VCENTER | HCENTER, "%d", index);
+
+	iGraphics* g = iGraphics::share();
+	iSize* s = &sizes[index];
+	for (int i = 0; i < 4; i++)
+	{
+		img = new iImage();
+
+		for (int j = 0; j < num[i]; j++)
+		{
+			g->init(s->width, s->height);
+			
+			g->fillRect(0, 0, s->width, s->height);
+			g->drawString(s->width / 2, s->height / 2 - 10, VCENTER | HCENTER,
+				"index%d", index);
+			g->drawString(s->width / 2, s->height / 2 + 10, VCENTER | HCENTER,
+				"%s%d", str[i], j);
+
+			Texture* tex = g->getTexture();
+			g->clean();
+			img->add(tex);
+		}
+		img->position = iPointMake(-s->width / 2, -s->height);
+		img->_aniDt = 0.17f;
+		img->startAnimation();
+		imgs[i] = img;
+	}
+	sm = StateMakeReady;
+}
+
+DTUnitMake::~DTUnitMake()
+{
+	for (int i = 0; i < StateMakeMax; i++)
+		delete imgs[i];
+	img = NULL;
+}
+
+bool DTUnitMake::start(MethodWorked m)
+{
+	DTUnit::start(m);
+	if (delta < _delta)
+		return false;
+
+	delta = 0.0f;
+	methodWorked = m; 
+	return true;
+}
+
+
+void DTUnitMake::paint(float dt, iPoint position)
+{
+	img = imgs[sm];
+	//setRGBA(1, 0, 1, 1);
+	//iPoint p = this->position + position;
+	//fillRect(p.x, p.y, 50, 50);
+	//setRGBA(1, 1, 1, 1);
+	img->paint(dt, this->position + position);
+
+	// ctrl
+	// 물건을 싣는중
+	float r = run(dt);
+	// r에 따라 싣는 중인 프로그래스바 애니메이션 재생
+
+	if (r < 1.0f)
+		return;
+
+	// 다음 생산을 진행
+	// 대기 슬롯이 가득찼을때(생산 준비가 되었을때)
+	MethodWorked m[6] = {
+		cbWorked0, cbWorked1, cbWorked2,
+		cbWorked3, cbWorked4, cbWorked5,
+	};
+
+	start(m[index]);
+}
+
+void DTUnitMake::cbWorked0(DTUnit* obj)
+{
+	DTUnitMake* dm = (DTUnitMake*)obj;
+
+	// 실 데이터를 반영
+}
+
+void DTUnitMake::cbWorked1(DTUnit* obj)
+{
+	DTUnitMake* dm = (DTUnitMake*)obj;
+
+	// 실 데이터를 반영
+}
+
+void DTUnitMake::cbWorked2(DTUnit* obj)
+{
+	DTUnitMake* dm = (DTUnitMake*)obj;
+
+	// 실 데이터를 반영
+}
+
+void DTUnitMake::cbWorked3(DTUnit* obj)
+{
+	DTUnitMake* dm = (DTUnitMake*)obj;
+
+	// 실 데이터를 반영
+}
+
+void DTUnitMake::cbWorked4(DTUnit* obj)
+{
+	DTUnitMake* dm = (DTUnitMake*)obj;
+
+	// 실 데이터를 반영
+}
+
+void DTUnitMake::cbWorked5(DTUnit* obj)
+{
+	DTUnitMake* dm = (DTUnitMake*)obj;
+
+	// 실 데이터를 반영
+}
+
+void DTUnitMake::cbWorked9(DTUnit* obj)
+{
+	DTUnitMake* dm = (DTUnitMake*)obj;
+
+	// 실 데이터를 반영
+	complete++;
+}
+
+// =============================================
+// DTUnitMove
+// =============================================
+
+DTUnitMove::DTUnitMove() : DTUnit(index)
+{
+	index -= 100; // 0 ~ 99
+	// index == 1 : 가로로 움직이는 로봇
+	// index == 2 : 세로로 움직이는 로봇
+
+	iGraphics* g = iGraphics::share();
+
+	iSize s = iSizeMake(50, 50);
+	g->init(s.width, s.height);
+
+	setRGBA(0, 0, 0, 1);
+	g->fillRect(0, 0, s.width, s.height);
+	setRGBA(1, 1, 0, 1);
+	setLineWidth(2);
+	g->drawRect(5, 5, s.width - 10, s.height - 10);
 
 	Texture* tex = g->getTexture();
 	g->clean();
 	img = new iImage();
 	img->add(tex);
 	freeImage(tex);
-	img->position = iPointMake(-s->width / 2, -s->height);
+	img->position = iPointMake(-s.width / 2, -s.height);
+
+	tp = new iPoint[100];
+	tpNum = 0;
+}
+DTUnitMove::~DTUnitMove()
+{
+	delete tp;
+}
+void DTUnitMove::setAreaRange(iPoint sp, iPoint ep, float speed)
+{
+	this->sp = sp;
+	this->ep = ep;
+	this->speed = speed;
 }
 
-DTUnitMake::~DTUnitMake()
+bool DTUnitMove::start(MethodWorked m)
 {
+	DTUnit::start(m);
 
+	// to do ..
 }
-
-void DTUnitMake::start(MethodWorked m)
+void DTUnitMove::paint(float dt, iPoint position)
 {
+	// sp ep - line
+	setRGBA(0, 0, 0, 1);
+	setLineWidth(10);
+	drawLine(sp, ep);
+	setRGBA(1, 1, 0, 1);
+	setLineWidth(4);
+	drawLine(sp + iPointMake(2, 2), ep - iPointMake(2, 2));
 
-}
-
-void DTUnitMake::paint(float dt, iPoint position)
-{
 	//setRGBA(1, 0, 1, 1);
 	//iPoint p = this->position + position;
 	//fillRect(p.x, p.y, 50, 50);
 	//setRGBA(1, 1, 1, 1);
 	img->paint(dt, this->position + position);
+
+	// ctrl
+	// 물건을 싣는중
+	float r = run(dt);
+	// r에 따라 싣는 중인 프로그래스바 애니메이션 재생
+
+	if (r < 1.0f)
+		return;
+
+	if (tpNum)
+	{
+		iPoint& tPosition = tp[0];
+		position;speed;
+		
+		iPoint mp = tPosition - position;
+		mp.loadIdentity();
+		mp = mp * (speed * dt);
+		if (move(&position, &tPosition, mp))
+		{
+			tpNum--;
+			memcpy(tp, &tp[1], sizeof(iPoint) * tpNum);
+
+			// methodArrive
+			// 도착한 곳에서 컨베이어 물건을 싣는다.
+			// 
+			start(cbWorked);
+		}
+	}
+	else
+	{
+
+	}
+}
+
+void DTUnitMove::cbWorked(DTUnit* obj)
+{
+	DTUnitMove* dm = (DTUnitMove*)obj;
+
+	// 실 데이터를 반영
 }

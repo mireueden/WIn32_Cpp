@@ -85,19 +85,19 @@ void drawUs(float dt)
 
 	// ctrl
 	iPoint v = iPointZero;
-	if (keydown & keydown_a)		v.x = -1;
-	else if (keydown & keydown_d)	v.x = +1;
-	if (keydown & keydown_w)		v.y = -1;
-	else if (keydown & keydown_s)	v.y = +1;
+	if (iKeyboardDown(keydown_a))		v.x = -1;
+	else if (iKeyboardDown(keydown_d))	v.x = +1;
+	if (iKeyboardDown(keydown_w))		v.y = -1;
+	else if (iKeyboardDown(keydown_s))	v.y = +1;
 	v.loadIdentity();
 	us->position += v * (us->moveSpeed * dt);
 
 #define keydown_one keydown_space
 #define keydown_two keydown_space
 	int key = -1;
-	if (keydown & keydown_space)		key = 0;
-	else if (keydown & keydown_one)		key = 1;
-	else if (keydown & keydown_two)		key = 2;
+	if (iKeyboardDown(keydown_space))		key = 0;
+	else if (iKeyboardDown(keydown_one))	key = 1;
+	else if (iKeyboardDown(keydown_two))	key = 2;
 	
 	
 

@@ -1,12 +1,8 @@
 ﻿  DTObject.cpp
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp(15,37): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp(48,6): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp(128,21): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp(128,11): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  DTProcPop.cpp
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTProcPop.cpp(84,32): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTProcPop.cpp(84,17): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTProcPop.cpp(108,58): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTProcPop.cpp(108,43): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  코드를 생성하고 있습니다...
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp(44,6): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp(166,23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp(166,13): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp(282,20): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp(282,11): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   HelioUnreal.vcxproj -> C:\workspace\WIn32_Cpp\HelioUnreal\x64\Debug\HelioUnreal.exe
