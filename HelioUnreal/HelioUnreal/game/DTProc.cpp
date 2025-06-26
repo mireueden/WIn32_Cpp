@@ -96,15 +96,20 @@ void keyDTProcfield(iKeyStat stat, iPoint point)
 
 	case iKeyStatMoved:
 		if (dragField == false) break;
+		showDTProcUI(false);
+
 		offField += point - prevField;
 		prevField = point;
 		if (offField.x < offMin.x)			offField.x = offMin.x;
 		else if (offField.x > offMax.x)		offField.x = offMax.x;
 		if (offField.y < offMin.y)			offField.y = offMin.y;
 		else if (offField.y > offMax.y)		offField.y = offMax.y;
-		break;
 
+		break;
 	case iKeyStatEnded:
+		if (dragField == false) break;
+		showDTProcUI(true);
+
 		dragField = false;
 		break;
 	}

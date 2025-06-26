@@ -26,16 +26,38 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
     RegisterClassExW(&wcex);
 
+
     runApp = false;
-    int x = 0, y = 0, w = 640, h = 480;
-    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-        0, 0, 1920, 1080, nullptr, nullptr, hInstance, nullptr);
+
+    RECT rt;
+    setCurrentMonitor(NULL, rt);
+    monitorSize.width = rt.right - rt.left;
+    monitorSize.height = rt.bottom - rt.top;
+
+    DWORD dwExStyle, dwStyle;
+    setWindowStyle(false, dwExStyle, dwStyle);
+
+    int x = 0;
+    int y = 0;
+    int w = monitorSize.width, h = monitorSize.height;
+    AdjustWindowRectEx(&rt, dwStyle, false, dwExStyle);
+    borderSize.width = rt.right - rt.left - monitorSize.width;
+    borderSize.height = rt.bottom - rt.top - monitorSize.height;
+
+    HWND hWnd = CreateWindowEx(dwExStyle, szWindowClass, szTitle,
+        dwStyle | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
+        rt.left, rt.top,
+        rt.right - rt.left, rt.bottom - rt.top,
+        nullptr, nullptr, hInstance, nullptr);
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 
     loadApp(hWnd, loadGame, freeGame, drawGame, KeyGame);
 
-    MoveWindow(hWnd, x, y, w + 1, h, true);
+    h = monitorSize.height * 0.67f;
+    w = h * devSize.width / devSize.height + borderSize.width;
+    h += borderSize.height;
+    MoveWindow(hWnd, (monitorSize.width - w) / 2, (monitorSize.height - h) / 2, w, h, true);
 
     MSG msg;
     runApp = true;
@@ -86,6 +108,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     case WM_KEYDOWN:
         printf("WM_KEYDOWN %d\n", wParam);
+        if (wParam == VK_ESCAPE)
+        {
+            goFullscreen();
+            break;
+        }
         iKeyboardAdd(true, wParam);
         break;
     case WM_KEYUP:
@@ -125,12 +152,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_SIZING:
     {
-        RECT* rt = reinterpret_cast<LPRECT>(lParam);
-        //RECT* rt = (RECT*)lParam;
-
-        printf("WM_SIZING(%d, %d)\n",
-            rt->right - rt->left,
-            rt->bottom - rt->top);
+        RECT& rt = *reinterpret_cast<LPRECT>(lParam);
+        enforceSize(wParam, rt);
     }
         break;
     case WM_SIZE:
@@ -198,10 +221,181 @@ void resize(int width, int height)
 
 iPoint convertCoord(float x, float y)
 {
-    // x, y, in Window Client Area
     iPoint p;
     p.x = (x - viewport.origin.x) / viewport.size.width * devSize.width;
     p.y = (y - viewport.origin.y) / viewport.size.height * devSize.height;
     //printf("(%.0f,%.0f) => (%.0f,%.0f)\n", x, y, p.x, p.y);
     return p;
+}
+
+void setCurrentMonitor(HWND hwnd, RECT& rt)
+{
+    if (hwnd == NULL)
+    {
+        rt.left = 0;
+        rt.top = 0;
+        rt.right = GetSystemMetrics(SM_CXSCREEN);
+        rt.bottom = GetSystemMetrics(SM_CYSCREEN);
+        return;
+    }
+
+    GetWindowRect(hwnd, &rt);
+    HMONITOR hMonitor = MonitorFromRect(&rt, MONITOR_DEFAULTTONEAREST);
+    MONITORINFO mi;
+    mi.cbSize = sizeof(mi);
+    GetMonitorInfo(hMonitor, &mi);
+    if (mi.dwFlags == MONITORINFOF_PRIMARY)
+    {
+        rt.left = 0;
+        rt.top = 0;
+        rt.right = GetSystemMetrics(SM_CXSCREEN);
+        rt.bottom = GetSystemMetrics(SM_CYSCREEN);
+    }
+    else
+    {
+        memcpy(&rt, &mi.rcWork, sizeof(RECT));
+    }
+}
+
+
+void setWindowStyle(bool fullscreen, DWORD& dwExStyle, DWORD& dwStyle)
+{
+    if (fullscreen)
+    {
+        dwExStyle = WS_EX_APPWINDOW;
+        dwStyle = WS_POPUP;
+    }
+    else
+    {
+        dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
+        dwStyle = WS_OVERLAPPEDWINDOW;
+    }
+}
+
+void enforceSize(int edge, RECT& rect)
+{
+    switch (edge)
+    {
+    case WMSZ_BOTTOM:
+    case WMSZ_TOP:
+    {
+        // w : h = devSize.width : devSize.height
+        int h = (rect.bottom - rect.top) - borderSize.height;// client width
+        int w = h * devSize.width / devSize.height + borderSize.width;// window width
+        rect.left = (rect.left + rect.right) / 2 - w / 2;
+        rect.right = rect.left + w;
+        break;
+    }
+    case WMSZ_BOTTOMLEFT:
+    {
+        int w = (rect.right - rect.left) - borderSize.width;// client width
+        int h = (rect.bottom - rect.top) - borderSize.height;// client height
+        // if( w / h > devSize.width / devSize.height)
+        if (w * devSize.height > devSize.width * h)
+        {
+            // w : h = devSize.width : devSize.height
+            w = h * devSize.width / devSize.height + borderSize.width;// window width
+            rect.left = rect.right - w;
+        }
+        else
+        {
+            // w : h = devSize.width : devSize.height
+            h = w * devSize.height / devSize.width + borderSize.height;// widown height
+            rect.bottom = rect.top + h;
+        }
+        break;
+    }
+    case WMSZ_BOTTOMRIGHT:
+    {
+        int w = (rect.right - rect.left) - borderSize.width;// client width
+        int h = (rect.bottom - rect.top) - borderSize.height;// client height
+        // if( w / h > devSize.width / devSize.height)
+        if (w * devSize.height > devSize.width * h)
+        {
+            // w : h = devSize.width : devSize.height
+            w = h * devSize.width / devSize.height + borderSize.width;// window width
+            rect.right = rect.left + w;
+        }
+        else
+        {
+            // w : h = devSize.width : devSize.height
+            h = w * devSize.height / devSize.width + borderSize.height;// widown height
+            rect.bottom = rect.top + h;
+        }
+        break;
+    }
+    case WMSZ_LEFT:
+    case WMSZ_RIGHT:
+    {
+        int w = (rect.right - rect.left) - borderSize.width;// client width
+        int h = w * devSize.height / devSize.width + borderSize.height;// window height
+        rect.top = (rect.top + rect.bottom) / 2 - h / 2;
+        rect.bottom = rect.top + h;
+        break;
+    }
+    case WMSZ_TOPLEFT:
+    {
+        int w = (rect.right - rect.left) - borderSize.width;// client width
+        int h = (rect.bottom - rect.top) - borderSize.height;// client height
+        // if( w / h > devSize.width / devSize.height)
+        if (w * devSize.height > devSize.width * h)
+        {
+            // w : h = devSize.width : devSize.height
+            w = h * devSize.width / devSize.height + borderSize.width;
+            rect.left = rect.right - w;
+        }
+        else
+        {
+            h = w * devSize.height / devSize.width + borderSize.height;
+            rect.top = rect.bottom - h;
+        }
+        break;
+    }
+    case WMSZ_TOPRIGHT:
+    {
+        int w = (rect.right - rect.left) - borderSize.width;// client width
+        int h = (rect.bottom - rect.top) - borderSize.height;// client height
+        // if( w / h > devSize.width / devSize.height)
+        if (w * devSize.height > devSize.width * h)
+        {
+            // w : h = devSize.width : devSize.height
+            w = h * devSize.width / devSize.height + borderSize.width;
+            rect.right = rect.left + w;
+        }
+        else
+        {
+            h = w * devSize.height / devSize.width + borderSize.height;
+            rect.top = rect.bottom - h;
+        }
+        break;
+    }
+
+    }
+}
+
+bool isFullscreen = false;
+RECT rtPrev;
+void goFullscreen()
+{
+    isFullscreen = !isFullscreen;
+    DWORD dwExStyel, dwStyle;
+    setWindowStyle(isFullscreen, dwExStyel, dwStyle);
+    int x, y, w, h;
+    if (isFullscreen)
+    {
+        GetWindowRect(hwnd, &rtPrev);
+        RECT rt;
+        setCurrentMonitor(hwnd, rt);
+        x = rt.left, y = rt.top;
+        w = rt.right - rt.left, h = rt.bottom - rt.top;
+    }
+    else
+    {
+        x = rtPrev.left, y = rtPrev.top;
+        w = rtPrev.right - rtPrev.left, h = rtPrev.bottom - rtPrev.top;
+    }
+    SetWindowLong(hwnd, GWL_EXSTYLE, dwExStyel);
+    SetWindowLong(hwnd, GWL_STYLE, dwStyle);
+    SetWindowPos(hwnd, HWND_TOP, x, y, w, h, SWP_SHOWWINDOW);
+
 }

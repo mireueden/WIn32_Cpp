@@ -109,9 +109,15 @@ DTUnit::~DTUnit()
 		delete img;
 }
 
+bool DTUnit::start(MethodWorked m)
+{
+	if (delta < _delta)
+		return false;
 
-
-
+	delta = 0.0f;
+	methodWorked = m;
+	return true;
+}
 
 float DTUnit::run(float dt)
 {
@@ -205,20 +211,18 @@ DTUnitMake::~DTUnitMake()
 {
 	for (int i = 0; i < StateMakeMax; i++)
 		delete imgs[i];
+	delete imgs;
 	img = NULL;
 }
 
 bool DTUnitMake::start(MethodWorked m)
 {
-	DTUnit::start(m);
-	if (delta < _delta)
-		return false;
+	bool result = DTUnit::start(m);
 
-	delta = 0.0f;
-	methodWorked = m; 
-	return true;
+	// to do something.. 
+
+	return result;
 }
-
 
 void DTUnitMake::paint(float dt, iPoint position)
 {
@@ -301,7 +305,7 @@ void DTUnitMake::cbWorked9(DTUnit* obj)
 // DTUnitMove
 // =============================================
 
-DTUnitMove::DTUnitMove() : DTUnit(index)
+DTUnitMove::DTUnitMove(int index) : DTUnit(index)
 {
 	index -= 100; // 0 ~ 99
 	// index == 1 : 가로로 움직이는 로봇
@@ -341,9 +345,11 @@ void DTUnitMove::setAreaRange(iPoint sp, iPoint ep, float speed)
 
 bool DTUnitMove::start(MethodWorked m)
 {
-	DTUnit::start(m);
+	bool result = DTUnit::start(m);
 
-	// to do ..
+	// to do something.. 
+
+	return result;
 }
 void DTUnitMove::paint(float dt, iPoint position)
 {

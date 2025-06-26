@@ -1,6 +1,8 @@
 #include "iStd.h"
 
 int keydown, keystat;
+iSize monitorSize;
+iSize borderSize;
 iSize devSize;// 640 x 480, 1920 x 1080
 iRect viewport;
 
@@ -1059,7 +1061,16 @@ bool move(iPoint* cp, const iPoint* tp, const iPoint& mp)
 
 char* loadFile(int& len, const char* szFormat, ...)
 {
+    char szText[512];
+    va_start_end(szFormat, szText);
+
     FILE* pf = fopen(szFormat, "rb");
+    if (pf == NULL)
+    {
+        len = 0;
+        printf("loadFile fail : %s\n", szText);
+        return NULL;
+    }
 
     fseek(pf, 0, SEEK_END);// 파일 끝
     len = ftell(pf);// where

@@ -20,7 +20,8 @@
 #include "iShortestPath.h"
 #include "iShadertoy.h"
 
-
+extern iSize monitorSize;
+extern iSize borderSize;
 extern iSize devSize;
 extern iRect viewport;
 

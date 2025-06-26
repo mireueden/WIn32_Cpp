@@ -2,10 +2,13 @@
 
 #include "iStd.h"
 
-// target 생산 목표 개수 (수주 개수)
+// target 생산 목표 개수(수주 개수)
 // curr(생산중 + 생산완료)
 // complete 생산완료
 
+// 디스플레이 
+// 진행률 curr / target
+// 생산률 compelte / target
 extern int target, curr, complete, broken;
 
 void loadDTObject();
@@ -23,7 +26,7 @@ struct DTUnit
 	DTUnit(int index);
 	virtual ~DTUnit();
 
-	virtual bool start(MethodWorked m) = 0;
+	virtual bool start(MethodWorked m);
 	virtual void paint(float dt, iPoint position) = 0;
 
 	float run(float dt);
@@ -57,7 +60,7 @@ enum StateMake
 };
 
 // index : 0 ~ 99
-struct DTUnitMake : DTUnit
+struct DTUnitMake : DTUnit//
 {
 	iImage** imgs;
 	StateMake sm;
@@ -78,9 +81,9 @@ struct DTUnitMake : DTUnit
 };
 
 // index 100 ~ 199
-struct DTUnitMove : DTUnit
+struct DTUnitMove : DTUnit//
 {
-	DTUnitMove();
+	DTUnitMove(int index);
 	virtual ~DTUnitMove();
 
 	virtual bool start(MethodWorked m);
@@ -92,7 +95,7 @@ struct DTUnitMove : DTUnit
 	iPoint sp, ep;
 	float speed;
 
-	iPoint *tp;
+	iPoint* tp;
 	int tpNum;
 };
 
