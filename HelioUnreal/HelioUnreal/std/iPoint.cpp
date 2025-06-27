@@ -34,19 +34,19 @@ iPoint& iPoint::operator -= (const iPoint& p)
     return *this;
 }
 
+iPoint iPoint::operator + (const iPoint& p)
+{
+    iPoint r;
+    r.x = x + p.x;
+    r.y = y + p.y;
+    return r;
+}
+
 iPoint iPoint::operator - (const iPoint& p)
 {
     iPoint r;
     r.x = x - p.x;
     r.y = y - p.y;
-    return r;
-}
-
-iPoint iPoint::operator+(const iPoint& p)
-{
-    iPoint r;
-    r.x = x + p.x;
-    r.y = y + p.y;
     return r;
 }
 
@@ -61,8 +61,8 @@ iPoint iPoint::operator*(float f)
 iPoint iPoint::operator/(float f)
 {
     iPoint r;
-    r.x = x * f;
-    r.y = y * f;
+    r.x = x / f;
+    r.y = y / f;
     return r;
 };
 
@@ -96,14 +96,14 @@ void iPointAbs(iPoint& p)
     p.y = fabsf(p.y);
 }
 
+
 float iPointLength(const iPoint& p)
 {
     return sqrtf(p.x * p.x + p.y * p.y);
 }
 
-float iPointDot(const iPoint& p0, const iPoint& p1)
+float ipointDot(const iPoint& p0, const iPoint& p1)
 {
     return p0.x * p1.x + p0.y * p1.y;
 }
-
 

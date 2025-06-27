@@ -8,7 +8,6 @@ iGraphics::iGraphics()
 	g = NULL;
 }
 
-
 iGraphics::~iGraphics()
 {
 	clean();
@@ -26,6 +25,7 @@ void iGraphics::clear(Graphics* graphics, float r, float g, float b, float a)
 {
 	graphics->Clear(Color(a * 0xFF, r * 0xFF, g * 0xFF, b * 0xFF));
 }
+
 
 iGraphics* iGraphics::share()
 {
@@ -79,24 +79,11 @@ void iGraphics::drawLine(float x0, float y0, float x1, float y1)
 	Pen pen(Color(a * 0xFF, r * 0xFF, g * 0xFF, b * 0xFF));
 
 	this->g->DrawLine(&pen, x0, y0, x1, y1);
-
-#if 0
-	Graphics* bk = getGraphics();
-	setGraphics(g);
-	::drawLine(x0, y0, x1, y1);
-	setGraphics(bk);
-#endif
 }
 
 void iGraphics::drawLine(iPoint p0, iPoint p1)
 {
 	drawLine(p0.x, p0.y, p1.x, p1.y);
-#if 0
-	Graphics* bk = getGraphics();
-	setGraphics(g);
-	::drawLine(p0, p1);
-	setGraphics(bk);
-#endif
 }
 
 void iGraphics::drawRect(float x, float y, float width, float height)
@@ -105,24 +92,11 @@ void iGraphics::drawRect(float x, float y, float width, float height)
 	getRGBA(r, g, b, a);
 	Pen pen(Color(a * 0xFF, r * 0xFF, g * 0xFF, b * 0xFF));
 	this->g->DrawRectangle(&pen, x, y, width, height);
-
-#if 0
-	Graphics* bk = getGraphics();
-	setGraphics(g);
-	::drawRect(x, y, width, height);
-	setGraphics(bk);
-#endif
 }
 
 void iGraphics::drawRect(iRect rt)
 {
 	drawRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height);
-#if 0
-	Graphics* bk = getGraphics();
-	setGraphics(g);
-	::drawRect(rt);
-	setGraphics(bk);
-#endif
 }
 
 void iGraphics::fillRect(float x, float y, float width, float height)
@@ -131,23 +105,11 @@ void iGraphics::fillRect(float x, float y, float width, float height)
 	getRGBA(r, g, b, a);
 	SolidBrush brush(Color(a * 0xFF, r * 0xFF, g * 0xFF, b * 0xFF));
 	this->g->FillRectangle(&brush, x, y, width, height);
-#if 0
-	Graphics* bk = getGraphics();
-	setGraphics(g);
-	::fillRect(x, y, width, height);
-	setGraphics(bk);
-#endif
 }
 
 void iGraphics::fillRect(iRect rt)
 {
 	fillRect(rt.origin.x, rt.origin.y, rt.size.width, rt.size.height);
-#if 0
-	Graphics* bk = getGraphics();
-	setGraphics(g);
-	::fillRect(rt);
-	setGraphics(bk);
-#endif
 }
 
 void iGraphics::drawImage(Texture* tex, float x, float y, int anc)
@@ -170,7 +132,7 @@ void iGraphics::drawImage(Texture* tex, float x, float y, int sx, int sy, int sw
 #endif
 }
 
-void iGraphics::drawString(float x, float y,int anc, const char* szFormat, ...)
+void iGraphics::drawString(float x, float y, int anc, const char* szFormat, ...)
 {
 	char szText[512];
 	va_start_end(szFormat, szText);
@@ -230,10 +192,10 @@ void iGraphics::drawString(Graphics* graphics, float x, float y, int anc, const 
 	case TOP | HCENTER:     x -= w / 2;            break;
 	case TOP | RIGHT:       x -= w;                break;
 	case VCENTER | LEFT:    x;         y -= h / 2; break;
-	case VCENTER | HCENTER: x -= w / 2; y -= h / 2; break;
+	case VCENTER | HCENTER: x -= w / 2;y -= h / 2; break;
 	case VCENTER | RIGHT:   x -= w;    y -= h / 2; break;
 	case BOTTOM | LEFT:                y -= h;     break;
-	case BOTTOM | HCENTER:  x -= w / 2; y -= h;     break;
+	case BOTTOM | HCENTER:  x -= w / 2;y -= h;     break;
 	case BOTTOM | RIGHT:    x -= w;    y -= h;     break;
 	}
 
@@ -257,7 +219,6 @@ void iGraphics::drawString(Graphics* graphics, float x, float y, int anc, const 
 	graphics->DrawString(wStr, -1, &font, pointF, &solidBrush);
 	delete wStr;
 }
-
 
 void iGraphics::drawString(Graphics* graphics, float x, float y, const char* szFormat, ...)
 {

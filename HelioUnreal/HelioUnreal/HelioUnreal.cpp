@@ -72,6 +72,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
         {
             drawApp(iFPS::share()->update());
             iKeyboardUpdate(iFPS::share()->delta);
+
+            if (true)
+            {
+
+            }
         }
     }
 
@@ -371,6 +376,12 @@ void enforceSize(int edge, RECT& rect)
     }
 
     }
+}
+
+bool callGoFullscreen = false;
+void _goFullscreen()
+{
+
 }
 
 bool isFullscreen = false;

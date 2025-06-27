@@ -20,6 +20,12 @@
 #include "iShortestPath.h"
 #include "iShadertoy.h"
 
+#define DEBUG_TEXTURE
+#ifdef DEBUG_TEXTURE
+extern int textureNum;
+#endif // DEBUG_TEXTURE
+
+
 extern iSize monitorSize;
 extern iSize borderSize;
 extern iSize devSize;

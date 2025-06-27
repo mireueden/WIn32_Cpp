@@ -157,6 +157,9 @@ Texture* iFBO::createImage(int width, int height, bool rgba32f)
     tex->potWidth = width;
     tex->potHeight = height;
     tex->retainCount = 1;
+#ifdef DEBUG_TEXTURE
+    textureNum++;
+#endif // DEBUG_TEXTURE
 
     return tex;
 }

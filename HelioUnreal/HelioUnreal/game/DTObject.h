@@ -11,12 +11,14 @@
 // 생산률 compelte / target
 extern int target, curr, complete, broken;
 
+
 void loadDTObject();
 void freeDTObject();
 void drawDTObject(float dt, iPoint off);
 bool keyDTObject(iKeyStat stat, iPoint point);
 
 void startMake(int target);
+void startMove(int unitIndex);
 
 struct DTUnit;
 typedef void (*MethodWorked)(DTUnit* obj);
@@ -40,15 +42,14 @@ struct DTUnit
 	MethodWorked methodWorked;
 };
 
-// index == 0
-// 수주가 있을 경우 생산시작
+// index==0
+// 수주가 있을경우 생산시작
 
 // 그외
-// index == -1 프로세서에서 생산된 물건이 있을경우 생산시작
+// index-1프로세서에서 생산된 물건 있으면 생산시작
 
-//index == max-1
-// 생산완료시, 수주 개수가 채워짐.
-
+// index==max-1
+// 생산완료되면, 수주 채워짐
 enum StateMake
 {
 	StateMakeReady = 0,
@@ -56,14 +57,19 @@ enum StateMake
 	StateMakeBroken,
 	StateMakeComplete,
 
-	StateMakeMax,
+	StateMakeMax
 };
 
 // index : 0 ~ 99
-struct DTUnitMake : DTUnit//
+// delta == 0.0f	: 명령 받을 준비
+// delta < _delta	: 생산중 & 명령 받을 수 X
+// delta >= _delta	: 생산완료 & 명령 받을 수 X
+struct DTUnitMake : DTUnit
 {
-	iImage** imgs;
+	iImage** imgs;// img = imgs[sm];
 	StateMake sm;
+
+	bool* slot; // 0 ~ 4 재료 담는 곳, 5 ~ 9 생산 완료 담는곳
 
 	DTUnitMake(int index);
 	virtual ~DTUnitMake();
@@ -77,12 +83,34 @@ struct DTUnitMake : DTUnit//
 	static void cbWorked3(DTUnit* obj);
 	static void cbWorked4(DTUnit* obj);
 	static void cbWorked5(DTUnit* obj);
-	static void cbWorked9(DTUnit* obj); // last
+	static void cbWorked9(DTUnit* obj);
 };
 
-// index 100 ~ 199
-struct DTUnitMove : DTUnit//
+struct MakeInfo
 {
+	iSize size;
+	iColor4f color;
+	float delta;
+};
+
+extern MakeInfo mi[5];
+
+
+enum StateMove
+{
+	StateMoveReady = 0,
+	StateMoveMove,
+	StateMovePick,
+
+	StateMoveMax
+};
+
+// index : 100 ~ 199
+struct DTUnitMove : DTUnit
+{
+	iImage** imgs;
+	StateMove sm;
+
 	DTUnitMove(int index);
 	virtual ~DTUnitMove();
 
@@ -97,9 +125,11 @@ struct DTUnitMove : DTUnit//
 
 	iPoint* tp;
 	int tpNum;
+
+	bool havePD;
 };
 
-// index 200 ~ 299
+// index : 200 ~ 299
 struct DTUnitRepair : DTUnit
 {
 	DTUnitRepair();

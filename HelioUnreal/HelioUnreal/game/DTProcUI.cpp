@@ -7,10 +7,8 @@ Texture* methodStProcUI(const char* str);
 int orderNum;
 iImage** imgProcUIBtn;
 
-
 void loadDTProcUI()
 {
-
 	loadProcData();
 	float takeTime = (pd->playtimeCurr - pd->playtimeLast) / 1000.0f;
 	// 내가 접속하지 않은 시간 만큼 시뮬레이션
@@ -58,17 +56,16 @@ void loadDTProcUI()
 	img->position = iPointMake(devSize.width - 200, 5);
 	pop->add(img);
 	stProcUI[2] = st;
-	
+
 	imgProcUIBtn = new iImage * [3];
 	const char* str[3] = { "▲", "▼", "주문" };
-	iSize size[3] = { {30,30}, {30,30}, {50,30} };
+	iSize size[3] = { {30,30}, {30,30}, {50, 30} };
 	for (int i = 0; i < 3; i++)
 	{
 		img = new iImage();
 
 		iGraphics* g = iGraphics::share();
 		iSize& s = size[i];
-
 		for (int j = 0; j < 2; j++)
 		{
 			g->init(s.width, s.height);
@@ -88,7 +85,6 @@ void loadDTProcUI()
 
 				setStringSize(18);
 				setStringRGBA(0, 0, 0, 1);
-
 			}
 			g->drawString(s.width / 2, s.height / 2, VCENTER | HCENTER, str[i]);
 
@@ -110,16 +106,14 @@ void loadDTProcUI()
 	showDTProcUI(true);
 }
 
-
 void freeDTProcUI()
 {
 	for (int i = 0; i < 2; i++)
-	{
 		delete popProcUI[i];
-		delete stProcUI[i];
-	}
-
 	delete popProcUI;
+
+	for (int i = 0; i < 3; i++)
+		delete stProcUI[i];
 	delete stProcUI;
 }
 
@@ -143,7 +137,8 @@ Texture* methodStProcUI(const char* str)
 	return tex;
 }
 
-#include "DTObject.h" // curr
+
+#include "DTObject.h"// curr 
 void drawDTProcUI(float dt)
 {
 	stProcUI[0]->set("총 수주 개수 : %d개 완료 개수 : %d개, 공정 개수 : %d개",
@@ -160,7 +155,6 @@ void drawDTProcUI(float dt)
 
 	for (int i = 0; i < 2; i++)
 		popProcUI[i]->paint(dt);
-
 }
 
 bool keyDTProcUI(iKeyStat stat, iPoint point)
@@ -187,6 +181,8 @@ bool keyDTProcUI(iKeyStat stat, iPoint point)
 		else// if (i == 2)
 		{
 			printf("주문 하기 %d\n", orderNum);
+			startMake(orderNum);
+			orderNum = 0;
 		}
 		break;
 
@@ -217,6 +213,7 @@ void showDTProcUI(bool show)
 		popProcUI[i]->show(show);
 }
 
+
 ProcData* pd;
 void loadProcData()
 {
@@ -225,28 +222,29 @@ void loadProcData()
 	if (pd == NULL)
 	{
 		pd = new ProcData;
-		pd->playtimeTotal = 0.0f;
+		pd->playtimeTotal = 0;
 		pd->playtimeCurr = GetTickCount();
 		pd->playtimeLast = 0;
-		pd->unitMake = 10;		// 공장에 들어온 개수
-		pd->unitBroken = 0;		// 소모된 설비 개수
-		pd->unitRun = 10;		// 운행중인 개수 
-		pd->unitRepairing = 0;	// 수리중인 개수
-		pd->unitRepaired = 0;	// 수리 완료된 개수
+
+		pd->unitTotal = 10;		// 공장 들어온 설비 개수
+		pd->unitBroken = 0;		// 소모된 개수
+		pd->unitRun = 10;
+		pd->unitRepairing = 0;	//
+		pd->unitRepaired = 0;	//
 		pd->unitReplace = 0;
-	
+
 		pd->target = 0;			// 생산 목표 개수(수주)
 		pd->made = 0;			// 현재 진행 개수
-	
-		memset(pd->unitMakeTime, 0x00, sizeof(float) * 10);	// 10개라고 가정
+
+		memset(pd->unitMakeTime, 0x00, sizeof(float) * 10);// 10개라고 가정
 		saveProcData();
 	}
-
+	pd->playtimeCurr = GetTickCount();
 }
 
 void saveProcData()
 {
 	pd->playtimeLast = GetTickCount();
-	pd->playtimeTotal += (pd->playtimeLast - pd->playtimeCurr);
+	pd->playtimeTotal += pd->playtimeLast - pd->playtimeCurr;
 	saveFile((char*)pd, sizeof(ProcData), ProcDataSaveFile);
 }

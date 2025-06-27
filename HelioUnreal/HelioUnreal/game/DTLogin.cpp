@@ -15,6 +15,9 @@ int* progress;
 void loadDTLogin()
 {
 	printf("loadDTLogin()");
+#ifdef DEBUG_TEXTURE
+	printf("loadDTLogin::textureNum = %d\n", textureNum);
+#endif
 
 	iGraphics* g = iGraphics::share();
 
@@ -48,6 +51,7 @@ void loadDTLogin()
 			Texture* tex = g->getTexture();
 			img->add(tex);
 			g->clean();
+			freeImage(tex);
 		}
 		img->position = iPointMake((devSize.width - size.width) / 2,
 			devSize.height * 0.3 + (size.height + 20) * i);
@@ -57,6 +61,9 @@ void loadDTLogin()
 
 	lb = new LoginBar();
 	progress = new int[10];
+#ifdef DEBUG_TEXTURE
+	printf("loadDTLogin::textureNum = %d\n", textureNum);
+#endif
 }
 
 void freeDTLogin()
@@ -104,14 +111,12 @@ void drawDTLogin(float dt)
 	setRGBA(1, 1, 1, 1);
 #endif
 
-	setRGBA(1, 1, 1, 1);
-	setLineWidth(10);
+	//setRGBA(1, 1, 1, 1);
+	//setLineWidth(10);
 	//drawRect(10, 10, devSize.width - 20, devSize.height - 20);
 	//drawLine(10, 10, devSize.width - 20, devSize.height - 20);
-	fillRect(100, 200, 50, 50);
+	//fillRect(100, 200, 50, 50);
 }
-
-
 
 void resultDtLogin(int result)
 {
@@ -160,7 +165,7 @@ void keyDTLogin(iKeyStat stat, iPoint point)
 			lb->show(true);
 #else
 			loginSuccess = true;
-#endif // 0
+#endif
 		}
 		else if (selectedLoginBtn == 1)
 		{
@@ -222,7 +227,6 @@ void LoginBar::paint(float dt, iPoint position)
 	setRGBA(1, 1, 1, 1);
 }
 
-// 서버 개발자 구현한 부분
 #include <process.h>
 
 struct IDPW
@@ -248,6 +252,7 @@ unsigned __stdcall run(void* parm)
 	delete idpw->pw;
 	delete idpw;
 
+	//_endthreadex(0);
 	return 0;
 }
 

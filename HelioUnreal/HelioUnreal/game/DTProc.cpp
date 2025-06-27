@@ -10,7 +10,7 @@
 void loadDTProc()
 {
 	printf("loadDTProc()");
-	loadDTfield();
+	loadDTField();
 	loadDTObject();
 	loadDTProcUI();
 	loadDTProcPop();
@@ -19,8 +19,7 @@ void loadDTProc()
 void freeDTProc()
 {
 	printf("freeDTProc()");
-
-	freeDTfield();
+	freeDTField();
 	freeDTObject();
 	freeDTProcUI();
 	freeDTProcPop();
@@ -28,7 +27,7 @@ void freeDTProc()
 
 void drawDTProc(float dt)
 {
-	drawDTfield(dt);
+	drawDTField(dt);
 	drawDTObject(dt, offField);
 	drawDTProcUI(dt);
 	drawDTProcPop(dt);
@@ -36,26 +35,24 @@ void drawDTProc(float dt)
 
 void keyDTProc(iKeyStat stat, iPoint point)
 {
-
 	if (keyDTProcPop(stat, point) ||
 		keyDTProcUI(stat, point) ||
 		keyDTObject(stat, point))
 		return;
 
-	keyDTProcfield(stat, point);
-
+	keyDTField(stat, point);
 	//if (stat == iKeyStatBegan)
 	//	setLoading(DTStateLogin, freeDTProc, loadDTLogin);
 }
 
-// ======================================
-// DTfield
-// ======================================
+// ====================================== 
+// DTField
+// ====================================== 
 iPoint offField;
 static iPoint offMin, offMax;
 
 Texture* texField;
-void loadDTfield()
+void loadDTField()
 {
 	offField = iPointZero;
 	offMax = iPointZero;
@@ -63,32 +60,33 @@ void loadDTfield()
 						devSize.height - FieldHeight);
 
 	texField = createImage("assets/download2.jpg");
-
 }
 
-void freeDTfield()
+void freeDTField()
 {
 	freeImage(texField);
 }
 
-void drawDTfield(float dt)
+void drawDTField(float dt)
 {
 	//setRGBA(0, 0, 1, 1);
 	//fillRect(0, 0, devSize.width, devSize.height);
 	setRGBA(1, 1, 1, 1);
 	Texture* t = texField;
-	drawImage(t, offField.x, offField.y,
+	drawImage(t, offField.x, offField.y, 
 		0, 0, t->width, t->height,
 		(float)FieldWidth / t->width, (float)FieldHeight / t->height,
 		2, 0, TOP | LEFT);
+
 }
+
 bool dragField = false;
 iPoint prevField;
 
-void keyDTProcfield(iKeyStat stat, iPoint point)
+void keyDTField(iKeyStat stat, iPoint point)
 {
-	switch (stat)
-	{
+	switch (stat) {
+
 	case iKeyStatBegan:
 		dragField = true;
 		prevField = point;
@@ -104,8 +102,8 @@ void keyDTProcfield(iKeyStat stat, iPoint point)
 		else if (offField.x > offMax.x)		offField.x = offMax.x;
 		if (offField.y < offMin.y)			offField.y = offMin.y;
 		else if (offField.y > offMax.y)		offField.y = offMax.y;
-
 		break;
+
 	case iKeyStatEnded:
 		if (dragField == false) break;
 		showDTProcUI(true);
@@ -113,5 +111,4 @@ void keyDTProcfield(iKeyStat stat, iPoint point)
 		dragField = false;
 		break;
 	}
-
 }

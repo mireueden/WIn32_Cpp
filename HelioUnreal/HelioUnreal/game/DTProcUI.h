@@ -17,7 +17,7 @@ struct ProcData
 	DWORD playtimeCurr; // 현재 접속 시작한 시간
 	DWORD playtimeLast; // 지난 접속 했던 시간
 
-	int unitMake;		// 공장에 들어온 개수
+	int unitTotal;		// 공장에 들어온 개수
 	int unitBroken;		// 소모된 설비 개수
 	int unitRun;		// 운행중인 개수 
 	int unitRepairing;	// 수리중인 개수
