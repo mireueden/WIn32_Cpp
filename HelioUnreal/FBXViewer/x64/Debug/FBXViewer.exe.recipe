@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\workspace\HelloUnreal\x64\Debug\FBXViewer.exe</FullPath>
+      <FullPath>C:\workspace\WIn32_Cpp\HelioUnreal\x64\Debug\FBXViewer.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

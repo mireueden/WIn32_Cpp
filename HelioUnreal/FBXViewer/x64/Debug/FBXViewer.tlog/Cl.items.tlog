@@ -1,0 +1,13 @@
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\Common\AnimationUtility.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\AnimationUtility.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\Common\Common.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\Common.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\Common\GeometryUtility.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\GeometryUtility.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\DrawScene.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\DrawScene.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\DrawText.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\DrawText.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\GetPosition.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\GetPosition.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\GlFunctions.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\GlFunctions.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\iArray.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\iArray.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\main.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\main.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\SceneCache.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\SceneCache.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\SceneContext.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\SceneContext.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\SetCamera.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\SetCamera.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\ViewScene\targa.cxx;C:\workspace\WIn32_Cpp\HelioUnreal\FBXViewer\x64\Debug\targa.obj

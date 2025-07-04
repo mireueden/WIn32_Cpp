@@ -10,7 +10,7 @@
 
 void loadDT()
 {
-	int result =  NS::nsAdd(3, 2);
+	int result =  NS::nsSub(3, 2);
 	printf("nsAdd = %d\n", result);
 
 	loadDTLogin();
