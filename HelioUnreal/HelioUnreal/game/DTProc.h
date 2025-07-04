@@ -14,6 +14,13 @@ void keyDTProc(iKeyStat stat, iPoint point);
 #define FieldHeight 960
 extern iPoint offField;
 
+extern bool dragField;
+extern iPoint prevField;
+
+extern uint8 fieldTile[32 * 24];
+extern int fieldX, fieldY, fieldW, fieldH;
+#define displayFieldTile 1
+
 void loadDTField();
 void freeDTField();
 void drawDTField(float dt);

@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PublicIncludeDirectories>$(PublicIncludeDirectories)</PublicIncludeDirectories>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -105,11 +108,12 @@
       <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_USE_MATH_DEFINES;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)std;$(ProjectDir)game;$(Solutiondir)..\..\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)std;$(ProjectDir)game;$(Solutiondir)..\..\glm-master;$(ProjectDir)ViewScene\GL;$(Solutiondir)..\..\OpenAL\include;$(SolutionDir)NSLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\OpenAL 1.1 SDK\libs\Win64;$(SolutionDir)x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,6 +139,7 @@
     <ClInclude Include="game\Comp.h" />
     <ClInclude Include="game\CtrlImage.h" />
     <ClInclude Include="game\DT.h" />
+    <ClInclude Include="game\DTCommon.h" />
     <ClInclude Include="game\DTLoading.h" />
     <ClInclude Include="game\DTLogin.h" />
     <ClInclude Include="game\DTObject.h" />
@@ -160,6 +165,7 @@
     <ClInclude Include="std\iFPS.h" />
     <ClInclude Include="std\iGraphics.h" />
     <ClInclude Include="std\iImage.h" />
+    <ClInclude Include="std\iOpenAL.h" />
     <ClInclude Include="std\iOpenGL.h" />
     <ClInclude Include="std\iPoint.h" />
     <ClInclude Include="std\iPopup.h" />
@@ -181,6 +187,7 @@
     <ClCompile Include="game\Comp.cpp" />
     <ClCompile Include="game\CtrlImage.cpp" />
     <ClCompile Include="game\DT.cpp" />
+    <ClCompile Include="game\DTCommon.cpp" />
     <ClCompile Include="game\DTLoading.cpp" />
     <ClCompile Include="game\DTLogin.cpp" />
     <ClCompile Include="game\DTObject.cpp" />
@@ -207,6 +214,7 @@
     <ClCompile Include="std\iFPS.cpp" />
     <ClCompile Include="std\iGraphics.cpp" />
     <ClCompile Include="std\iImage.cpp" />
+    <ClCompile Include="std\iOpenAL.cpp" />
     <ClCompile Include="std\iOpenGL.cpp" />
     <ClCompile Include="std\iPoint.cpp" />
     <ClCompile Include="std\iPopup.cpp" />

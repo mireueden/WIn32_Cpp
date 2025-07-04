@@ -9,18 +9,79 @@
 // 디스플레이 
 // 진행률 curr / target
 // 생산률 compelte / target
-extern int target, curr, complete, broken;
+extern int curr, complete, broken;
 
+enum Material
+{
+	Stain = 0,
+	
+	Bolt,
+	BoltSilver = Bolt,
+	BoltBlack, BoltWhite,
+	BoltSilverPack, BoltBlackPack, BoltWhitePack,
+
+	Nut,
+	NutSilver = Nut,
+	NutBlack, NutWhite,
+	NUtSilverPack, NUtBlackPack, NUtWhitePack,
+};
+
+// DTUnitMake
+// 0 : Stain => Bolt 3, Nut 4
+// 1 : 블랙 => BoltBlack, NutBlack
+// 2 : 화이트 => BoltWhite, NutWhite
+// 3 : pack =>	BoltSilverPack, NutSilverPack
+//				BoltWhitePack, NutWhitePack
+//				BoltBlackPack, NutBlackPack
+
+// BoltSilverPack : 0 => 3
+// NutSilverPack : 0 => 3
+// 
+// BoltBlackPack : 0 => 1 => 3
+// NutBlackPack : 0 => 1 => 3
+// 
+// BoltWhitePack : 0 => 2 => 3
+// NutWhitePack : 0 => 2 => 3
+
+struct DTItem
+{
+	int pd;// 0 ~ 5
+	int path[3];
+	int pathIndex, pathNum;
+	DWORD makeStart, makeEnd;
+};
+
+extern DTItem* dtItem;
+extern int dtItemNum;
+#define dtItemMax 1000
+
+struct DTUnit;
+extern DTUnit** unit;
+extern int unitNum;
 
 void loadDTObject();
 void freeDTObject();
 void drawDTObject(float dt, iPoint off);
 bool keyDTObject(iKeyStat stat, iPoint point);
 
-void startMake(int target);
-void startMove(int unitIndex);
+// for DTProcUI...
+struct OrderInfo
+{
+	int pd;
+	int num, _num;
+};
 
-struct DTUnit;
+extern OrderInfo* oi;
+extern int oiNum;
+#define oiMax 100
+
+extern OrderInfo* oiBk;
+extern int oiNumBk;
+
+extern iShortestPath* dtsp;
+
+void startMake(int orderPD, int orderNum);
+
 typedef void (*MethodWorked)(DTUnit* obj);
 
 struct DTUnit
@@ -30,14 +91,25 @@ struct DTUnit
 
 	virtual bool start(MethodWorked m);
 	virtual void paint(float dt, iPoint position) = 0;
+	void displaySida(float dt, iPoint position);
 
 	float run(float dt);
 	iRect touchRect(iPoint position);
 
+	// 0 ~ 99 : 생산 로봇	
+	// 100 ~ 199 : 운반 로봇	
+	// 200 ~ 299 : 수리 로봇	
 	int index;
+	// 현재 사용하고 있는 이미지
 	iImage* img;
+	// 로봇의 기준좌표(img->position:축좌표, offMap:카메라좌표)
 	iPoint position;
+	// 수행시간
 	float delta, _delta;
+	// 수리로봇이 도착지
+	iPoint positionSida;
+	// 몇 번 실행했는지
+	int exe;
 
 	MethodWorked methodWorked;
 };
@@ -69,32 +141,24 @@ struct DTUnitMake : DTUnit
 	iImage** imgs;// img = imgs[sm];
 	StateMake sm;
 
-	bool* slot; // 0 ~ 4 재료 담는 곳, 5 ~ 9 생산 완료 담는곳
+	// 저장소개수(총 입고개수, 출고개수)
+	DTItem** slotIn, ** slotOut;
+	int slotInNum, slotOutNum;
+	// 재료개수(만드는데 필요한 재료 + 만든 결과 재료)
+	int makeInNum, makeOutNum;
+	int* makeSlotIn;
 
 	DTUnitMake(int index);
 	virtual ~DTUnitMake();
 
 	virtual bool start(MethodWorked m);
 	virtual void paint(float dt, iPoint position);
-
-	static void cbWorked0(DTUnit* obj);
-	static void cbWorked1(DTUnit* obj);
-	static void cbWorked2(DTUnit* obj);
-	static void cbWorked3(DTUnit* obj);
-	static void cbWorked4(DTUnit* obj);
-	static void cbWorked5(DTUnit* obj);
-	static void cbWorked9(DTUnit* obj);
+	
+	static void cbWorked0(DTUnit* obj);// 볼트,너트
+	static void cbWorked1(DTUnit* obj);// 블랙 도색
+	static void cbWorked2(DTUnit* obj);// 화이트 도색
+	static void cbWorked3(DTUnit* obj);// 포장
 };
-
-struct MakeInfo
-{
-	iSize size;
-	iColor4f color;
-	float delta;
-};
-
-extern MakeInfo mi[5];
-
 
 enum StateMove
 {
@@ -121,21 +185,79 @@ struct DTUnitMove : DTUnit
 	static void cbWorked(DTUnit* obj);
 
 	iPoint sp, ep;
+	iPoint tPosition;
+	int unitIndex;
 	float speed;
 
-	iPoint* tp;
-	int tpNum;
-
-	bool havePD;
+	DTItem* have;
 };
 
 // index : 200 ~ 299
-struct DTUnitRepair : DTUnit
+struct DTUnitSida : DTUnit
 {
-	DTUnitRepair();
-	virtual ~DTUnitRepair();
+	iImage** imgs;
+	StateMove sm;
+
+	iPoint* path;
+	int pathIndex, pathNum;
+	float speed;
+
+	int targetUnit;
+	DTItem* have;
+
+	DTUnitSida(int index);
+	virtual ~DTUnitSida();
 
 	virtual bool start(MethodWorked m);
 	virtual void paint(float dt, iPoint position);
 	static void cbWorked(DTUnit* obj);
 };
+
+extern iShortestPath* dtsp;
+
+// index : 300 ~ 399
+struct DTUnitSuccess : DTUnit
+{
+	DTItem** have;
+	int haveNum, _haveNum;
+
+	DTUnitSuccess(int index);
+	virtual ~DTUnitSuccess();
+
+	virtual void paint(float dt, iPoint position);
+};
+
+// index : 400 ~ 499
+struct DTUnitFail : DTUnit
+{
+	DTUnitFail(int index);
+	virtual ~DTUnitFail();
+
+	virtual void paint(float dt, iPoint position);
+};
+
+// ===================================
+// 로봇 이미지 생성
+// ===================================
+iImage** createRobot(
+	int index, int beNum,
+	const char** strBe, int* beAniNum,
+	iSize* s, iColor4f* c,
+	float ss, iColor4f* sc);
+
+// ===================================
+// 로봇 데이터
+// ===================================
+struct RobotInfo
+{
+	iSize size;
+	iColor4f color;
+	float delta;
+};
+
+extern RobotInfo ri[8];
+
+extern int itemPath[6][4];
+
+// 저장소 + 재료
+extern int slotInOut[4][4];

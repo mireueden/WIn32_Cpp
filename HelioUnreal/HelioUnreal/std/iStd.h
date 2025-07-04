@@ -15,6 +15,7 @@
 #include "iQueueKey.h"
 
 #include "iOpenGL.h"
+#include "iOpenAL.h"
 #include "iFPS.h"
 #include "iSort.h"
 #include "iShortestPath.h"
@@ -24,7 +25,6 @@
 #ifdef DEBUG_TEXTURE
 extern int textureNum;
 #endif // DEBUG_TEXTURE
-
 
 extern iSize monitorSize;
 extern iSize borderSize;
@@ -56,12 +56,6 @@ void fillRect(iRect rt, float radius = 0.0f);
 typedef void (*MethodImageFilter)(uint8* bgra, int width, int height, int stride);
 void setImageFilter(MethodImageFilter method);
 Texture* createImageFilter(const char* szFormat, ...);
-
-void setImage(TextureWrap w, TextureFilter f);
-void applyImage();
-
-void setImage(Texture* tex, TextureWrap w, TextureFilter f);
-
 void imageFilterGrey(uint8* bgra, int width, int height, int stride);
 void imageFilterMirror(uint8* bgra, int width, int height, int stride);
 
@@ -69,14 +63,18 @@ uint32 nextPot(uint32 x);
 uint8* bmp2rgba(Bitmap* bmp, int& width, int& height);
 Texture* createImageWithRGBA(uint8* rgba, int width, int height);
 
+void setImage(TextureWrap w, TextureFilter f);
+void applyImage();
+void setImage(Texture* tex, TextureWrap w, TextureFilter f);
+
 Texture* createImage(const char* szFormat, ...);
 Texture** createImage(int wNum, int hNum, const char* szFormat, ...);
 void freeImage(Texture* tex);
 void drawImage(Texture* tex, float x, float y, int anc);
-void drawImage(Texture* tex, float x, float y,
+void drawImage(Texture* tex, float x, float y, 
 	int sx, int sy, int sw, int sh,
 	float rateX, float rateY,
-	int xyz, float degree, int anc, int reverse = REVERSE_NONE);
+	int xyz, float degree, int anc, int reverse=REVERSE_NONE);
 // xyz 0:x축, 1:y축, 2:z축으로 회전
 
 const char* getStringName();

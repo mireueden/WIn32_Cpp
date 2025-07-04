@@ -1,5 +1,7 @@
 #include "DTLoading.h"
 
+#include "iShadertoy.h"
+
 DTState ds;
 
 static DTState dsNext;
@@ -7,7 +9,7 @@ static METHOD_VOID methodFree, methodLoad;
 static float delta = 0.0f;
 
 static iShadertoy* st = NULL;
-extern Texture* texGame; // Game.cpp
+extern Texture* texGame;// Game.cpp
 
 void setLoading(DTState dsNext, METHOD_VOID free, METHOD_VOID load)
 {
@@ -42,9 +44,9 @@ void setLoading(DTState dsNext, METHOD_VOID free, METHOD_VOID load)
 			{ -1, -1, -1, -1 },// Image
 		}
 	};
-	setMakeCurrent(true);
+	//setMakeCurrent(true);
 	st = new iShadertoy(&stInfo);
-	setMakeCurrent(false);
+	//setMakeCurrent(false);
 }
 
 #define _delta 1.0f
@@ -58,7 +60,7 @@ void drawDTLoading(float dt)
 	if (delta < _delta)
 	{
 		delta += dt;
-		a = delta / _delta;
+		a = clamp(delta / _delta, 0.0f, 1.0f);
 
 		if (delta >= _delta)
 		{
@@ -71,21 +73,17 @@ void drawDTLoading(float dt)
 	else// if (delta < _delta * 2)
 	{
 		delta += dt;
-		a = 1.0f - (delta - _delta) / _delta;
+		a = clamp(1.0f - (delta - _delta) / _delta, 0.0f, 1.0f);
 
 		if (delta >= _delta * 2)
 			delta = 0.0f;
 	}
 
-	//setRGBA(0, 0, 0, a);
-	//fillRect(0, 0, devSize.width, devSize.height);
-	//setRGBA(1, 1, 1, 1);
-	// 
-	// a == 0		a == 1
-	// iTime 0		pi / 2
-
-	st->iTime = (1.0f - a) * M_PI / 2;
-	st->paint(0.0f);
+	setRGBA(0, 0, 0, a);
+	fillRect(0, 0, devSize.width, devSize.height);
+	setRGBA(1, 1, 1, 1);
+	//st->iTime = (1.0f - a) * M_PI / 2;
+	//st->paint(0.0f);
 }
 
 bool keyDTLoading(iKeyStat stat, iPoint point)

@@ -1,17 +1,29 @@
 #include "DT.h"
 
+#include "DTCommon.h"
 #include "DTLoading.h"
 #include "DTLogin.h"
 #include "DTProc.h"
 
+#include "NSLib.h"
+#pragma comment(lib, "NSLib.lib")
+
 void loadDT()
 {
+	int result =  NS::nsAdd(3, 2);
+	printf("nsAdd = %d\n", result);
+
 	loadDTLogin();
 	ds = DTStateLogin;
+
+	loadAudio();
+	playAudio(2);
 }
 
 void freeDT()
 {
+	freeAudio();
+
 	switch (ds) {
 	case DTStateLogin: freeDTLogin(); break;
 	case DTStateProc: freeDTProc(); break;

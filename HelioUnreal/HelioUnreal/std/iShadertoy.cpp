@@ -8,10 +8,10 @@ iShadertoy::iShadertoy(STInfo* info)
 	memset(programID, 0xFF, sizeof(uint32) * 5);
 
 	//memset(texs, 0x00, sizeof(Texture*) * 8);
-	texs = new Texture **[4];
+	texs = new Texture**[4];
 	memset(texs, 0x00, sizeof(Texture**) * 4);
 
-	texiChannel = new Texture * *[5];
+	texiChannel = new Texture ** [5];
 	bufiChannel = new int* [5];
 	memset(texiChannel, 0x00, sizeof(Texture**) * 5);
 	memset(bufiChannel, 0x00, sizeof(int*) * 5);
@@ -52,7 +52,20 @@ iShadertoy::iShadertoy(STInfo* info)
 		iShader::deleteShader(fragID);
 
 		texiChannel[i] = new Texture * [4];
+#if 1
 		memcpy(texiChannel[i], info->tex[i], sizeof(Texture*) * 4);
+#else
+		for (int j = 0; j < 4; j++)
+		{
+			if (info->tex[i][j])
+			{
+				texiChannel[i][j] = info->tex[i][j];
+				texiChannel[i][j]->retainCount++;
+			}
+			else// if (info->tex[i][j] == NULL)
+				texiChannel[i][j] = NULL;
+		}
+#endif
 		bufiChannel[i] = new int[4];
 		memcpy(bufiChannel[i], info->buf[i], sizeof(int) * 4);
 	}
@@ -96,7 +109,10 @@ iShadertoy::~iShadertoy()
 		if (texiChannel[i])
 		{
 			for (int j = 0; j < 4; j++)
-				freeImage(texiChannel[i][j]);
+			{
+				if (texiChannel[i][j])
+					freeImage(texiChannel[i][j]);
+			}
 			delete texiChannel[i];
 		}
 		if (bufiChannel)
@@ -109,13 +125,11 @@ iShadertoy::~iShadertoy()
 	delete iMouse;
 }
 
-
 void iShadertoy::setUniform(float dt, uint32 programID)
 {
 	uniform3f("iResolution", devSize.width, devSize.height, 0);
-	uniform1f("iTime", iTime);	iTime += dt;
+	uniform1f("iTime", iTime); iTime += dt;
 	uniform1f("iTimeDelta", dt);
-	uniform1f("iFrameRate", 0);
 	uniform1f("iFrameRate", 0);
 	uniform1i("iFrame", iFrame); iFrame++;
 #if 1
@@ -133,10 +147,10 @@ void iShadertoy::setUniform(float dt, uint32 programID)
 	uniform4f("iMouse", iMouse[0], iMouse[1], iMouse[2], iMouse[3]);
 #if 0
 	float v[12] = {
-		texs[0][0]->width,	texs[0][0]->height,0,
-		texs[1][0]->width,	texs[1][0]->height,0,
-		texs[2][0]->width,	texs[2][0]->height,0,
-		texs[3][0]->width,	texs[3][0]->height,0,
+		texs[0][0]->width, texs[0][0]->height, 0,
+		texs[1][0]->width, texs[1][0]->height, 0,
+		texs[2][0]->width, texs[2][0]->height, 0,
+		texs[3][0]->width, texs[3][0]->height, 0,
 	};
 	uniform3fv("iChannelResolution", 12, v);
 	uniform vec4      iDate;
@@ -145,22 +159,16 @@ void iShadertoy::setUniform(float dt, uint32 programID)
 }
 
 void iShadertoy::paint(float dt)
-{	
-	// 원래 ㅣ런식으로 작성했어야했음.
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
+{
 	glDisable(GL_BLEND);
-	for (int i = 0; i < 5; i++) // buffer A ~ D + Image
-	{	// programID는 총 5개
-		// [0,1,2,3] back(후면)버퍼에 작업
-		// [4] front(전면)버퍼에 작업
-
+	
+	for (int i = 0; i < 5; i++)// Buffer A ~ D + Image
+	{
 		uint32 programID = this->programID[i];
 		if (programID == 0xFFFFFFFF)
 			continue;
 
-		// programID 5개 존재 [0,1,2,3] 후면버퍼 작업, [4] 전면(화면)버퍼 작업
+		// programID 5개 존재, [0, 1, 2, 3] 후면버퍼 작업, [4] 전면(화면)버퍼
 		if (i < 4)
 		{
 			fbo->bind(texs[i][toggle]);
@@ -186,8 +194,7 @@ void iShadertoy::paint(float dt)
 		glEnableVertexAttribArray(pAttr);// 2
 		glVertexAttribPointer(pAttr, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (const void*)(sizeof(float) * 0));
 
-
-		Texture* ts[4] = { NULL, NULL, NULL, NULL };
+		Texture* ts[4] = {NULL, NULL, NULL, NULL};
 		for (int j = 0; j < 4; j++)
 		{
 			Texture* tex = NULL;
@@ -226,6 +233,7 @@ void iShadertoy::paint(float dt)
 			fbo->unbind();
 		}
 	}
+
 	toggle = !toggle;
 
 	glEnable(GL_BLEND);
@@ -233,8 +241,7 @@ void iShadertoy::paint(float dt)
 
 void iShadertoy::key(iKeyStat stat, iPoint point)
 {
-	switch (stat)
-	{
+	switch (stat) {
 	case iKeyStatBegan:
 		//iMouse[0] = point.x;
 		//iMouse[1] = point.y;

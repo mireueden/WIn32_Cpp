@@ -1,7 +1,6 @@
 #include "iImage.h"
 
 #include "iStd.h"
-#include "Animating.h"
 
 iImage::iImage()
 {
@@ -49,7 +48,6 @@ void iImage::paint(float dt, iPoint position)
 				if (method)
 					method(parm);
 			}
-				
 		}
 	}
 
@@ -65,17 +63,30 @@ void iImage::startAnimation(iImageAnimation m, void* p)
 	animation = true;
 	index = 0;
 	aniDt = 0.0f;
-	
+
 	method = m;
 	parm = p;
 }
 
 iRect iImage::touchRect(iPoint position)
 {
-	if( tex==NULL )
+	if (tex == NULL)
 		return iRectMake(0, 0, 0, 0);
 
 	iPoint p = this->position + position;
 	return iRectMake(p.x, p.y, tex->width, tex->height);
+}
+
+iImage* iImage::copy()
+{
+	iImage* img = new iImage();
+	iArray* a = img->array;
+	memcpy(img, this, sizeof(iImage));
+	img->array = a;
+
+	for (int i = 0; i < array->count; i++)
+		img->add((Texture*)array->at(i));
+
+	return img;
 }
 

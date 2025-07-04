@@ -2,6 +2,7 @@
 
 #include "iDefine.h"
 #include "iPoint.h"
+#include "iRect.h"
 #include "iArray.h"
 
 #define aniDtDefault 0.017
@@ -21,7 +22,9 @@ public:
 
 	void startAnimation(iImageAnimation m = NULL, void* p = NULL);
 
-	iRect touchRect(iPoint position=iPointZero);
+	iRect touchRect(iPoint position = iPointZero);
+
+	iImage* copy();
 
 public:
 	iArray* array;
@@ -37,3 +40,4 @@ public:
 	iImageAnimation method;
 	void* parm;
 };
+

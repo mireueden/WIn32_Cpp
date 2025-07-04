@@ -209,8 +209,5 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     #endif
     
     //col = vec3(heart);
-
     fragColor = vec4(col, 1.);
-
-
 }

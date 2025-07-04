@@ -4,6 +4,7 @@ C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Animating.cpp;C:\workspace\W
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\Comp.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\Comp.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\CtrlImage.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\CtrlImage.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DT.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DT.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTCommon.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DTCommon.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTLoading.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DTLoading.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTLogin.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DTLogin.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\game\DTObject.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\DTObject.obj
@@ -28,6 +29,7 @@ C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iColor.cpp;C:\workspace\WIn32
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iFPS.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iFPS.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iGraphics.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iGraphics.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iImage.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iImage.obj
+C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenAL.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iOpenAL.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iOpenGL.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iOpenGL.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iPoint.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iPoint.obj
 C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\std\iPopup.cpp;C:\workspace\WIn32_Cpp\HelioUnreal\HelioUnreal\x64\Debug\iPopup.obj

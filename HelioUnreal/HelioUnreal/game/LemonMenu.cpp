@@ -17,19 +17,18 @@ iStrTex*** stMenuBtn;
 Texture* methodStBtn(const char* s);
 int selectedMenu;
 
-
 void loadLemonMenu()
 {
 	stExp = new iStrTex(methodStExp);
 	stExp->set("%d", page = 0);
 
-	imgMenuBtn = new iImage * [3];
-	stMenuBtn = new iStrTex * *[3];
+	imgMenuBtn = new iImage*[3];
+	stMenuBtn = new iStrTex**[3];
 	iPoint posBtn[] = { {10, 150}, {590, 150}, { (devSize.width - 300) / 2, 320 }, };
 	for (int i = 0; i < 3; i++)
 	{
 		iImage* img = new iImage();
-		stMenuBtn[i] = new iStrTex * [2];
+		stMenuBtn[i] = new iStrTex*[2];
 		for (int j = 0; j < 2; j++)
 		{
 			iStrTex* st = new iStrTex(methodStBtn);
@@ -56,6 +55,7 @@ void freeLemonMenu()
 	}
 	delete imgMenuBtn;
 	delete stMenuBtn;
+
 }
 
 Texture* methodStExp(const char* s)
@@ -82,7 +82,7 @@ Texture* methodStExp(const char* s)
 	setStringName("assets/CRRegular.ttf");
 	setStringSize(30);
 	setStringRGBA(0, 0, 0, 1);
-	g->drawString(size.width / 2, size.height / 2, VCENTER | HCENTER, "%d/%d", page + 1, _page);
+	g->drawString(size.width/2, size.height/2, VCENTER|HCENTER, "%d/%d", page+1, _page);
 
 	Texture* tex = g->getTexture();
 	g->clean();
@@ -118,8 +118,8 @@ Texture* methodStBtn(const char* s)
 			setRGBA(0.3f, 0.3f, 0.3f, 1.0f);
 			g->fillRect(5, 5, size.width - 10, size.height - 10);
 		}
-		const char* str[] = { "⮜", "⮞" };
-		g->drawString(size.width / 2, size.height / 2, VCENTER | HCENTER, str[btnIndex]);
+		const char* str[] = { "⮜", "⮞"};
+		g->drawString(size.width/2, size.height/2, VCENTER|HCENTER, str[btnIndex]);
 	}
 	else if (btnIndex == 2)// 게임시작
 	{
@@ -136,12 +136,12 @@ Texture* methodStBtn(const char* s)
 		else
 		{
 			setRGBA(0.3f, 0.3f, 0.3f, 1.0f);
-			g->fillRect(20, 20, size.width - 40, size.height - 40);
+			g->fillRect(20, 20, size.width-40, size.height-40);
 			setRGBA(1, 1, 1, 1);
 			g->drawRect(25, 25, size.width - 50, size.height - 50);
 		}
 		const char* strBtn[] = { "게임시작" };// "크레딧"
-		g->drawString(size.width / 2, size.height / 2, VCENTER | HCENTER, strBtn[btnIndex - 2]);
+		g->drawString(size.width / 2, size.height / 2, VCENTER | HCENTER, strBtn[btnIndex-2]);
 	}
 
 
@@ -168,12 +168,10 @@ void drawLemonMenu(float dt)
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//void drawShadertoy(float dt);
 	//drawShadertoy(dt);
-	//shadertoy->paint(dt);
 }
 
 void keyLemonMenu(iKeyStat stat, iPoint point)
 {
-
 	int i, j = -1;
 
 	switch (stat) {
@@ -185,17 +183,15 @@ void keyLemonMenu(iKeyStat stat, iPoint point)
 			if (page < 0)
 				page += 3;
 		}
-		else if (selectedMenu == 1)
+		else if( selectedMenu==1)
 		{
 			page = (page + 1) % 3;
 		}
 		else
 		{
 			printf("game start~!!\n");
-			setMakeCurrent(true);
 			freeLemonMenu();
 			loadLemonProc();
-			setMakeCurrent(false);
 			gameState = GameStateProc;
 		}
 		break;

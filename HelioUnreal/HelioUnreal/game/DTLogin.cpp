@@ -1,5 +1,6 @@
 #include "DTLogin.h"
 
+#include "DTCommon.h"
 #include "DTLoading.h"
 #include "DTProc.h"
 
@@ -15,13 +16,10 @@ int* progress;
 void loadDTLogin()
 {
 	printf("loadDTLogin()");
-#ifdef DEBUG_TEXTURE
-	printf("loadDTLogin::textureNum = %d\n", textureNum);
-#endif
 
 	iGraphics* g = iGraphics::share();
 
-	const char* strBtn[] = { "접속하기", "문의하기" };
+	const char* strBtn[] = {"접속하기", "문의하기"};
 	imgLoginBtn = new iImage * [2];
 	iSize size = iSizeMake(300, 40);
 	setStringSize(30);
@@ -37,14 +35,14 @@ void loadDTLogin()
 				setRGBA(0.7f, 0.7f, 0.7f, 1.0f);
 				g->fillRect(0, 0, size.width, size.height);
 				setRGBA(1, 1, 1, 1);
-				g->drawRect(10, 10, size.width - 20, size.height - 20);
+				g->drawRect(10, 10, size.width-20, size.height-20);
 			}
 			else// if (j == 1)
 			{
 				setRGBA(0.25f, 0.25f, 0.25f, 1.0f);
-				g->fillRect(15, 15, size.width - 30, size.height - 30);
+				g->fillRect(15, 15, size.width-30, size.height-30);
 				setRGBA(0.7f, 0.7f, 0.7f, 1.0f);
-				g->drawRect(25, 25, size.width - 50, size.height - 50);
+				g->drawRect(25, 25, size.width-50, size.height-50);
 			}
 			g->drawString(size.width / 2, size.height / 2, VCENTER | HCENTER, strBtn[i]);
 
@@ -54,16 +52,13 @@ void loadDTLogin()
 			freeImage(tex);
 		}
 		img->position = iPointMake((devSize.width - size.width) / 2,
-			devSize.height * 0.3 + (size.height + 20) * i);
+									devSize.height * 0.3 + (size.height + 20) * i);
 		imgLoginBtn[i] = img;
 	}
 	selectedLoginBtn = -1;
 
 	lb = new LoginBar();
 	progress = new int[10];
-#ifdef DEBUG_TEXTURE
-	printf("loadDTLogin::textureNum = %d\n", textureNum);
-#endif
 }
 
 void freeDTLogin()
@@ -73,6 +68,7 @@ void freeDTLogin()
 		delete imgLoginBtn[i];
 	delete imgLoginBtn;
 	delete lb;
+	delete progress;
 }
 
 bool loginSuccess = false;
@@ -124,9 +120,6 @@ void resultDtLogin(int result)
 	{
 		// 성공
 		loginSuccess = true;
-		//setMakeCurrent(true);
-		//setLoading(DTStateProc, freeDTLogin, loadDTProc);
-		//setMakeCurrent(false);
 		lb->show(false);
 	}
 	else
@@ -144,13 +137,14 @@ void keyDTLogin(iKeyStat stat, iPoint point)
 	case iKeyStatBegan:
 		if (selectedLoginBtn == -1) break;
 
+		playAudio(AudioBtnOk);
 		if (selectedLoginBtn == 0)
 		{
 			printf("접속하기\n");
 #if DISPLAY_THREAD
 			const char* str[10][2] = {
-				{ "조성목", "천재" },
-				{ "언리얼", "바보" },
+				{ "조성목", "천재" }, 
+				{ "언리얼", "바보" }, 
 				{ "김성민", "천재" },
 				{ "조상현", "바보" },
 				{ "정우주", "천재" },
@@ -183,7 +177,11 @@ void keyDTLogin(iKeyStat stat, iPoint point)
 			}
 		}
 		if (selectedLoginBtn != j)
+		{
+			if (j != -1)
+				playAudio(AudioBtnClr);
 			printf("sound : 버튼음\n");
+		}
 		selectedLoginBtn = j;
 		break;
 
@@ -220,7 +218,7 @@ void LoginBar::paint(float dt, iPoint position)
 	fillRect(x, y, 100, 50, 25);
 
 	delta += dt;
-	x = position.x - 25 - 25 * sin(delta / _delta * 10);
+	x = position.x - 25 - 25 * sin(delta/_delta * 10);
 	y = position.y - 25;
 	setRGBA(1, 0, 0, 1);
 	fillRect(x, y, 50, 50, 25);
